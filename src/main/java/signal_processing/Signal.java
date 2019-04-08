@@ -1,4 +1,4 @@
-package model;
+package signal_processing;
 
 import java.util.ArrayList;
 import java.util.List;

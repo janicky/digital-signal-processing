@@ -1,4 +1,4 @@
-package model;
+package signal_processing;
 
 public interface ISignal {
     int getFirstSample();
@@ -13,4 +13,5 @@ public interface ISignal {
     void setEndTime(double endTime);
     double getFrequency();
     void setFrequency(double frequency);
+    double getValue(double x);
 }
