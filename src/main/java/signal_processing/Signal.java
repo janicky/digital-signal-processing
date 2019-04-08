@@ -16,6 +16,7 @@ public abstract class Signal implements ISignal {
     private double frequency;
     private double basicPeriod;
     private double fillingFactor;
+    private double probability;
 
     public Signal(int firstSample, int lastSample) {
         this.firstSample = firstSample;
@@ -84,6 +85,14 @@ public abstract class Signal implements ISignal {
 
     public void setFillingFactor(double fillingFactor) {
         this.fillingFactor = fillingFactor;
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public void setProbability(double probability) {
+        this.probability = probability;
     }
 
     public List<Double> getValuesX() {
