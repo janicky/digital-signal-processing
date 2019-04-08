@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Signal {
+public abstract class Signal implements ISignal {
     List<Double> x = new ArrayList<>();
     List<Double> y = new ArrayList<>();
 
