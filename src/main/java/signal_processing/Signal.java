@@ -14,6 +14,8 @@ public abstract class Signal implements ISignal {
     private double startTime;
     private double endTime;
     private double frequency;
+    private double basicPeriod;
+    private double fillingFactor;
 
     public Signal(int firstSample, int lastSample) {
         this.firstSample = firstSample;
@@ -66,6 +68,22 @@ public abstract class Signal implements ISignal {
 
     public void setFrequency(double frequency) {
         this.frequency = frequency;
+    }
+
+    public double getBasicPeriod() {
+        return basicPeriod;
+    }
+
+    public void setBasicPeriod(double basicPeriod) {
+        this.basicPeriod = basicPeriod;
+    }
+
+    public double getFillingFactor() {
+        return fillingFactor;
+    }
+
+    public void setFillingFactor(double fillingFactor) {
+        this.fillingFactor = fillingFactor;
     }
 
     public List<Double> getValuesX() {
