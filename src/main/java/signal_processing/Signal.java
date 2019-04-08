@@ -1,11 +1,12 @@
 package signal_processing;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Signal implements ISignal {
-    List<Double> x = new ArrayList<>();
-    List<Double> y = new ArrayList<>();
+    protected List<Double> x = new ArrayList<>();
+    protected List<Double> y = new ArrayList<>();
 
     private int firstSample;
     private int lastSample;
@@ -65,5 +66,13 @@ public abstract class Signal implements ISignal {
 
     public void setFrequency(double frequency) {
         this.frequency = frequency;
+    }
+
+    public List<Double> getValuesX() {
+        return Collections.unmodifiableList(x);
+    }
+
+    public List<Double> getValuesY() {
+        return Collections.unmodifiableList(y);
     }
 }

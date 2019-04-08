@@ -1,5 +1,7 @@
 package signal_processing;
 
+import java.util.List;
+
 public interface ISignal {
     int getFirstSample();
     void setFirstSample(int firstSample);
@@ -14,4 +16,7 @@ public interface ISignal {
     double getFrequency();
     void setFrequency(double frequency);
     double getValue(double x);
+    void updateValues();
+    List<Double> getValuesX();
+    List<Double> getValuesY();
 }
