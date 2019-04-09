@@ -7,8 +7,10 @@ import java.util.Random;
 public class ImpulseNoise extends Signal {
     private Random rng = new Random();
 
-    public ImpulseNoise(int firstSample, int lastSample) {
+    public ImpulseNoise(int firstSample, int lastSample, double Probability) {
         super(firstSample, lastSample);
+        setProbability(Probability);
+        updateValues();
 
     }
 
