@@ -27,13 +27,15 @@ public class TriangularSignal extends Signal {
     }
 
     public void updateValues() {
-//        TODO: Add k parameter
+        int k = 0;
         int samples = (int) (getEndTime() * getFrequency());
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
+            if (t >= getBasicPeriod() * (k + 1) + getStartTime()) {
+                k++;
+            }
             x.add(t);
-//            TODO: Check if k parameter is necessary
-            y.add(getValue(t, 0));
+            y.add(getValue(t, k));
         }
     }
 }

@@ -2,7 +2,6 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
-// Sygnał prostokątny symetryczny
 public class SymmetricalRectangularSignal extends Signal {
     public SymmetricalRectangularSignal(int firstSample, int lastSample, double amplitude,
                                         double startTime, double endTime, double basicPeroid,
@@ -18,26 +17,26 @@ public class SymmetricalRectangularSignal extends Signal {
     }
 
     public double getValue(double x, double k) {
-        if (x >= getBasicPeriod() * (k + 1) + getStartTime() ) {
-            k++;
-        }
-        if (((x) >= k * getBasicPeriod() + getStartTime()) &&
-            ((x) < getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()) ) {
+        if (((x) >= getBasicPeriod()  + getStartTime()) &&
+            ((x) < getFillingFactor() * getBasicPeriod() +  getBasicPeriod() +getStartTime()) ) {
             return getAmplitude();
-        } else if ((x) >= (getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()) ||
-                ((x) < (k * getBasicPeriod() + getStartTime()))) {
+        } else if ((x) >= (getFillingFactor() * getBasicPeriod() +  getBasicPeriod() + getStartTime()) ||
+                ((x) < ( getBasicPeriod() + getStartTime()))) {
             return (-getAmplitude());
         }
-        return 0;
+        return 0d;
     }
 
     public void updateValues() {
+        int k = 0;
         int samples = (int) (getFrequency() * getEndTime());
         for (int i  = getFirstSample(); i <= samples; i++){
             double t = (i / getFrequency()) + getStartTime();
+            if (t >= getBasicPeriod() * (k + 1) + getStartTime()) {
+                k++;
+            }
             x.add(t);
-//            TODO: Check if k parameter is necessary
-            y.add(getValue(t, 0));
+            y.add(getValue(t, k));
         }
     }
 }

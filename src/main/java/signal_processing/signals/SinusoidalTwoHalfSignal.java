@@ -27,8 +27,7 @@ public class SinusoidalTwoHalfSignal extends Signal {
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-//            TODO: Check if k parameter is necessary
-            y.add(getValue(t, 0));
+            y.add(getValue(t, 0d));
         }
     }
 }

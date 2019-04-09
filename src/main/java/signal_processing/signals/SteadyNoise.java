@@ -25,8 +25,7 @@ public class SteadyNoise extends Signal {
         int samples = (int) (getEndTime() * getFrequency());
         for (int i = getFirstSample(); i <= samples; i++) {
             x.add((i / getFrequency()) + getStartTime());
-//            TODO: Check if k parameter is necessary
-            y.add(getValue(0d, 0));
+            y.add(getValue(0d, 0d));
         }
     }
 }
