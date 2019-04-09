@@ -3,14 +3,18 @@ package signal_processing.signals;
 import signal_processing.Signal;
 
 public class IndividualSignal extends Signal {
-    public IndividualSignal(int firstSample, int lastSample) {
+    public IndividualSignal(int firstSample, int lastSample, double samleJump) {
         super(firstSample, lastSample);
-        //TODO add SampleJump setter and complete method
+        setSampleJump(samleJump);
         updateValues();
     }
 
     public double getValue(double x) {
-        return 0;
+        if (x == getSampleJump()) {
+            return 1d;
+        } else {
+            return 0d;
+        }
     }
 
     public void updateValues() {
