@@ -1,9 +1,9 @@
 package signal_processing.signals;
 
 import signal_processing.Signal;
-
 import java.util.Random;
 
+// Szum impulsowy
 public class ImpulseNoise extends Signal {
     private Random rng = new Random();
     private double probability;

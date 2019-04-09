@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Szygnał sinusoidalny
 public class SinusoidalSignal extends Signal {
 
     public SinusoidalSignal(int firstSample, int lastSample, double amplitude,

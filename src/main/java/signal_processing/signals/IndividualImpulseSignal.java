@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Impuls jednostkowy
 public class IndividualImpulseSignal extends Signal {
     private double sampleJump;
 

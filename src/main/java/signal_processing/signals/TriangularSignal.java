@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Sygnał trójkątny
 public class TriangularSignal extends Signal {
     public TriangularSignal(int firstSample, int lastSample, double amplitude,
                             double startTime, double endTime, double frequency,

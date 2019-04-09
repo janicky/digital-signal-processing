@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Skok jednostkowy
 public class IndividualJumpSignal extends Signal {
     private double jumpPoint;
 

@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Syngał sinusoidalny wyprostowany jednopołówkowo
 public class SinusoidalOneHalfSignal extends Signal {
 
     public SinusoidalOneHalfSignal(int firstSample, int lastSample, double amplitude,

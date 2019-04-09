@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Sygnał prostokątny symetryczny
 public class SymmetricalRectangularSignal extends Signal {
     public SymmetricalRectangularSignal(int firstSample, int lastSample, double amplitude,
                                         double startTime, double endTime, double basicPeroid,

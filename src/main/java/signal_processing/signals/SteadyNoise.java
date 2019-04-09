@@ -3,6 +3,7 @@ package signal_processing.signals;
 import signal_processing.Signal;
 import java.util.Random;
 
+// Szum jednostkowy
 public class SteadyNoise extends Signal {
     private Random rng = new Random();
 

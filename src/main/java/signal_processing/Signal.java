@@ -16,8 +16,6 @@ public abstract class Signal implements ISignal {
     private double frequency;
     private double basicPeriod;
     private double fillingFactor;
-    private double probability;
-    private double sampleJump;
 
     public Signal(int firstSample, int lastSample) {
         this.firstSample = firstSample;

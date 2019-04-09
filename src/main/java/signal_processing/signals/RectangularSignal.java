@@ -2,6 +2,7 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
+// Sygnał prostokątny
 public class RectangularSignal extends Signal {
     public RectangularSignal(int firstSample, int lastSample, double amplitude,
                              double startTime, double endTime, double basicPeriod,
