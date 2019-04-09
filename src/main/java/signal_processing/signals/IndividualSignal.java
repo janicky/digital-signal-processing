@@ -3,14 +3,16 @@ package signal_processing.signals;
 import signal_processing.Signal;
 
 public class IndividualSignal extends Signal {
-    public IndividualSignal(int firstSample, int lastSample, double samleJump) {
+    private double sampleJump;
+
+    public IndividualSignal(int firstSample, int lastSample, double sampleJump) {
         super(firstSample, lastSample);
-        setSampleJump(samleJump);
+        this.sampleJump = sampleJump;
         updateValues();
     }
 
     public double getValue(double x) {
-        if (x == getSampleJump()) {
+        if (x == sampleJump) {
             return 1d;
         } else {
             return 0d;
@@ -23,5 +25,13 @@ public class IndividualSignal extends Signal {
             x.add((double) i);
             y.add(getValue(i));
         }
+    }
+
+    public double getSampleJump() {
+        return sampleJump;
+    }
+
+    public void setSampleJump(double sampleJump) {
+        this.sampleJump = sampleJump;
     }
 }
