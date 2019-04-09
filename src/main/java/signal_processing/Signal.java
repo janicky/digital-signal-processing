@@ -98,7 +98,7 @@ public abstract class Signal implements ISignal {
 
     public double getSampleJump(){return sampleJump;}
 
-    public void setSampleJump(){this.sampleJump = sampleJump;}
+    public void setSampleJump(double sampleJump){this.sampleJump = sampleJump;}
 
     public List<Double> getValuesX() {
         return Collections.unmodifiableList(x);
