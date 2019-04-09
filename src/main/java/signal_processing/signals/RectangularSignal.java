@@ -16,8 +16,7 @@ public class RectangularSignal extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
-        int k = 0;
+    public double getValue(double x, double k) {
         if (x >= getBasicPeriod() * (k+1) + getStartTime()) {
             k++;
         }
@@ -42,7 +41,7 @@ public class RectangularSignal extends Signal {
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-            y.add(getValue(t));
+            y.add(getValue(t, 0));
         }
     }
 }

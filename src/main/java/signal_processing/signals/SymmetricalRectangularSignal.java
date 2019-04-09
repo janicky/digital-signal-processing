@@ -16,7 +16,7 @@ public class SymmetricalRectangularSignal extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
+    public double getValue(double x, double k) {
         //TODO Add k parametr
         if (((x) >= getBasicPeriod()  + getStartTime()) &&
             ((x) < getFillingFactor() * getBasicPeriod() +  getBasicPeriod() +getStartTime()) ) {
@@ -33,7 +33,8 @@ public class SymmetricalRectangularSignal extends Signal {
         for (int i  = getFirstSample(); i <= samples; i++){
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-            y.add(getValue(t));
+//            TODO: Check if k parameter is necessary
+            y.add(getValue(t, 0));
         }
     }
 }

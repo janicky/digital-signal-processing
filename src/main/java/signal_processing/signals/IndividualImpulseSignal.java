@@ -11,7 +11,7 @@ public class IndividualImpulseSignal extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
+    public double getValue(double x, double k) {
         if (x == sampleJump) {
             return 1d;
         } else {
@@ -23,7 +23,8 @@ public class IndividualImpulseSignal extends Signal {
         int samples = (int) (getFrequency() * getEndTime());
         for (int i = getFirstSample(); i <= samples; i++) {
             x.add((double) i);
-            y.add(getValue(i));
+//            TODO: Check if k parameter is necessary
+            y.add(getValue(i, 0));
         }
     }
 

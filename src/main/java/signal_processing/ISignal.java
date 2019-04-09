@@ -19,7 +19,7 @@ public interface ISignal {
     void setBasicPeriod(double basicPeriod);
     double getFillingFactor();
     void setFillingFactor(double fillingFactor);
-    double getValue(double x);
+    double getValue(double x, double k);
     void updateValues();
     List<Double> getValuesX();
     List<Double> getValuesY();

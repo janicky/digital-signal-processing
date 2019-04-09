@@ -16,7 +16,7 @@ public class SinusoidalTwoHalfSignal extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
+    public double getValue(double x, double k) {
         return getAmplitude() * Math.abs(Math.sin((2 * Math.PI / getBasicPeriod()) *
                 (x -getStartTime())));
     }
@@ -26,7 +26,8 @@ public class SinusoidalTwoHalfSignal extends Signal {
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-            y.add(getValue(t));
+//            TODO: Check if k parameter is necessary
+            y.add(getValue(t, 0));
         }
     }
 }

@@ -15,7 +15,7 @@ public class ImpulseNoise extends Signal {
 
     }
 
-    public double getValue(double x) {
+    public double getValue(double x, double k) {
         if (rng.nextDouble() <= probability) {
             return 1d;
         } else {
@@ -26,7 +26,8 @@ public class ImpulseNoise extends Signal {
     public void updateValues() {
         for (int i = getFirstSample(); i <= getLastSample(); i++ ){
             x.add((double) i);
-            y.add(getValue(0));
+//            TODO: Check if k parameter is necessary
+            y.add(getValue(0, 0));
         }
     }
 

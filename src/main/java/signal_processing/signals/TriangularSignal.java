@@ -16,8 +16,7 @@ public class TriangularSignal extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
-        int k = 0;
+    public double getValue(double x, double k) {
         if((x >= (k * getBasicPeriod() + getStartTime())) &&(x < (getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()))){
             return getAmplitude() / (getFillingFactor() * getBasicPeriod()) * (x - k * getBasicPeriod() - getStartTime());
         } else if((x >= (getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime())) || (x < (getBasicPeriod() + k * getBasicPeriod() + getStartTime()))){
@@ -32,7 +31,8 @@ public class TriangularSignal extends Signal {
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-            y.add(getValue(t));
+//            TODO: Check if k parameter is necessary
+            y.add(getValue(t, 0));
         }
     }
 }

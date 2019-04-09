@@ -16,7 +16,7 @@ public class GaussianNoise extends Signal {
         updateValues();
     }
 
-    public double getValue(double x) {
+    public double getValue(double x, double k) {
         return 0;
         //TODO: Implements getValue method
     }
