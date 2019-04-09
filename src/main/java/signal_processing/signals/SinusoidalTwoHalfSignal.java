@@ -24,8 +24,9 @@ public class SinusoidalTwoHalfSignal extends Signal {
     public void updateValues() {
         int samples = (int) (getFrequency() * getEndTime());
         for (int i = getFirstSample(); i <= samples; i++) {
-            x.add((double) i);
-            y.add(getValue(i));
+            double t = (i / getFrequency()) + getStartTime();
+            x.add(t);
+            y.add(getValue(t));
         }
     }
 }
