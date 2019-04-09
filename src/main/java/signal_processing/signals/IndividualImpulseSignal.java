@@ -2,10 +2,10 @@ package signal_processing.signals;
 
 import signal_processing.Signal;
 
-public class IndividualSignal extends Signal {
+public class IndividualImpulseSignal extends Signal {
     private double sampleJump;
 
-    public IndividualSignal(int firstSample, int lastSample, double sampleJump) {
+    public IndividualImpulseSignal(int firstSample, int lastSample, double sampleJump) {
         super(firstSample, lastSample);
         this.sampleJump = sampleJump;
         updateValues();
