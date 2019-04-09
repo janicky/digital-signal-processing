@@ -19,7 +19,13 @@ public class IndividualJumpSignal extends Signal {
     }
 
     public double getValue(double x, double k) {
-        return 0;
+        if (x > jumpPoint) {
+            return getAmplitude();
+        } else if (x < jumpPoint) {
+            return 0.5d;
+        } else {
+            return 0d;
+        }
     }
 
     public void updateValues() {
@@ -27,7 +33,6 @@ public class IndividualJumpSignal extends Signal {
         for (int i = getFirstSample(); i < samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
             x.add(t);
-//            TODO: Check if k parameter is necessary
             y.add(getValue(t, 0));
         }
     }

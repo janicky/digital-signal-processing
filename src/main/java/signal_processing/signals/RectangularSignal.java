@@ -18,9 +18,6 @@ public class RectangularSignal extends Signal {
     }
 
     public double getValue(double x, double k) {
-        if (x >= getBasicPeriod() * (k+1) + getStartTime()) {
-            k++;
-        }
             if (((x) >= (k * getBasicPeriod() + getStartTime()))
                     &&
                     ((x) < (getFillingFactor() * getBasicPeriod() + k *
@@ -36,12 +33,16 @@ public class RectangularSignal extends Signal {
     }
 
     public void updateValues() {
-        //TODO: Add k parameter
         int samples = (int) (getFrequency() * getEndTime());
+        int k = 0;
+
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = (i / getFrequency()) + getStartTime();
+            if (i >= getBasicPeriod() * (k+1) + getStartTime()) {
+                k++;
+            }
             x.add(t);
-            y.add(getValue(t, 0));
+            y.add(getValue(t, k));
         }
     }
 }

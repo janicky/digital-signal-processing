@@ -24,7 +24,6 @@ public class IndividualImpulseSignal extends Signal {
         int samples = (int) (getFrequency() * getEndTime());
         for (int i = getFirstSample(); i <= samples; i++) {
             x.add((double) i);
-//            TODO: Check if k parameter is necessary
             y.add(getValue(i, 0));
         }
     }

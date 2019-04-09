@@ -26,7 +26,6 @@ public class ImpulseNoise extends Signal {
     public void updateValues() {
         for (int i = getFirstSample(); i <= getLastSample(); i++ ){
             x.add((double) i);
-//            TODO: Check if k parameter is necessary
             y.add(getValue(0, 0));
         }
     }
