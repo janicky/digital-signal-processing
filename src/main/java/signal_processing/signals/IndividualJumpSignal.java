@@ -3,15 +3,17 @@ package signal_processing.signals;
 import signal_processing.Signal;
 
 public class IndividualJumpSignal extends Signal {
+    private double jumpPoint;
 
     public IndividualJumpSignal(int firstSample, int lastSample, double amplitude,
-                                double startTime, double endTime, double frequency) {
+                                double startTime, double endTime, double frequency,
+                                double jumpPoint) {
         super(firstSample, lastSample);
         setAmplitude(amplitude);
         setStartTime(startTime);
         setEndTime(endTime);
         setFrequency(frequency);
-        //TODO add "Punkt skoku w czasie" and complete methods
+        this.jumpPoint = jumpPoint;
         updateValues();
     }
 
@@ -26,5 +28,13 @@ public class IndividualJumpSignal extends Signal {
             x.add(t);
             y.add(getValue(t));
         }
+    }
+
+    public double getJumpPoint() {
+        return jumpPoint;
+    }
+
+    public void setJumpPoint(double jumpPoint) {
+        this.jumpPoint = jumpPoint;
     }
 }
