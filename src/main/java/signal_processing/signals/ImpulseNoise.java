@@ -6,16 +6,17 @@ import java.util.Random;
 
 public class ImpulseNoise extends Signal {
     private Random rng = new Random();
+    private double probability;
 
-    public ImpulseNoise(int firstSample, int lastSample, double Probability) {
+    public ImpulseNoise(int firstSample, int lastSample, double probability) {
         super(firstSample, lastSample);
-        setProbability(Probability);
+        this.probability = probability;
         updateValues();
 
     }
 
     public double getValue(double x) {
-        if (rng.nextDouble() <= getProbability()) {
+        if (rng.nextDouble() <= probability) {
             return 1d;
         } else {
             return 0d;
@@ -27,5 +28,13 @@ public class ImpulseNoise extends Signal {
             x.add((double) i);
             y.add(getValue(0));
         }
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public void setProbability(double probability) {
+        this.probability = probability;
     }
 }

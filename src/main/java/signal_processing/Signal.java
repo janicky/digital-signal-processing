@@ -88,14 +88,6 @@ public abstract class Signal implements ISignal {
         this.fillingFactor = fillingFactor;
     }
 
-    public double getProbability() {
-        return probability;
-    }
-
-    public void setProbability(double probability) {
-        this.probability = probability;
-    }
-
     public double getSampleJump(){return sampleJump;}
 
     public void setSampleJump(double sampleJump){this.sampleJump = sampleJump;}

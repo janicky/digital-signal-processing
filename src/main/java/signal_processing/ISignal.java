@@ -15,8 +15,6 @@ public interface ISignal {
     void setEndTime(double endTime);
     double getFrequency();
     void setFrequency(double frequency);
-    double getProbability();
-    void setProbability(double probability);
     double getSampleJump();
     void setSampleJump(double sampleJump);
     double getBasicPeriod();
