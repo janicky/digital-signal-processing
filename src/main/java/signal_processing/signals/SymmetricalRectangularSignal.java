@@ -18,15 +18,17 @@ public class SymmetricalRectangularSignal extends Signal {
     }
 
     public double getValue(double x, double k) {
-        //TODO Add k parametr
-        if (((x) >= getBasicPeriod()  + getStartTime()) &&
-            ((x) < getFillingFactor() * getBasicPeriod() +  getBasicPeriod() +getStartTime()) ) {
+        if (x >= getBasicPeriod() * (k + 1) + getStartTime() ) {
+            k++;
+        }
+        if (((x) >= k * getBasicPeriod() + getStartTime()) &&
+            ((x) < getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()) ) {
             return getAmplitude();
-        } else if ((x) >= (getFillingFactor() * getBasicPeriod() +  getBasicPeriod() + getStartTime()) ||
-                ((x) < ( getBasicPeriod() + getStartTime()))) {
+        } else if ((x) >= (getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()) ||
+                ((x) < (k * getBasicPeriod() + getStartTime()))) {
             return (-getAmplitude());
         }
-        return 0d;
+        return 0;
     }
 
     public void updateValues() {
