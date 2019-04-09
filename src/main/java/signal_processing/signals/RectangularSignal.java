@@ -32,7 +32,6 @@ public class RectangularSignal extends Signal {
                     (x) <(k * getBasicPeriod() + getStartTime())){
                 return 0d;
             }
-            //TODO: check this implementation
             return 0;
     }
 
