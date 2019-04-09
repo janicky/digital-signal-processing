@@ -17,6 +17,8 @@ public interface ISignal {
     void setFrequency(double frequency);
     double getProbability();
     void setProbability(double probability);
+    double getSampleJump();
+    void setSampleJump();
     double getValue(double x);
     void updateValues();
     List<Double> getValuesX();
