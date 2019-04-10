@@ -48,7 +48,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="75521" binding="signalChart2" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="75521" binding="histogramChart1" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -83,7 +83,7 @@
               <color color="-6705727"/>
             </border>
             <children>
-              <grid id="6d21" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="6d21" binding="signalChart2" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -116,7 +116,7 @@
                   <color color="-6705727"/>
                 </border>
                 <children>
-                  <component id="15cb9" class="javax.swing.JLabel">
+                  <component id="15cb9" class="javax.swing.JLabel" binding="histogramChart2">
                     <constraints border-constraint="Center"/>
                     <properties>
                       <font name="Roboto Light" size="15"/>

@@ -24,6 +24,7 @@ public class SignalPanel extends JPanel {
     private JSpinner sampleJump;
     private JPanel infoAverage;
     private JLabel infoAbsoluteAverage;
+    private JButton renderButton;
     private SpinnerNumberModel lastSampleModel;
 
     private DecimalFormat df;
@@ -84,4 +85,10 @@ public class SignalPanel extends JPanel {
     public JComboBox getSignalType() {
         return signalType;
     }
+
+    public JButton getRenderButton() {
+        return renderButton;
+    }
+
+
 }
