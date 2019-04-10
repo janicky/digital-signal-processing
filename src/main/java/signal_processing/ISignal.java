@@ -21,6 +21,7 @@ public interface ISignal {
     void setFillingFactor(double fillingFactor);
     double getValue(double x, double k);
     void updateValues();
+    String[] getAvailableParameters();
     List<Double> getValuesX();
     List<Double> getValuesY();
 }
