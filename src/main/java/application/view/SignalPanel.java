@@ -13,7 +13,7 @@ public class SignalPanel extends JPanel {
     private JSpinner firstSample;
     private JSpinner lastSample;
     private JSpinner startTime;
-    private JSpinner durationTime;
+    private JSpinner endTime;
     private JSpinner frequency;
     private JSpinner amplitude;
     private JSpinner basicPeriod;
@@ -29,10 +29,10 @@ public class SignalPanel extends JPanel {
     private DecimalFormat df;
 
     public SignalPanel() {
-        initializeComboBox();
+        initializeView();
     }
 
-    private void initializeComboBox() {
+    private void initializeView() {
         firstSample.addChangeListener(e -> onFirstSampleChange());
         probability.addChangeListener(e -> onProbabilityChange());
 //        Set models
@@ -50,7 +50,7 @@ public class SignalPanel extends JPanel {
         lastSample.setModel(lastSampleModel);
 //        Start & duration time
         startTime.setModel(new SpinnerNumberModel(0.0, 0.0, 999999.0, 0.1));
-        durationTime.setModel(new SpinnerNumberModel(4.0, 0.1, 999999.0, 0.1));
+        endTime.setModel(new SpinnerNumberModel(4.0, 0.1, 999999.0, 0.1));
 //        Frequency & amplitude
         frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
         amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
@@ -79,5 +79,9 @@ public class SignalPanel extends JPanel {
     private void onProbabilityChange() {
         double p = probability.getValue() / 100.0;
         probabilityValue.setText(df.format(p));
+    }
+
+    public JComboBox getSignalType() {
+        return signalType;
     }
 }

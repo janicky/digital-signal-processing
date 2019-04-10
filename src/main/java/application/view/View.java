@@ -55,4 +55,12 @@ public class View {
 //          TODO: Handle icon not found error
         }
     }
+
+    public SignalPanel getSignalPanel1() {
+        return signalPanel1;
+    }
+
+    public SignalPanel getSignalPanel2() {
+        return signalPanel2;
+    }
 }
