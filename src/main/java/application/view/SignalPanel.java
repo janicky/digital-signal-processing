@@ -10,6 +10,10 @@ public class SignalPanel extends JPanel {
     private JComboBox signalType;
     private JSpinner firstSample;
     private JSpinner lastSample;
+    private JSpinner startTime;
+    private JSpinner durationTime;
+    private JSpinner frequency;
+    private JSpinner amplitude;
     private SpinnerNumberModel lastSampleModel;
 
     public SignalPanel() {
@@ -17,11 +21,25 @@ public class SignalPanel extends JPanel {
     }
 
     private void initializeComboBox() {
-        signalType.setModel(new DefaultComboBoxModel(Signal.getSignals()));
-        firstSample.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
         firstSample.addChangeListener(e -> onFirstSampleChange());
+
+//        Set models
+        setInputModels();
+    }
+
+    private void setInputModels() {
+//        Signal type
+        signalType.setModel(new DefaultComboBoxModel(Signal.getSignals()));
+//        First sample & last sample
+        firstSample.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
         lastSampleModel = new SpinnerNumberModel(2, 2, Integer.MAX_VALUE, 1);
         lastSample.setModel(lastSampleModel);
+//        Start & duration time
+        startTime.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
+        durationTime.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
+//        Frequency & amplitude
+        frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
+        amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
     }
 
 //    Actions
