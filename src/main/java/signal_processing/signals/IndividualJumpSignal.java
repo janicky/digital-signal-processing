@@ -22,7 +22,7 @@ public class IndividualJumpSignal extends Signal {
         if (x > jumpPoint) {
             return getAmplitude();
         } else if (x < jumpPoint) {
-            return 0.5d;
+            return getAmplitude() / 2;
         } else {
             return 0d;
         }
