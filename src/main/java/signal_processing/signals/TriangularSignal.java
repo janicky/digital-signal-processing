@@ -27,6 +27,8 @@ public class TriangularSignal extends Signal {
     }
 
     public void updateValues() {
+        x.clear();
+        y.clear();
         int k = 0;
         int samples = (int) (getEndTime() * getFrequency());
         for (int i = getFirstSample(); i <= samples; i++) {

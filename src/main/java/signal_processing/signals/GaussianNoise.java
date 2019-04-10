@@ -36,6 +36,8 @@ public class GaussianNoise extends Signal {
     }
 
     public void updateValues() {
+        x.clear();
+        y.clear();
         int samples = (int) (getFrequency() * getEndTime());
         for (int i = getFirstSample(); i <= samples; i++) {
             double t = i / getFrequency() + getStartTime();

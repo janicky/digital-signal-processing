@@ -33,6 +33,8 @@ public class RectangularSignal extends Signal {
     }
 
     public void updateValues() {
+        x.clear();
+        y.clear();
         int samples = (int) (getFrequency() * getEndTime());
         int k = 0;
 

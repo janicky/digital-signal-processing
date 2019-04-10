@@ -28,6 +28,8 @@ public class SymmetricalRectangularSignal extends Signal {
     }
 
     public void updateValues() {
+        x.clear();
+        y.clear();
         int k = 0;
         int samples = (int) (getFrequency() * getEndTime());
         for (int i  = getFirstSample(); i <= samples; i++){

@@ -21,6 +21,8 @@ public class IndividualImpulseSignal extends Signal {
     }
 
     public void updateValues() {
+        x.clear();
+        y.clear();
         int samples = (int) (getFrequency() * getEndTime());
         for (int i = getFirstSample(); i <= samples; i++) {
             x.add((double) i);
