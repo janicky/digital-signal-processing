@@ -28,4 +28,15 @@ public class SteadyNoise extends Signal {
             y.add(getValue(0d, 0d));
         }
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "amplitude",
+                "startTime",
+                "endTime",
+                "frequency"
+        };
+    }
 }

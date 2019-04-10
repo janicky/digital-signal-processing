@@ -35,4 +35,12 @@ public class IndividualImpulseSignal extends Signal {
     public void setSampleJump(double sampleJump) {
         this.sampleJump = sampleJump;
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "sampleJumnp"
+        };
+    }
 }

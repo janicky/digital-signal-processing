@@ -31,4 +31,16 @@ public class SinusoidalOneHalfSignal extends Signal {
             y.add(getValue(t, 0));
         }
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "amplitude",
+                "startTime",
+                "endTime",
+                "basicPeroid",
+                "frequency"
+        };
+    }
 }

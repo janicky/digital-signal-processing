@@ -44,4 +44,14 @@ public class GaussianNoise extends Signal {
         }
 
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "startTime",
+                "endTime",
+                "frequency"
+        };
+    }
 }

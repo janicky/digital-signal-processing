@@ -37,4 +37,12 @@ public class ImpulseNoise extends Signal {
     public void setProbability(double probability) {
         this.probability = probability;
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "probability"
+        };
+    }
 }

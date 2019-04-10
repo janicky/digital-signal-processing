@@ -45,4 +45,17 @@ public class RectangularSignal extends Signal {
             y.add(getValue(t, k));
         }
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "amplitude",
+                "startTime",
+                "endTime",
+                "basicPeroid",
+                "fillingFactor",
+                "frequency"
+        };
+    }
 }

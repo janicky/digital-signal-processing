@@ -44,4 +44,16 @@ public class IndividualJumpSignal extends Signal {
     public void setJumpPoint(double jumpPoint) {
         this.jumpPoint = jumpPoint;
     }
+
+    public String[] getAvailableParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "amplitude",
+                "startTime",
+                "endTime",
+                "frequency",
+                "jumpPoint"
+        };
+    }
 }
