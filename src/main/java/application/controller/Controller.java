@@ -10,6 +10,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
+import signal_processing.signals.ImpulseNoise;
+import signal_processing.signals.IndividualImpulseSignal;
+import signal_processing.signals.IndividualJumpSignal;
 import signal_processing.signals.SteadyNoise;
 
 import javax.swing.*;
@@ -36,6 +39,17 @@ public class Controller {
         for (int i = 0; i < signalPanels.length; i++) {
             final int x = i;
             signalPanels[i].getSignalType().addActionListener(e -> onSignalChange(x));
+            signalPanels[i].getFirstSample().addChangeListener(e -> updateFirstSample(x));
+            signalPanels[i].getLastSample().addChangeListener(e -> updateLastSample(x));
+            signalPanels[i].getAmplitude().addChangeListener(e -> updateAmplitude(x));
+            signalPanels[i].getStartTime().addChangeListener(e -> updateStartTime(x));
+            signalPanels[i].getEndTime().addChangeListener(e -> updateEndTime(x));
+            signalPanels[i].getFrequency().addChangeListener(e -> updateFrequency(x));
+            signalPanels[i].getBasicPeriod().addChangeListener(e -> updateBasicPeriod(x));
+            signalPanels[i].getFillingFactor().addChangeListener(e -> updateFillingFactor(x));
+            signalPanels[i].getProbability().addChangeListener(e -> updateProbability(x));
+            signalPanels[i].getJumpPoint().addChangeListener(e -> updateJumpPoint(x));
+            signalPanels[i].getSampleJump().addChangeListener(e -> updateSampleJump(x));
             signalPanels[i].getRenderButton().addActionListener(e -> onSignalRender(x));
         }
     }
@@ -45,6 +59,7 @@ public class Controller {
     }
 
     private void onSignalRender(int index) {
+        model.getSignal(index).updateValues();
         renderSignal(index);
     }
 
@@ -63,7 +78,6 @@ public class Controller {
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         JFreeChart chart = ChartFactory.createXYLineChart("Signal " + index, "x", "y", dataset, PlotOrientation.VERTICAL, false, false, false);
-        panel.remove(0);
         panel.add(new ChartPanel(chart), BorderLayout.CENTER);
         panel.validate();
         view.getMainPanel().validate();
@@ -86,6 +100,9 @@ public class Controller {
             updateFrequency(i);
             updateBasicPeriod(i);
             updateFillingFactor(i);
+            updateProbability(i);
+            updateJumpPoint(i);
+            updateSampleJump(i);
         }
     }
 
@@ -113,4 +130,23 @@ public class Controller {
     private void updateFillingFactor(int index) {
         model.getSignal(index).setFillingFactor((double) signalPanels[index].getFillingFactor().getValue());
     }
+    private void updateProbability(int index) {
+        if (model.getSignal(index).getClass().getName().equals("ImpulseNoise")) {
+            ImpulseNoise signal = (ImpulseNoise) model.getSignal(index);
+            signal.setProbability((double) signalPanels[index].getProbability().getValue());
+        }
+    }
+    private void updateJumpPoint(int index) {
+        if (model.getSignal(index).getClass().getName().equals("IndividualJumpSignal")) {
+            IndividualJumpSignal signal = (IndividualJumpSignal) model.getSignal(index);
+            signal.setJumpPoint((double) signalPanels[index].getJumpPoint().getValue());
+        }
+    }
+    private void updateSampleJump(int index) {
+        if (model.getSignal(index).getClass().getName().equals("IndividualImpulseSignal")) {
+            IndividualImpulseSignal signal = (IndividualImpulseSignal) model.getSignal(index);
+            signal.setSampleJump((double) signalPanels[index].getSampleJump().getValue());
+        }
+    }
+
 }

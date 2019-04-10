@@ -2,7 +2,7 @@ package application.model;
 
 import application.view.SignalPanel;
 import signal_processing.ISignal;
-import signal_processing.signals.SteadyNoise;
+import signal_processing.signals.*;
 
 public class Model {
     private ISignal[] signals = new ISignal[2];
@@ -23,10 +23,43 @@ public class Model {
         double startTime = (double) sp.getStartTime().getValue();
         double endTime = (double) sp.getEndTime().getValue();
         double frequency = (double) sp.getFrequency().getValue();
-//        double basicPeriod = (double) sp.getBasicPeriod().getValue();
-//        double fillingFactor = (double) sp.getFillingFactor().getValue();
+        double basicPeriod = (double) sp.getBasicPeriod().getValue();
+        double fillingFactor = (double) sp.getFillingFactor().getValue();
+        double probability = (double) sp.getProbability().getValue();
+        double jumpPoint = (double) sp.getJumpPoint().getValue();
+        double sampleJump = (double) sp.getSampleJump().getValue();
 
         switch (type) {
+            case 1:
+                signal = new GaussianNoise(firstSample, lastSample, startTime, endTime, frequency);
+                break;
+            case 2:
+                signal = new ImpulseNoise(firstSample, lastSample, probability);
+                break;
+            case 3:
+                signal = new SinusoidalSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, frequency);
+                break;
+            case 4:
+                signal = new SinusoidalOneHalfSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, frequency);
+                break;
+            case 5:
+                signal = new SinusoidalTwoHalfSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, frequency);
+                break;
+            case 6:
+                signal = new RectangularSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, fillingFactor, frequency);
+                break;
+            case 7:
+                signal = new SymmetricalRectangularSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, fillingFactor, frequency);
+                break;
+            case 8:
+                signal = new TriangularSignal(firstSample, lastSample, amplitude, startTime, endTime, basicPeriod, fillingFactor, frequency);
+                break;
+            case 9:
+                signal = new IndividualJumpSignal(firstSample, lastSample, amplitude, startTime, endTime, frequency, jumpPoint);
+                break;
+            case 10:
+                signal = new IndividualImpulseSignal(firstSample, lastSample, sampleJump);
+                break;
             default:
                 signal = new SteadyNoise(firstSample, lastSample, amplitude, startTime, endTime, frequency);
                 break;

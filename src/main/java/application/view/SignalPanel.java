@@ -47,11 +47,11 @@ public class SignalPanel extends JPanel {
         signalType.setModel(new DefaultComboBoxModel(Signal.getSignals()));
 //        First sample & last sample
         firstSample.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        lastSampleModel = new SpinnerNumberModel(2, 2, Integer.MAX_VALUE, 1);
+        lastSampleModel = new SpinnerNumberModel(200, 2, Integer.MAX_VALUE, 1);
         lastSample.setModel(lastSampleModel);
 //        Start & duration time
         startTime.setModel(new SpinnerNumberModel(0.0, 0.0, 999999.0, 0.1));
-        endTime.setModel(new SpinnerNumberModel(4.0, 0.1, 999999.0, 0.1));
+        endTime.setModel(new SpinnerNumberModel(200.0, 0.1, 999999.0, 0.1));
 //        Frequency & amplitude
         frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
         amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));

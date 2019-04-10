@@ -27,6 +27,7 @@ public class View {
         frame.setSize(1366, 768);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setResizable(false);
 
         initializeView();
     }

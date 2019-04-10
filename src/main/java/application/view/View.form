@@ -28,7 +28,11 @@
             <children>
               <grid id="3540a" binding="signalChart1" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="422" height="327"/>
+                    <preferred-size width="422" height="327"/>
+                    <maximum-size width="422" height="327"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-2629918"/>
@@ -50,7 +54,11 @@
               </grid>
               <grid id="75521" binding="histogramChart1" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="422" height="327"/>
+                    <preferred-size width="422" height="327"/>
+                    <maximum-size width="422" height="327"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-2629918"/>
@@ -85,7 +93,11 @@
             <children>
               <grid id="6d21" binding="signalChart2" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="422" height="327"/>
+                    <preferred-size width="422" height="327"/>
+                    <maximum-size width="422" height="327"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-2629918"/>
@@ -107,7 +119,11 @@
               </grid>
               <grid id="548a1" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="422" height="327"/>
+                    <preferred-size width="422" height="327"/>
+                    <maximum-size width="422" height="327"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-2629918"/>
