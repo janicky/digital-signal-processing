@@ -86,6 +86,23 @@ public abstract class Signal implements ISignal {
         this.fillingFactor = fillingFactor;
     }
 
+    public static String[] getSignals() {
+        return new String[] {
+                "Steady Noise",
+                "Gaussian Noise",
+                "Impulse Noise",
+                "Sinusoidal",
+                "Sinusoidal One Half",
+                "Sinusoidal Two Half",
+                "Rectangular",
+                "Symetrical Rectangular",
+                "Triangle",
+                "Symetrical Triangle",
+                "Individual Jump",
+                "Individual Impulse"
+        };
+    }
+
     public List<Double> getValuesX() {
         return Collections.unmodifiableList(x);
     }
