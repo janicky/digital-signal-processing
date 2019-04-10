@@ -22,6 +22,8 @@ public class SignalPanel extends JPanel {
     private JLabel probabilityValue;
     private JSpinner jumpPoint;
     private JSpinner sampleJump;
+    private JPanel infoAverage;
+    private JLabel infoAbsoluteAverage;
     private SpinnerNumberModel lastSampleModel;
 
     private DecimalFormat df;
