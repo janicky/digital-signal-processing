@@ -9,6 +9,8 @@ public class View {
     private JPanel mainPanel;
     private JPanel signalChart1;
     private JPanel signalChart2;
+    private SignalPanel signalPanel1;
+    private SignalPanel signalPanel2;
     private JTabbedPane tabbedPane;
 
     public View(String title) {
@@ -24,8 +26,10 @@ public class View {
     }
 
     private void initializeView() {
-        tabbedPane.add("Signal 1", new SignalPanel().signalPanel);
-        tabbedPane.add("Signal 2", new SignalPanel().signalPanel);
+        signalPanel1 = new SignalPanel();
+        signalPanel2 = new SignalPanel();
+        tabbedPane.add("Signal 1", signalPanel1.signalPanel);
+        tabbedPane.add("Signal 2", signalPanel2.signalPanel);
     }
 
     private void createMenu() {
