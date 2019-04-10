@@ -12,8 +12,12 @@ public class View {
     private SignalPanel signalPanel1;
     private SignalPanel signalPanel2;
     private JTabbedPane tabbedPane;
-    private JLabel histogramChart2;
+    private JLabel noHistogram2;
     private JPanel signalChart2;
+    private JLabel noSignal1;
+    private JLabel noSignal2;
+    private JLabel noHistogram1;
+//    private JPanel histogramChart2;
 
     public View(String title) {
         frame = new JFrame(title);
@@ -58,6 +62,10 @@ public class View {
         }
     }
 
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
     public SignalPanel getSignalPanel1() {
         return signalPanel1;
     }
@@ -74,11 +82,18 @@ public class View {
         return histogramChart1;
     }
 
-    public JLabel getHistogramChart2() {
-        return histogramChart2;
-    }
+//    public JPanel getHistogramChart2() {
+//        return histogramChart2;
+//    }
 
     public JPanel getSignalChart2() {
         return signalChart2;
+    }
+
+    public void hideNoSignal1() {
+        noSignal1.setVisible(false);
+    }
+    public void hideNoSignal2() {
+        noSignal2.setVisible(false);
     }
 }

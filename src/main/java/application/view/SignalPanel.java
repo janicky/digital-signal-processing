@@ -55,9 +55,12 @@ public class SignalPanel extends JPanel {
 //        Frequency & amplitude
         frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
         amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
+//        Period & duty cycle
+        basicPeriod.setModel(new SpinnerNumberModel(0.0, -999999.0, 999999.0, 0.1));
+        fillingFactor.setModel(new SpinnerNumberModel(0.0, 0, 1, 0.1));
 //        Jump point & sample jump
-        jumpPoint.setModel(new SpinnerNumberModel(0, -999999.0, 999999.0, 0.1));
-        sampleJump.setModel(new SpinnerNumberModel(0, -999999.0, 999999.0, 0.1));
+        jumpPoint.setModel(new SpinnerNumberModel(0.0, -999999.0, 999999.0, 0.1));
+        sampleJump.setModel(new SpinnerNumberModel(0.0, -999999.0, 999999.0, 0.1));
     }
 
     private void setDecimalFormat() {
@@ -84,6 +87,54 @@ public class SignalPanel extends JPanel {
 
     public JComboBox getSignalType() {
         return signalType;
+    }
+
+    public JSpinner getFirstSample() {
+        return firstSample;
+    }
+
+    public JSpinner getLastSample() {
+        return lastSample;
+    }
+
+    public JSpinner getStartTime() {
+        return startTime;
+    }
+
+    public JSpinner getEndTime() {
+        return endTime;
+    }
+
+    public JSpinner getFrequency() {
+        return frequency;
+    }
+
+    public JSpinner getAmplitude() {
+        return amplitude;
+    }
+
+    public JSpinner getBasicPeriod() {
+        return basicPeriod;
+    }
+
+    public JSpinner getFillingFactor() {
+        return fillingFactor;
+    }
+
+    public JSlider getProbability() {
+        return probability;
+    }
+
+    public JLabel getProbabilityValue() {
+        return probabilityValue;
+    }
+
+    public JSpinner getJumpPoint() {
+        return jumpPoint;
+    }
+
+    public JSpinner getSampleJump() {
+        return sampleJump;
     }
 
     public JButton getRenderButton() {
