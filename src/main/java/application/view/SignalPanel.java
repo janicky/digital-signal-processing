@@ -28,8 +28,8 @@ public class SignalPanel extends JPanel {
     private void onFirstSampleChange() {
         int lastSampleValue = (int) lastSample.getValue();
         int firstSampleValue = (int) firstSample.getValue();
+        lastSampleModel.setMinimum(firstSampleValue + 1);
         if (lastSampleValue < firstSampleValue + 1) {
-            lastSampleModel.setMinimum(firstSampleValue + 1);
             lastSample.setValue(firstSampleValue + 1);
         }
     }
