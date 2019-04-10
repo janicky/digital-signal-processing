@@ -1,11 +1,11 @@
-package signal_processing.calculations;
+package signal_processing.helpers;
 
 import signal_processing.ISignal;
 
-public class Calcaulation {
+public class Statistics {
     private ISignal signal;
 
-    public Calcaulation(ISignal signal){
+    public Statistics(ISignal signal){
         this.signal = signal;
     }
 
