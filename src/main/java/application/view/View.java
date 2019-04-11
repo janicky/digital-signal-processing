@@ -184,4 +184,11 @@ public class View {
     public void hideNoHistogram2() {
         noHistogram2.setVisible(false);
     }
+
+    public int getOperation() {
+        return operationsPanel.getOperation();
+    }
+    public int getOrder() {
+        return operationsPanel.getOrder();
+    }
 }

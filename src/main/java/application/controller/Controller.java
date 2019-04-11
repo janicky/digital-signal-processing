@@ -126,6 +126,10 @@ public class Controller {
         model.setSignal(index, type, signalPanels[index]);
     }
 
+    private void generateSignal() {
+        model.generateSignal(view.getOperation(), view.getOrder());
+    }
+
     private void renderSignal(int index) {
         ISignal signal = model.getSignal(index);
         JPanel panel = (index == 0 ? view.getSignalChart1() : view.getSignalChart2());

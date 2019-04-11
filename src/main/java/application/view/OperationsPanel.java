@@ -64,5 +64,11 @@ public class OperationsPanel {
         }
     }
 
+    public int getOperation() {
+        return operationMode.getSelectedIndex();
+    }
 
+    public int getOrder() {
+        return (operationsSignalA.equals(signals[0]) ? 0 : 1);
+    }
 }

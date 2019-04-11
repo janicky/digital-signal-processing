@@ -2,12 +2,13 @@ package application.model;
 
 import application.view.SignalPanel;
 import signal_processing.ISignal;
+import signal_processing.helpers.Operations;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.*;
 
 public class Model {
     private ISignal[] signals = new ISignal[2];
-    private GeneratedSignal generatedSignal;
+    private ISignal generatedSignal;
     private Statistics[] stats = new Statistics[2];
 
     public ISignal getSignal(int index) {
@@ -81,11 +82,26 @@ public class Model {
         return signals[0].isRendered() && signals[1].isRendered();
     }
 
-    public GeneratedSignal getGeneratedSignal() {
+    public ISignal getGeneratedSignal() {
         return generatedSignal;
     }
 
-    public void setGeneratedSignal(GeneratedSignal generatedSignal) {
-        this.generatedSignal = generatedSignal;
+    public void generateSignal(int operation, int order) {
+        ISignal signal1 = (order == 0 ? signals[0] : signals[1]);
+        ISignal signal2 = (order == 0 ? signals[1] : signals[0]);
+        generatedSignal = getGeneratedSignal(signal1, signal2, operation);
+    }
+
+    private ISignal getGeneratedSignal(ISignal signal1, ISignal signal2, int operation) {
+        switch (operation) {
+            case 1:
+                return Operations.getSubstractSignals(signal1, signal2);
+            case 2:
+                return Operations.getMultiplySignals(signal1, signal2);
+            case 3:
+                return Operations.getDivideSignals(signal1, signal2);
+            default:
+                return Operations.getAddSignals(signal1, signal2);
+        }
     }
 }

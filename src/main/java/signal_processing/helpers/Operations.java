@@ -8,15 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Operations {
-    private ISignal signal1, signal2, calculatedSignal;
 
-    public Operations (ISignal signal1, ISignal signal2) {
-        this.signal1 = signal1;
-        this.signal2 = signal2;
-    }
-
-    public ISignal getMultiplySignals(ISignal signal1, ISignal signal2) {
-        calculatedSignal = new GeneratedSignal();
+    public static ISignal getMultiplySignals(ISignal signal1, ISignal signal2) {
+        ISignal calculatedSignal = new GeneratedSignal();
         List<Double> tempList = new ArrayList<>();
         int count1 = 0;
         int count2 = 0;
@@ -54,8 +48,8 @@ public class Operations {
         return calculatedSignal;
     }
 
-    public ISignal getAddSignals (ISignal signal, ISignal signal2) {
-        calculatedSignal = new GeneratedSignal();
+    public static ISignal getAddSignals(ISignal signal1, ISignal signal2) {
+        ISignal calculatedSignal = new GeneratedSignal();
         List<Double> tempList = new ArrayList<>();
         int count1 = 0;
         int count2 = 0;
@@ -92,8 +86,8 @@ public class Operations {
         return calculatedSignal;
     }
 
-    public ISignal getDivideSignals (ISignal signal, ISignal signal2) {
-        calculatedSignal = new GeneratedSignal();
+    public static ISignal getDivideSignals(ISignal signal1, ISignal signal2) {
+        ISignal calculatedSignal = new GeneratedSignal();
         List<Double> tempList = new ArrayList<>();
         int count1 = 0;
         int count2 = 0;
@@ -132,8 +126,8 @@ public class Operations {
         return calculatedSignal;
     }
 
-    public ISignal getSubstractSignals (ISignal signal, ISignal signal2) {
-        calculatedSignal = new GeneratedSignal();
+    public static ISignal getSubstractSignals(ISignal signal1, ISignal signal2) {
+        ISignal calculatedSignal = new GeneratedSignal();
         List<Double> tempList = new ArrayList<>();
         int count1 = 0;
         int count2 = 0;
