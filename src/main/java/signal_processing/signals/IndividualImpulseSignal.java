@@ -30,6 +30,10 @@ public class IndividualImpulseSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Individual Impulse Signal";
+    }
+
     public double getSampleJump() {
         return sampleJump;
     }

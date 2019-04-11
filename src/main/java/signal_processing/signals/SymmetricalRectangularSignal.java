@@ -42,6 +42,10 @@ public class SymmetricalRectangularSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Symmetrical Ractanglar Signal";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

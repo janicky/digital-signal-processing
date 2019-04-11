@@ -18,6 +18,10 @@ public class GeneratedSignal extends Signal {
 
     }
 
+    public String getSignalName() {
+        return null;
+    }
+
     public String[] getAvailableParameters() {
         return new String[0];
     }

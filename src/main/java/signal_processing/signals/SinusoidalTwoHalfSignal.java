@@ -33,6 +33,10 @@ public class SinusoidalTwoHalfSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Sinusoidal Two-half Signal";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

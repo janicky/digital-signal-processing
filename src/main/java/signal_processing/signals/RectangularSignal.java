@@ -48,6 +48,10 @@ public class RectangularSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Rectangular Signal";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

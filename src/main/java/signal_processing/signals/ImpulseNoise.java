@@ -32,6 +32,10 @@ public class ImpulseNoise extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Impulse Noise";
+    }
+
     public double getProbability() {
         return probability;
     }

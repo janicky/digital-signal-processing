@@ -41,6 +41,10 @@ public class TriangularSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Triangular Signal";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",
