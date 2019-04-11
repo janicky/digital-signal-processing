@@ -86,7 +86,8 @@ public class Controller {
                 Method method = panel.getClass().getMethod("get" + StringUtils.capitalize(parameter));
                 JComponent component = (JComponent) method.invoke(panel, null);
                 boolean exists = Arrays.stream(signal.getAvailableParameters()).anyMatch(parameter::equals);
-                component.setEnabled(exists);
+//                component.setEnabled(exists);
+                component.getParent().getParent().setVisible(exists);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
