@@ -74,6 +74,7 @@ public class Controller {
             signalPanels[i].getRenderButton().addActionListener(e -> onSignalRender(x));
             signalPanels[i].getHistogramBins().addChangeListener(e -> onHistogramChange(x));
         }
+        operationsPanel.getPreviewButton().addActionListener(e -> onPreview());
     }
 
     private void onSignalChange(int index) {
@@ -120,6 +121,21 @@ public class Controller {
 
     private void onHistogramChange(int index) {
         renderHistogram(index);
+    }
+
+    private void onPreview() {
+        generateSignal();
+        ISignal generatedSignal = model.getGeneratedSignal();
+
+        final XYSeries series = new XYSeries("data");
+
+        List<Double> x = generatedSignal.getValuesX();
+        List<Double> y = generatedSignal.getValuesY();
+        for (int i = 0; i < x.size(); i++) {
+            series.add(x.get(i), y.get(i));
+        }
+        XYSeriesCollection dataset = new XYSeriesCollection(series);
+        view.renderGeneratedSignal(dataset);
     }
 
     private void setSignal(int index, int type) {

@@ -19,7 +19,7 @@ public class GeneratedSignal extends Signal {
     }
 
     public String getSignalName() {
-        return null;
+        return "Custom signal";
     }
 
     public String[] getAvailableParameters() {

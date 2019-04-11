@@ -32,13 +32,14 @@ public class View {
     private ChartPanel chartPanel2;
     private ChartPanel chartPanel3;
     private ChartPanel chartPanel4;
+    private ChartPanel chartPanel5;
 
     public View(String title) {
         frame = new JFrame(title);
         createMenu();
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1400, 800);
+        frame.setSize(1500, 800);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
@@ -58,6 +59,7 @@ public class View {
         chartPanel2 = new ChartPanel(null);
         chartPanel3 = new ChartPanel(null);
         chartPanel4 = new ChartPanel(null);
+        chartPanel5 = new ChartPanel(null);
     }
 
     private void createMenu() {
@@ -106,6 +108,27 @@ public class View {
             hideNoSignal1();
         } else {
             hideNoSignal2();
+        }
+    }
+
+    public void renderGeneratedSignal(final XYSeriesCollection dataset) {
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Generated signal",
+                "x",
+                "y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false);
+        chartPanel5.setChart(chart);
+
+        JPanel signalPanel = operationsPanel.getSignalPanel();
+        if (signalPanel.getComponentCount() != 2) {
+            signalPanel.add(chartPanel5);
+            System.out.println("Test");
+            signalPanel.validate();
+            operationsPanel.getNoSignal().setVisible(false);
         }
     }
 

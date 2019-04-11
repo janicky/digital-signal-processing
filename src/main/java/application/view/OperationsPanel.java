@@ -1,16 +1,14 @@
 package application.view;
 
-import signal_processing.Signal;
-
+import org.jfree.chart.ChartPanel;
 import javax.swing.*;
 
-public class OperationsPanel {
+public class OperationsPanel extends JPanel {
     private JComboBox operationMode;
     private JButton setAsSignal1Button;
     private JButton exportButton;
     private JPanel operationsPanel;
-    private JLabel noGeneratedSignal;
-    private JPanel generatedSignal;
+    private JPanel signalPanel;
     private JLabel signalName;
     private JLabel infoAverage;
     private JLabel infoAbsoluteAverage;
@@ -22,7 +20,9 @@ public class OperationsPanel {
     private JButton reverseButton;
     private JButton previewButton;
     private JButton setAsSignal2Button;
+    private JLabel noSignal;
     private String[] signals = new String[] { "Signal 1", "Signal 2" };
+    private ChartPanel chartPanel;
 
     public JPanel getOperationsPanel() {
         return operationsPanel;
@@ -33,7 +33,52 @@ public class OperationsPanel {
         assignActions();
     }
 
+    public JLabel getInfoAverage() {
+        return infoAverage;
+    }
+
+    public JLabel getInfoAbsoluteAverage() {
+        return infoAbsoluteAverage;
+    }
+
+    public JLabel getInfoAveragePower() {
+        return infoAveragePower;
+    }
+
+    public JLabel getInfoVariance() {
+        return infoVariance;
+    }
+
+    public JLabel getInfoRootMeanSquare() {
+        return infoRootMeanSquare;
+    }
+
+    public JButton getSetAsSignal1Button() {
+        return setAsSignal1Button;
+    }
+
+    public JButton getExportButton() {
+        return exportButton;
+    }
+
+    public JButton getPreviewButton() {
+        return previewButton;
+    }
+
+    public JButton getSetAsSignal2Button() {
+        return setAsSignal2Button;
+    }
+
+    public JPanel getSignalPanel() {
+        return signalPanel;
+    }
+
+    public JLabel getNoSignal() {
+        return noSignal;
+    }
+
     private void initializeView() {
+        chartPanel = new ChartPanel(null);
         String[] operations = new String[] { "+", "-", "*", "/" };
         operationMode.setModel(new DefaultComboBoxModel(operations));
     }
