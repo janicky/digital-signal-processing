@@ -3,20 +3,23 @@ package application.controller;
 import application.model.Model;
 import application.view.SignalPanel;
 import application.view.View;
+import org.apache.commons.lang3.StringUtils;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
+import signal_processing.Signal;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
 
 import javax.swing.*;
-import java.awt.*;
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,6 +40,10 @@ public class Controller {
         assignActions();
 //        Decimal format
         setDecimalFormat();
+//        Set signal controls
+        for (int i = 0; i < signalPanels.length; i++) {
+            updateSignalControls(i);
+        }
     }
 
     private void setDecimalFormat() {
@@ -68,6 +75,22 @@ public class Controller {
 
     private void onSignalChange(int index) {
         setSignal(index, signalPanels[index].getSignalType().getSelectedIndex());
+        updateSignalControls(index);
+    }
+
+    private void updateSignalControls(int index) {
+        SignalPanel panel = signalPanels[index];
+        ISignal signal = model.getSignal(index);
+        for (String parameter : Signal.getAllParameters()) {
+            try {
+                Method method = panel.getClass().getMethod("get" + StringUtils.capitalize(parameter));
+                JComponent component = (JComponent) method.invoke(panel, null);
+                boolean exists = Arrays.stream(signal.getAvailableParameters()).anyMatch(parameter::equals);
+                component.setEnabled(exists);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void onSignalRender(int index) {
