@@ -7,6 +7,7 @@ import signal_processing.signals.*;
 
 public class Model {
     private ISignal[] signals = new ISignal[2];
+    private GeneratedSignal generatedSignal;
     private Statistics[] stats = new Statistics[2];
 
     public ISignal getSignal(int index) {
@@ -78,5 +79,13 @@ public class Model {
 
     public boolean isBothSignalsRendered() {
         return signals[0].isRendered() && signals[1].isRendered();
+    }
+
+    public GeneratedSignal getGeneratedSignal() {
+        return generatedSignal;
+    }
+
+    public void setGeneratedSignal(GeneratedSignal generatedSignal) {
+        this.generatedSignal = generatedSignal;
     }
 }
