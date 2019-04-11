@@ -25,6 +25,9 @@ public class SignalPanel extends JPanel {
     private JPanel infoAverage;
     private JLabel infoAbsoluteAverage;
     private JButton renderButton;
+    private JLabel infoAveragePower;
+    private JLabel infoVariance;
+    private JLabel infoRootMeanSquare;
     private SpinnerNumberModel lastSampleModel;
 
     private DecimalFormat df;
