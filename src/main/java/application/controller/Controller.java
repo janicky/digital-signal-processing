@@ -7,6 +7,9 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
@@ -20,6 +23,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Collections;
 import java.util.List;
 
 public class Controller {
@@ -27,6 +31,10 @@ public class Controller {
     private Model model;
     private SignalPanel[] signalPanels = new SignalPanel[2];
     private DecimalFormat df;
+    private Paint[] colors = new Paint[]{
+            new Color(0, 172, 178),
+            new Color(239, 70, 55),
+    };
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -75,6 +83,7 @@ public class Controller {
         model.getSignal(index).updateValues();
         Statistics stats = model.getStats(index);
         renderSignal(index);
+        renderHistogram(index);
 
         signalPanels[index].getInfoAverage().setText(df.format(stats.getAverage()));
         signalPanels[index].getInfoAbsoluteAverage().setText(df.format(stats.getAbsoluteMean()));
@@ -98,6 +107,18 @@ public class Controller {
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         view.renderSignal(index, signal, dataset);
+    }
+
+    private void renderHistogram(int index) {
+        ISignal signal = model.getSignal(index);
+        HistogramDataset dataset = new HistogramDataset();
+        dataset.setType(HistogramType.RELATIVE_FREQUENCY);
+        double[] values = new double[signal.getValuesY().size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = signal.getValuesY().get(i);
+        }
+        dataset.addSeries("H1", values, 5, Collections.min(signal.getValuesY()), Collections.max(signal.getValuesY()));
+        view.renderHistogram(index, dataset);
     }
 
     private void setDefaults() {
