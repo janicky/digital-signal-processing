@@ -47,6 +47,10 @@ public class GaussianNoise extends Signal {
 
     }
 
+    public String getSignalName() {
+        return "Gaussian Noise";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

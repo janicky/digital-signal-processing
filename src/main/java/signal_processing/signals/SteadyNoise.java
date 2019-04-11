@@ -31,6 +31,10 @@ public class SteadyNoise extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Steady Noise";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

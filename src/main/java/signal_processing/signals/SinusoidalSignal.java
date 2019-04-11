@@ -33,6 +33,10 @@ public class SinusoidalSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Sinusoidal Signal";
+    }
+
     public String[] getAvailableParameters() {
         return new String[] {
                 "firstSample",

@@ -39,6 +39,10 @@ public class IndividualJumpSignal extends Signal {
         }
     }
 
+    public String getSignalName() {
+        return "Individual Jump Signal";
+    }
+
     public double getJumpPoint() {
         return jumpPoint;
     }
