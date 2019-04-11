@@ -136,6 +136,14 @@ public class Controller {
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         view.renderGeneratedSignal(dataset);
+
+        Statistics stats = model.getGeneratedStats();
+
+        operationsPanel.getInfoAverage().setText(df.format(stats.getAverage()));
+        operationsPanel.getInfoAbsoluteAverage().setText(df.format(stats.getAbsoluteMean()));
+        operationsPanel.getInfoAveragePower().setText(df.format(stats.getAveragePower()));
+        operationsPanel.getInfoVariance().setText(df.format(stats.getVariance()));
+        operationsPanel.getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
     }
 
     private void setSignal(int index, int type) {

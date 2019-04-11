@@ -10,6 +10,7 @@ public class Model {
     private ISignal[] signals = new ISignal[2];
     private ISignal generatedSignal;
     private Statistics[] stats = new Statistics[2];
+    private Statistics generatedStats;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -78,6 +79,10 @@ public class Model {
         return stats[index];
     }
 
+    public Statistics getGeneratedStats() {
+        return generatedStats;
+    }
+
     public boolean isBothSignalsRendered() {
         return signals[0].isRendered() && signals[1].isRendered();
     }
@@ -90,6 +95,7 @@ public class Model {
         ISignal signal1 = (order == 0 ? signals[0] : signals[1]);
         ISignal signal2 = (order == 0 ? signals[1] : signals[0]);
         generatedSignal = getGeneratedSignal(signal1, signal2, operation);
+        generatedStats = new Statistics(generatedSignal);
     }
 
     private ISignal getGeneratedSignal(ISignal signal1, ISignal signal2, int operation) {
