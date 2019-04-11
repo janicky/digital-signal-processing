@@ -37,7 +37,7 @@ public class View {
         createMenu();
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1366, 768);
+        frame.setSize(1400, 800);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);

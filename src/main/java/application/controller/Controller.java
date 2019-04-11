@@ -3,11 +3,6 @@ package application.controller;
 import application.model.Model;
 import application.view.SignalPanel;
 import application.view.View;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYSeries;
@@ -17,7 +12,6 @@ import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
-import signal_processing.signals.SteadyNoise;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,10 +25,6 @@ public class Controller {
     private Model model;
     private SignalPanel[] signalPanels = new SignalPanel[2];
     private DecimalFormat df;
-    private Paint[] colors = new Paint[]{
-            new Color(0, 172, 178),
-            new Color(239, 70, 55),
-    };
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -72,6 +62,7 @@ public class Controller {
             signalPanels[i].getJumpPoint().addChangeListener(e -> updateJumpPoint(x));
             signalPanels[i].getSampleJump().addChangeListener(e -> updateSampleJump(x));
             signalPanels[i].getRenderButton().addActionListener(e -> onSignalRender(x));
+            signalPanels[i].getHistogramBins().addChangeListener(e -> onHistogramChange(x));
         }
     }
 
@@ -92,6 +83,10 @@ public class Controller {
         signalPanels[index].getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
     }
 
+    private void onHistogramChange(int index) {
+        renderHistogram(index);
+    }
+
     private void setSignal(int index, int type) {
         model.setSignal(index, type, signalPanels[index]);
     }
@@ -107,6 +102,7 @@ public class Controller {
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         view.renderSignal(index, signal, dataset);
+        signalPanels[index].getHistogramBins().setEnabled(true);
     }
 
     private void renderHistogram(int index) {
@@ -117,7 +113,8 @@ public class Controller {
         for (int i = 0; i < values.length; i++) {
             values[i] = signal.getValuesY().get(i);
         }
-        dataset.addSeries("H1", values, 5, Collections.min(signal.getValuesY()), Collections.max(signal.getValuesY()));
+        int bins = signalPanels[index].getHistogramBins().getValue();
+        dataset.addSeries("H1", values, bins, Collections.min(signal.getValuesY()), Collections.max(signal.getValuesY()));
         view.renderHistogram(index, dataset);
     }
 
