@@ -10,6 +10,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
+import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
@@ -17,12 +18,15 @@ import signal_processing.signals.SteadyNoise;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class Controller {
     private View view;
     private Model model;
     private SignalPanel[] signalPanels = new SignalPanel[2];
+    private DecimalFormat df;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -33,6 +37,15 @@ public class Controller {
         setDefaults();
 //        Actions
         assignActions();
+//        Decimal format
+        setDecimalFormat();
+    }
+
+    private void setDecimalFormat() {
+        df = new DecimalFormat("0.00000");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        df.setDecimalFormatSymbols(symbols);
     }
 
     private void assignActions() {
@@ -60,7 +73,14 @@ public class Controller {
 
     private void onSignalRender(int index) {
         model.getSignal(index).updateValues();
+        Statistics stats = model.getStats(index);
         renderSignal(index);
+
+        signalPanels[index].getInfoAverage().setText(df.format(stats.getAverage()));
+        signalPanels[index].getInfoAbsoluteAverage().setText(df.format(stats.getAbsoluteMean()));
+        signalPanels[index].getInfoAveragePower().setText(df.format(stats.getAveragePower()));
+        signalPanels[index].getInfoVariance().setText(df.format(stats.getVariance()));
+        signalPanels[index].getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
     }
 
     private void setSignal(int index, int type) {
