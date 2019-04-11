@@ -56,7 +56,7 @@ public class SignalPanel extends JPanel {
         startTime.setModel(new SpinnerNumberModel(0.0, 0.0, 999999.0, 0.1));
         endTime.setModel(new SpinnerNumberModel(200.0, 0.1, 999999.0, 0.1));
 //        Frequency & amplitude
-        frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
+        frequency.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
         amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
 //        Period & duty cycle
         basicPeriod.setModel(new SpinnerNumberModel(0.0, -999999.0, 999999.0, 0.1));

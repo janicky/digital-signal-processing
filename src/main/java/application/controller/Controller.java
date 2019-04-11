@@ -97,16 +97,7 @@ public class Controller {
             series.add(x.get(i), y.get(i));
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("Signal " + index, "x", "y", dataset, PlotOrientation.VERTICAL, false, false, false);
-        panel.add(new ChartPanel(chart), BorderLayout.CENTER);
-        panel.validate();
-        view.getMainPanel().validate();
-
-        if (index == 0) {
-            view.hideNoSignal1();
-        } else {
-            view.hideNoSignal2();
-        }
+        view.renderSignal(index, signal, dataset);
     }
 
     private void setDefaults() {

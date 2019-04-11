@@ -1,5 +1,13 @@
 package application.view;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import signal_processing.ISignal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -60,6 +68,27 @@ public class View {
             button.setIcon(imgIcon);
         } catch (Exception ex) {
 //          TODO: Handle icon not found error
+        }
+    }
+
+    public void renderSignal(int index, ISignal signal, final XYSeriesCollection dataset) {
+        JPanel panel = (index == 0 ? getSignalChart1() : getSignalChart2());
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                "Signal #" + index,
+                "x",
+                "y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false);
+        panel.add(new ChartPanel(chart), BorderLayout.CENTER);
+        panel.validate();
+
+        if (index == 0) {
+            hideNoSignal1();
+        } else {
+            hideNoSignal2();
         }
     }
 
