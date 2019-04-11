@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.Model;
+import application.view.OperationsPanel;
 import application.view.SignalPanel;
 import application.view.View;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,7 @@ public class Controller {
     private View view;
     private Model model;
     private SignalPanel[] signalPanels = new SignalPanel[2];
+    private OperationsPanel operationsPanel;
     private DecimalFormat df;
 
     public Controller(View view, Model model) {
@@ -34,6 +36,7 @@ public class Controller {
         this.model = model;
         signalPanels[0] = view.getSignalPanel1();
         signalPanels[1] = view.getSignalPanel2();
+        operationsPanel = view.getOperationsPanel();
 //        Set defaults
         setDefaults();
 //        Actions
@@ -95,10 +98,18 @@ public class Controller {
     }
 
     private void onSignalRender(int index) {
-        model.getSignal(index).updateValues();
+        ISignal signal = model.getSignal(index);
+        signal.updateValues();
+
         Statistics stats = model.getStats(index);
         renderSignal(index);
         renderHistogram(index);
+
+        signal.setRendered(true);
+
+        if (model.isBothSignalsRendered()) {
+            view.enableOperationsButtons();
+        }
 
         signalPanels[index].getInfoAverage().setText(df.format(stats.getAverage()));
         signalPanels[index].getInfoAbsoluteAverage().setText(df.format(stats.getAbsoluteMean()));

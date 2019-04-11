@@ -20,6 +20,8 @@ public class OperationsPanel {
     private JButton operationsSignalA;
     private JButton operationsSignalB;
     private JButton reverseButton;
+    private JButton previewButton;
+    private JButton setAsSignal2Button;
     private String[] signals = new String[] { "Signal 1", "Signal 2" };
 
     public JPanel getOperationsPanel() {
@@ -40,6 +42,13 @@ public class OperationsPanel {
         reverseButton.addActionListener(e -> reverseSignals());
         operationsSignalA.addActionListener(e -> reverseSignals());
         operationsSignalB.addActionListener(e -> reverseSignals());
+    }
+
+    public void enableButtons() {
+        setAsSignal1Button.setEnabled(true);
+        setAsSignal2Button.setEnabled(true);
+        previewButton.setEnabled(true);
+        exportButton.setEnabled(true);
     }
 
     private void reverseSignals() {

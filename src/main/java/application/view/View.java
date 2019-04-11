@@ -136,6 +136,10 @@ public class View {
         }
     }
 
+    public void enableOperationsButtons() {
+        operationsPanel.enableButtons();
+    }
+
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -162,6 +166,10 @@ public class View {
 
     public JPanel getSignalChart2() {
         return signalChart2;
+    }
+
+    public OperationsPanel getOperationsPanel() {
+        return operationsPanel;
     }
 
     public void hideNoSignal1() {
