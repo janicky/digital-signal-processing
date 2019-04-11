@@ -53,7 +53,7 @@ public class SinusoidalTwoHalfSignal extends Signal {
                 "amplitude",
                 "startTime",
                 "endTime",
-                "basicPeroid",
+                "basicPeriod",
                 "frequency"
         };
     }

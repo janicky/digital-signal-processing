@@ -54,7 +54,7 @@ public class SinusoidalOneHalfSignal extends Signal {
                 "amplitude",
                 "startTime",
                 "endTime",
-                "basicPeroid",
+                "basicPeriod",
                 "frequency"
         };
     }

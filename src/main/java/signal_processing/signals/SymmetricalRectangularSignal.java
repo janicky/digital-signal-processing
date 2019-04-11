@@ -63,7 +63,7 @@ public class SymmetricalRectangularSignal extends Signal {
                 "amplitude",
                 "startTime",
                 "endTime",
-                "basicPeroid",
+                "basicPeriod",
                 "fillingFactor",
                 "frequency"
         };

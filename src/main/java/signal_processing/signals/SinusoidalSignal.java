@@ -22,7 +22,7 @@ public class SinusoidalSignal extends Signal {
         setAmplitude(1);
         setStartTime(0);
         setEndTime(200);
-        setBasicPeriod(1);
+        setBasicPeriod(100);
         setFrequency(1);
     }
 
@@ -53,7 +53,7 @@ public class SinusoidalSignal extends Signal {
                 "amplitude",
                 "startTime",
                 "endTime",
-                "basicPeroid",
+                "basicPeriod",
                 "frequency"
         };
     }

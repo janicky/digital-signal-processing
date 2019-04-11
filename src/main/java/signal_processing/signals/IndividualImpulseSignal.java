@@ -51,7 +51,7 @@ public class IndividualImpulseSignal extends Signal {
         return new String[] {
                 "firstSample",
                 "lastSample",
-                "sampleJumnp"
+                "sampleJump"
         };
     }
 }

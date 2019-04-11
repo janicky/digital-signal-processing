@@ -69,7 +69,7 @@ public class RectangularSignal extends Signal {
                 "amplitude",
                 "startTime",
                 "endTime",
-                "basicPeroid",
+                "basicPeriod",
                 "fillingFactor",
                 "frequency"
         };
