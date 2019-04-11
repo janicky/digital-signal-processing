@@ -85,7 +85,7 @@ public class View {
         JPanel panel = (index == 0 ? getSignalChart1() : getSignalChart2());
         ChartPanel chartPanel = (index == 0 ? chartPanel1 : chartPanel2);
         JFreeChart chart = ChartFactory.createXYLineChart(
-                "Signal #" + index,
+                signal.getSignalName(),
                 "x",
                 "y",
                 dataset,
