@@ -20,6 +20,7 @@ public class View {
     private JPanel histogramChart1;
     private SignalPanel signalPanel1;
     private SignalPanel signalPanel2;
+    private OperationsPanel operationsPanel;
     private JTabbedPane tabbedPane;
     private JPanel signalChart2;
     private JLabel noSignal1;
@@ -48,8 +49,10 @@ public class View {
     private void initializeView() {
         signalPanel1 = new SignalPanel();
         signalPanel2 = new SignalPanel();
+        operationsPanel = new OperationsPanel();
         tabbedPane.add("Signal 1", signalPanel1.signalPanel);
         tabbedPane.add("Signal 2", signalPanel2.signalPanel);
+        tabbedPane.add("Operations", operationsPanel.getOperationsPanel());
 
         chartPanel1 = new ChartPanel(null);
         chartPanel2 = new ChartPanel(null);
