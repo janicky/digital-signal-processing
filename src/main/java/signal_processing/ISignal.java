@@ -25,4 +25,6 @@ public interface ISignal {
     String[] getAvailableParameters();
     List<Double> getValuesX();
     List<Double> getValuesY();
+    boolean isRendered();
+    void setRendered(boolean value);
 }

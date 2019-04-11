@@ -16,6 +16,7 @@ public abstract class Signal implements ISignal {
     private double frequency;
     private double basicPeriod;
     private double fillingFactor;
+    private boolean isRendered;
 
     public Signal(int firstSample, int lastSample) {
         this.firstSample = firstSample;
@@ -124,5 +125,13 @@ public abstract class Signal implements ISignal {
 
     public List<Double> getValuesY() {
         return Collections.unmodifiableList(y);
+    }
+
+    public boolean isRendered() {
+        return isRendered;
+    }
+
+    public void setRendered(boolean rendered) {
+        isRendered = rendered;
     }
 }

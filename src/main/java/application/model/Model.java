@@ -75,4 +75,8 @@ public class Model {
     public Statistics getStats(int index) {
         return stats[index];
     }
+
+    public boolean isBothSignalsRendered() {
+        return signals[0].isRendered() && signals[1].isRendered();
+    }
 }
