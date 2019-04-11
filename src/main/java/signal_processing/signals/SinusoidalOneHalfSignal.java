@@ -17,6 +17,15 @@ public class SinusoidalOneHalfSignal extends Signal {
         updateValues();
     }
 
+    public SinusoidalOneHalfSignal() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(800);
+        setBasicPeriod(400);
+        setFrequency(1);
+    }
+
     public double getValue(double x, double k) {
         return 0.5 * getAmplitude() * (Math.sin((2 * Math.PI / getBasicPeriod()) *
                 (x - getStartTime())) + Math.abs((2 * Math.PI / getBasicPeriod()) *

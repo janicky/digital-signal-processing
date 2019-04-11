@@ -17,6 +17,14 @@ public class SteadyNoise extends Signal {
         updateValues();
     }
 
+    public SteadyNoise() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(100);
+        setFrequency(1);
+    }
+
     public double getValue(double x, double k) {
         return rng.nextDouble() * -(2 * getAmplitude()) + getAmplitude();
     }

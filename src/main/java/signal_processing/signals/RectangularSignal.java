@@ -17,6 +17,16 @@ public class RectangularSignal extends Signal {
         updateValues();
     }
 
+    public RectangularSignal() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(200);
+        setBasicPeriod(1);
+        setFillingFactor(1);
+        setFrequency(1);
+    }
+
     public double getValue(double x, double k) {
             if (((x) >= (k * getBasicPeriod() + getStartTime()))
                     &&

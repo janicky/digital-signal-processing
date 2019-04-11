@@ -17,6 +17,15 @@ public class SinusoidalTwoHalfSignal extends Signal {
         updateValues();
     }
 
+    public SinusoidalTwoHalfSignal() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(800);
+        setFrequency(1);
+        setBasicPeriod(400);
+    }
+
     public double getValue(double x, double k) {
         return getAmplitude() * Math.abs(Math.sin((2 * Math.PI / getBasicPeriod()) *
                 (x -getStartTime())));

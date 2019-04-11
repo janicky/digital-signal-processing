@@ -12,6 +12,11 @@ public class IndividualImpulseSignal extends Signal {
         updateValues();
     }
 
+    public IndividualImpulseSignal() {
+        super(0, 200);
+        sampleJump = 0;
+    }
+
     public double getValue(double x, double k) {
         if (x == sampleJump) {
             return 1d;

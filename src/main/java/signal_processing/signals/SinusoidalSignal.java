@@ -17,6 +17,15 @@ public class SinusoidalSignal extends Signal {
         updateValues();
     }
 
+    public SinusoidalSignal() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(200);
+        setBasicPeriod(1);
+        setFrequency(1);
+    }
+
     public double getValue(double x, double k) {
         return getAmplitude() * Math.sin((2 * Math.PI / getBasicPeriod()) *
                 (x - getStartTime()));

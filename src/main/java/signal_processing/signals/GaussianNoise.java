@@ -18,6 +18,13 @@ public class GaussianNoise extends Signal {
         updateValues();
     }
 
+    public GaussianNoise(){
+        super(0, 200);
+        setStartTime(0);
+        setEndTime(300);
+        setFrequency(1);
+    }
+
     public double getValue(double x, double k) {
         if (nextGaussian) {
             nextGaussian = false;

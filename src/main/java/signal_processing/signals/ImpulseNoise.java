@@ -15,6 +15,11 @@ public class ImpulseNoise extends Signal {
 
     }
 
+    public ImpulseNoise() {
+        super(0, 200);
+        probability = 50;
+    }
+
     public double getValue(double x, double k) {
         if (rng.nextDouble() <= probability) {
             return 1d;

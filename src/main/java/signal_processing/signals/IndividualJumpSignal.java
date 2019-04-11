@@ -18,6 +18,15 @@ public class IndividualJumpSignal extends Signal {
         updateValues();
     }
 
+    public IndividualJumpSignal() {
+        super(0, 200);
+        setAmplitude(1);
+        setStartTime(0);
+        setEndTime(200);
+        setFrequency(1);
+        jumpPoint = 0;
+    }
+
     public double getValue(double x, double k) {
         if (x > jumpPoint) {
             return getAmplitude();
