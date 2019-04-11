@@ -102,6 +102,22 @@ public abstract class Signal implements ISignal {
         };
     }
 
+    public static String[] getAllParameters() {
+        return new String[] {
+                "firstSample",
+                "lastSample",
+                "amplitude",
+                "startTime",
+                "endTime",
+                "frequency",
+                "basicPeriod",
+                "fillingFactor",
+                "probability",
+                "sampleJump",
+                "jumpPoint"
+        };
+    }
+
     public List<Double> getValuesX() {
         return Collections.unmodifiableList(x);
     }

@@ -2,10 +2,12 @@ package application.model;
 
 import application.view.SignalPanel;
 import signal_processing.ISignal;
+import signal_processing.helpers.Statistics;
 import signal_processing.signals.*;
 
 public class Model {
     private ISignal[] signals = new ISignal[2];
+    private Statistics[] stats = new Statistics[2];
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -17,6 +19,7 @@ public class Model {
 
     public void setSignal(int index, int type, SignalPanel sp) {
         ISignal signal;
+
         int firstSample = (int) sp.getFirstSample().getValue();
         int lastSample = (int) sp.getLastSample().getValue();
         double amplitude = (double) sp.getAmplitude().getValue();
@@ -66,5 +69,10 @@ public class Model {
         }
 
         signals[index] = signal;
+        stats[index] = new Statistics(signal);
+    }
+
+    public Statistics getStats(int index) {
+        return stats[index];
     }
 }

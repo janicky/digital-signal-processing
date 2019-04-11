@@ -3,26 +3,31 @@ package application.controller;
 import application.model.Model;
 import application.view.SignalPanel;
 import application.view.View;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
+import org.apache.commons.lang3.StringUtils;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
+import signal_processing.Signal;
+import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
-import signal_processing.signals.SteadyNoise;
 
 import javax.swing.*;
-import java.awt.*;
+import java.lang.reflect.Method;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Controller {
     private View view;
     private Model model;
     private SignalPanel[] signalPanels = new SignalPanel[2];
+    private DecimalFormat df;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -33,6 +38,19 @@ public class Controller {
         setDefaults();
 //        Actions
         assignActions();
+//        Decimal format
+        setDecimalFormat();
+//        Set signal controls
+        for (int i = 0; i < signalPanels.length; i++) {
+            updateSignalControls(i);
+        }
+    }
+
+    private void setDecimalFormat() {
+        df = new DecimalFormat("0.00000");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        df.setDecimalFormatSymbols(symbols);
     }
 
     private void assignActions() {
@@ -51,16 +69,45 @@ public class Controller {
             signalPanels[i].getJumpPoint().addChangeListener(e -> updateJumpPoint(x));
             signalPanels[i].getSampleJump().addChangeListener(e -> updateSampleJump(x));
             signalPanels[i].getRenderButton().addActionListener(e -> onSignalRender(x));
+            signalPanels[i].getHistogramBins().addChangeListener(e -> onHistogramChange(x));
         }
     }
 
     private void onSignalChange(int index) {
         setSignal(index, signalPanels[index].getSignalType().getSelectedIndex());
+        updateSignalControls(index);
+    }
+
+    private void updateSignalControls(int index) {
+        SignalPanel panel = signalPanels[index];
+        ISignal signal = model.getSignal(index);
+        for (String parameter : Signal.getAllParameters()) {
+            try {
+                Method method = panel.getClass().getMethod("get" + StringUtils.capitalize(parameter));
+                JComponent component = (JComponent) method.invoke(panel, null);
+                boolean exists = Arrays.stream(signal.getAvailableParameters()).anyMatch(parameter::equals);
+                component.setEnabled(exists);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void onSignalRender(int index) {
         model.getSignal(index).updateValues();
+        Statistics stats = model.getStats(index);
         renderSignal(index);
+        renderHistogram(index);
+
+        signalPanels[index].getInfoAverage().setText(df.format(stats.getAverage()));
+        signalPanels[index].getInfoAbsoluteAverage().setText(df.format(stats.getAbsoluteMean()));
+        signalPanels[index].getInfoAveragePower().setText(df.format(stats.getAveragePower()));
+        signalPanels[index].getInfoVariance().setText(df.format(stats.getVariance()));
+        signalPanels[index].getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
+    }
+
+    private void onHistogramChange(int index) {
+        renderHistogram(index);
     }
 
     private void setSignal(int index, int type) {
@@ -77,16 +124,21 @@ public class Controller {
             series.add(x.get(i), y.get(i));
         }
         XYSeriesCollection dataset = new XYSeriesCollection(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("Signal " + index, "x", "y", dataset, PlotOrientation.VERTICAL, false, false, false);
-        panel.add(new ChartPanel(chart), BorderLayout.CENTER);
-        panel.validate();
-        view.getMainPanel().validate();
+        view.renderSignal(index, signal, dataset);
+        signalPanels[index].getHistogramBins().setEnabled(true);
+    }
 
-        if (index == 0) {
-            view.hideNoSignal1();
-        } else {
-            view.hideNoSignal2();
+    private void renderHistogram(int index) {
+        ISignal signal = model.getSignal(index);
+        HistogramDataset dataset = new HistogramDataset();
+        dataset.setType(HistogramType.RELATIVE_FREQUENCY);
+        double[] values = new double[signal.getValuesY().size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = signal.getValuesY().get(i);
         }
+        int bins = signalPanels[index].getHistogramBins().getValue();
+        dataset.addSeries("H1", values, bins, Collections.min(signal.getValuesY()), Collections.max(signal.getValuesY()));
+        view.renderHistogram(index, dataset);
     }
 
     private void setDefaults() {

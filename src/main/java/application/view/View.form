@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="966" height="718"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -117,7 +117,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="548a1" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="e4c50" binding="histogramChart3" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="422" height="327"/>
@@ -132,7 +132,7 @@
                   <color color="-6705727"/>
                 </border>
                 <children>
-                  <component id="15cb9" class="javax.swing.JLabel" binding="noHistogram2">
+                  <component id="d12f6" class="javax.swing.JLabel" binding="noHistogram2">
                     <constraints border-constraint="Center"/>
                     <properties>
                       <font name="Roboto Light" size="15"/>

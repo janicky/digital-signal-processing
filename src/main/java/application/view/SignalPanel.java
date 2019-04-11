@@ -22,9 +22,14 @@ public class SignalPanel extends JPanel {
     private JLabel probabilityValue;
     private JSpinner jumpPoint;
     private JSpinner sampleJump;
-    private JPanel infoAverage;
+    private JLabel infoAverage;
     private JLabel infoAbsoluteAverage;
     private JButton renderButton;
+    private JLabel infoAveragePower;
+    private JLabel infoVariance;
+    private JLabel infoRootMeanSquare;
+    private JSlider histogramBins;
+    private JLabel histogramBinsValue;
     private SpinnerNumberModel lastSampleModel;
 
     private DecimalFormat df;
@@ -36,10 +41,13 @@ public class SignalPanel extends JPanel {
     private void initializeView() {
         firstSample.addChangeListener(e -> onFirstSampleChange());
         probability.addChangeListener(e -> onProbabilityChange());
+        histogramBins.addChangeListener(e -> onHistogramBinsChange());
 //        Set models
         setInputModels();
 //        Set decimal format
         setDecimalFormat();
+
+        histogramBins.setEnabled(false);
     }
 
     private void setInputModels() {
@@ -53,7 +61,7 @@ public class SignalPanel extends JPanel {
         startTime.setModel(new SpinnerNumberModel(0.0, 0.0, 999999.0, 0.1));
         endTime.setModel(new SpinnerNumberModel(200.0, 0.1, 999999.0, 0.1));
 //        Frequency & amplitude
-        frequency.setModel(new SpinnerNumberModel(1.0, 0.0, 999999.0, 0.1));
+        frequency.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
         amplitude.setModel(new SpinnerNumberModel(1.0, 0.1, 999999.0, 0.1));
 //        Period & duty cycle
         basicPeriod.setModel(new SpinnerNumberModel(0.0, -999999.0, 999999.0, 0.1));
@@ -83,6 +91,10 @@ public class SignalPanel extends JPanel {
     private void onProbabilityChange() {
         double p = probability.getValue() / 100.0;
         probabilityValue.setText(df.format(p));
+    }
+
+    private void onHistogramBinsChange() {
+        histogramBinsValue.setText(Integer.toString(histogramBins.getValue()));
     }
 
     public JComboBox getSignalType() {
@@ -141,5 +153,27 @@ public class SignalPanel extends JPanel {
         return renderButton;
     }
 
+    public JSlider getHistogramBins() {
+        return histogramBins;
+    }
 
+    public JLabel getInfoAverage() {
+        return infoAverage;
+    }
+
+    public JLabel getInfoAbsoluteAverage() {
+        return infoAbsoluteAverage;
+    }
+
+    public JLabel getInfoAveragePower() {
+        return infoAveragePower;
+    }
+
+    public JLabel getInfoVariance() {
+        return infoVariance;
+    }
+
+    public JLabel getInfoRootMeanSquare() {
+        return infoRootMeanSquare;
+    }
 }
