@@ -96,6 +96,28 @@ public class Controller {
                 System.out.println(e.getMessage());
             }
         }
+
+        signalPanels[index].getFirstSample().setValue(signal.getFirstSample());
+        signalPanels[index].getLastSample().setValue(signal.getLastSample());
+        signalPanels[index].getAmplitude().setValue(signal.getAmplitude());
+        signalPanels[index].getStartTime().setValue(signal.getStartTime());
+        signalPanels[index].getEndTime().setValue(signal.getEndTime());
+        signalPanels[index].getFrequency().setValue(signal.getFrequency());
+        signalPanels[index].getBasicPeriod().setValue(signal.getBasicPeriod());
+        signalPanels[index].getFillingFactor().setValue(signal.getFillingFactor());
+
+        if (signal.getClass().getName().equals("ImpulseNoise")) {
+            ImpulseNoise tmp = (ImpulseNoise) signal;
+            signalPanels[index].getProbability().setValue((int) (tmp.getProbability() * 100));
+        }
+        if (signal.getClass().getName().equals("IndividualJumpSignal")) {
+            IndividualJumpSignal tmp = (IndividualJumpSignal) signal;
+            signalPanels[index].getJumpPoint().setValue(tmp.getJumpPoint());
+        }
+        if (signal.getClass().getName().equals("IndividualImpulseSignal")) {
+            IndividualImpulseSignal tmp = (IndividualImpulseSignal) signal;
+            signalPanels[index].getSampleJump().setValue(tmp.getSampleJump());
+        }
     }
 
     private void onSignalRender(int index) {
@@ -147,7 +169,7 @@ public class Controller {
     }
 
     private void setSignal(int index, int type) {
-        model.setSignal(index, type, signalPanels[index]);
+        model.setSignal(index, type);
     }
 
     private void generateSignal() {
