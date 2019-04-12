@@ -17,7 +17,7 @@ public class ImpulseNoise extends Signal {
 
     public ImpulseNoise() {
         super(0, 200);
-        probability = 50;
+        probability = 0.05;
     }
 
     public double getValue(double x, double k) {
@@ -33,7 +33,7 @@ public class ImpulseNoise extends Signal {
         y.clear();
         for (int i = getFirstSample(); i <= getLastSample(); i++ ){
             x.add((double) i);
-            y.add(getValue(0, 0));
+            y.add(getValue(i, 0));
         }
     }
 

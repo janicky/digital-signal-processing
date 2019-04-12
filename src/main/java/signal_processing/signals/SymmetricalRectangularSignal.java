@@ -21,17 +21,17 @@ public class SymmetricalRectangularSignal extends Signal {
         setAmplitude(1);
         setStartTime(0);
         setEndTime(200);
-        setBasicPeriod(1);
-        setFillingFactor(1);
+        setBasicPeriod(100);
+        setFillingFactor(0.5);
         setFrequency(1);
     }
 
     public double getValue(double x, double k) {
         if (((x) >= getBasicPeriod()  + getStartTime()) &&
-            ((x) < getFillingFactor() * getBasicPeriod() +  getBasicPeriod() +getStartTime()) ) {
+            ((x) < getFillingFactor() * getBasicPeriod() +  k * getBasicPeriod() + getStartTime()) ) {
             return getAmplitude();
-        } else if ((x) >= (getFillingFactor() * getBasicPeriod() +  getBasicPeriod() + getStartTime()) ||
-                ((x) < ( getBasicPeriod() + getStartTime()))) {
+        } else if ((x) >= (getFillingFactor() * getBasicPeriod() + k * getBasicPeriod() + getStartTime()) ||
+                ((x) < (k * getBasicPeriod() + getStartTime()))) {
             return (-getAmplitude());
         }
         return 0d;

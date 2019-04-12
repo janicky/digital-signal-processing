@@ -24,13 +24,13 @@ public class IndividualJumpSignal extends Signal {
         setStartTime(0);
         setEndTime(200);
         setFrequency(1);
-        jumpPoint = 0;
+        jumpPoint = 100;
     }
 
     public double getValue(double x, double k) {
         if (x > jumpPoint) {
             return getAmplitude();
-        } else if (x < jumpPoint) {
+        } else if (x == jumpPoint) {
             return getAmplitude() / 2;
         } else {
             return 0d;

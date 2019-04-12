@@ -14,7 +14,7 @@ public class IndividualImpulseSignal extends Signal {
 
     public IndividualImpulseSignal() {
         super(0, 200);
-        sampleJump = 0;
+        sampleJump = 100;
     }
 
     public double getValue(double x, double k) {
@@ -28,8 +28,7 @@ public class IndividualImpulseSignal extends Signal {
     public void updateValues() {
         x.clear();
         y.clear();
-        int samples = (int) (getFrequency() * getEndTime());
-        for (int i = getFirstSample(); i <= samples; i++) {
+        for (int i = getFirstSample(); i <= getLastSample(); i++) {
             x.add((double) i);
             y.add(getValue(i, 0));
         }

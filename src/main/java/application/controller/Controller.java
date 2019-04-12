@@ -106,15 +106,15 @@ public class Controller {
         signalPanels[index].getBasicPeriod().setValue(signal.getBasicPeriod());
         signalPanels[index].getFillingFactor().setValue(signal.getFillingFactor());
 
-        if (signal.getClass().getName().equals("ImpulseNoise")) {
+        if (signal.getClass().getName().equals("signal_processing.signals.ImpulseNoise")) {
             ImpulseNoise tmp = (ImpulseNoise) signal;
             signalPanels[index].getProbability().setValue((int) (tmp.getProbability() * 100));
         }
-        if (signal.getClass().getName().equals("IndividualJumpSignal")) {
+        if (signal.getClass().getName().equals("signal_processing.signals.IndividualJumpSignal")) {
             IndividualJumpSignal tmp = (IndividualJumpSignal) signal;
             signalPanels[index].getJumpPoint().setValue(tmp.getJumpPoint());
         }
-        if (signal.getClass().getName().equals("IndividualImpulseSignal")) {
+        if (signal.getClass().getName().equals("signal_processing.signals.IndividualImpulseSignal")) {
             IndividualImpulseSignal tmp = (IndividualImpulseSignal) signal;
             signalPanels[index].getSampleJump().setValue(tmp.getSampleJump());
         }
@@ -245,19 +245,19 @@ public class Controller {
         model.getSignal(index).setFillingFactor((double) signalPanels[index].getFillingFactor().getValue());
     }
     private void updateProbability(int index) {
-        if (model.getSignal(index).getClass().getName().equals("ImpulseNoise")) {
+        if (model.getSignal(index).getClass().getName().equals("signal_processing.signals.ImpulseNoise")) {
             ImpulseNoise signal = (ImpulseNoise) model.getSignal(index);
-            signal.setProbability((double) signalPanels[index].getProbability().getValue());
+            signal.setProbability((double) (signalPanels[index].getProbability().getValue() / 100d));
         }
     }
     private void updateJumpPoint(int index) {
-        if (model.getSignal(index).getClass().getName().equals("IndividualJumpSignal")) {
+        if (model.getSignal(index).getClass().getName().equals("signal_processing.signals.IndividualJumpSignal")) {
             IndividualJumpSignal signal = (IndividualJumpSignal) model.getSignal(index);
             signal.setJumpPoint((double) signalPanels[index].getJumpPoint().getValue());
         }
     }
     private void updateSampleJump(int index) {
-        if (model.getSignal(index).getClass().getName().equals("IndividualImpulseSignal")) {
+        if (model.getSignal(index).getClass().getName().equals("signal_processing.signals.IndividualImpulseSignal")) {
             IndividualImpulseSignal signal = (IndividualImpulseSignal) model.getSignal(index);
             signal.setSampleJump((double) signalPanels[index].getSampleJump().getValue());
         }
