@@ -126,7 +126,6 @@ public class View {
         JPanel signalPanel = operationsPanel.getSignalPanel();
         if (signalPanel.getComponentCount() != 2) {
             signalPanel.add(chartPanel5);
-            System.out.println("Test");
             signalPanel.validate();
             operationsPanel.getNoSignal().setVisible(false);
         }

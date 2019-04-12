@@ -114,6 +114,6 @@ public class OperationsPanel extends JPanel {
     }
 
     public int getOrder() {
-        return (operationsSignalA.equals(signals[0]) ? 0 : 1);
+        return (operationsSignalA.getText().equals(signals[0]) ? 0 : 1);
     }
 }

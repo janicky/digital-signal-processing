@@ -11,12 +11,14 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
+import signal_processing.helpers.FileUtils;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -75,6 +77,7 @@ public class Controller {
             signalPanels[i].getHistogramBins().addChangeListener(e -> onHistogramChange(x));
         }
         operationsPanel.getPreviewButton().addActionListener(e -> onPreview());
+        operationsPanel.getExportButton().addActionListener(e -> onExport());
     }
 
     private void onSignalChange(int index) {
@@ -166,6 +169,14 @@ public class Controller {
         operationsPanel.getInfoAveragePower().setText(df.format(stats.getAveragePower()));
         operationsPanel.getInfoVariance().setText(df.format(stats.getVariance()));
         operationsPanel.getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
+    }
+
+    public void onExport() {
+//        try {
+////            FileUtils.saveSignal(model.getGeneratedSignal(), "K:\\CPS\\signal.bin");
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     private void setSignal(int index, int type) {
