@@ -22,7 +22,7 @@ public class RectangularSignal extends Signal {
         setAmplitude(1);
         setStartTime(0);
         setEndTime(200);
-        setBasicPeriod(100);
+        setBasicPeriod(200);
         setFillingFactor(0.5);
         setFrequency(1);
     }

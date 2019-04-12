@@ -23,7 +23,7 @@ public class TriangularSignal extends Signal {
         setStartTime(0);
         setEndTime(200);
         setFrequency(1);
-        setBasicPeriod(100);
+        setBasicPeriod(200);
         setFillingFactor(0.5);
     }
 

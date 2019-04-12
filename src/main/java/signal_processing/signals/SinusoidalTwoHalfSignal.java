@@ -23,7 +23,7 @@ public class SinusoidalTwoHalfSignal extends Signal {
         setStartTime(0);
         setEndTime(800);
         setFrequency(1);
-        setBasicPeriod(400);
+        setBasicPeriod(200);
     }
 
     public double getValue(double x, double k) {

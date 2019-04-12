@@ -22,7 +22,7 @@ public class SinusoidalOneHalfSignal extends Signal {
         setAmplitude(1);
         setStartTime(0);
         setEndTime(800);
-        setBasicPeriod(400);
+        setBasicPeriod(200);
         setFrequency(1);
     }
 
