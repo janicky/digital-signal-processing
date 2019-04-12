@@ -162,6 +162,10 @@ public class View {
         operationsPanel.enableButtons();
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
+
     public JPanel getMainPanel() {
         return mainPanel;
     }

@@ -32,6 +32,7 @@ public class Controller {
     private SignalPanel[] signalPanels = new SignalPanel[2];
     private OperationsPanel operationsPanel;
     private DecimalFormat df;
+    private JFileChooser fileChooser;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -172,11 +173,17 @@ public class Controller {
     }
 
     public void onExport() {
-//        try {
-////            FileUtils.saveSignal(model.getGeneratedSignal(), "K:\\CPS\\signal.bin");
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
+        fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String selectedFile = fileChooser.getSelectedFile().getPath();
+            try {
+                FileUtils.saveSignal(model.getGeneratedSignal(), selectedFile);
+            } catch (IOException ex) {
+                String message = "Could not load file: " + selectedFile;
+                JOptionPane.showMessageDialog(view.getFrame(), message, "Saving error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void setSignal(int index, int type) {
