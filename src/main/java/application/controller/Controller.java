@@ -203,7 +203,6 @@ public class Controller {
             try {
                 ISignal signal = FileUtils.loadSignal(selectedFile);
                 model.setSignal(index, signal);
-                System.out.println(signal.getValuesY());
                 renderSignal(index);
                 renderHistogram(index);
                 SignalPanel signalPanel = signalPanels[index];
