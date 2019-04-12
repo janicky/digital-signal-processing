@@ -28,6 +28,8 @@ public class Model {
 
     public ISignal getIdentifiedSignal(int type) {
         switch (type) {
+            case 0:
+                return new SteadyNoise();
             case 1:
                 return  new GaussianNoise();
             case 2:
@@ -49,7 +51,7 @@ public class Model {
             case 10:
                 return new IndividualImpulseSignal();
             default:
-                return new SteadyNoise();
+                return new GeneratedSignal();
         }
     }
 

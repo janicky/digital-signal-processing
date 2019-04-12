@@ -11,12 +11,14 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
+import signal_processing.helpers.FileUtils;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,6 +32,7 @@ public class Controller {
     private SignalPanel[] signalPanels = new SignalPanel[2];
     private OperationsPanel operationsPanel;
     private DecimalFormat df;
+    private JFileChooser fileChooser;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -75,11 +78,19 @@ public class Controller {
             signalPanels[i].getHistogramBins().addChangeListener(e -> onHistogramChange(x));
         }
         operationsPanel.getPreviewButton().addActionListener(e -> onPreview());
+        operationsPanel.getExportButton().addActionListener(e -> onExport());
+
+        view.getFile_item_1().addActionListener(e -> onImport(0));
+        view.getFile_item_2().addActionListener(e -> onImport(1));
     }
 
     private void onSignalChange(int index) {
-        setSignal(index, signalPanels[index].getSignalType().getSelectedIndex());
-        updateSignalControls(index);
+        int selectedSignal = signalPanels[index].getSignalType().getSelectedIndex();
+
+        if (selectedSignal != 11) {
+            setSignal(index, selectedSignal);
+            updateSignalControls(index);
+        }
     }
 
     private void updateSignalControls(int index) {
@@ -166,6 +177,49 @@ public class Controller {
         operationsPanel.getInfoAveragePower().setText(df.format(stats.getAveragePower()));
         operationsPanel.getInfoVariance().setText(df.format(stats.getVariance()));
         operationsPanel.getInfoRootMeanSquare().setText(df.format(stats.getEffectiveValue()));
+    }
+
+    public void onExport() {
+        fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String selectedFile = fileChooser.getSelectedFile().getPath();
+            try {
+                generateSignal();
+                FileUtils.saveSignal(model.getGeneratedSignal(), selectedFile);
+                JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                String message = "Could not save file: " + selectedFile;
+                JOptionPane.showMessageDialog(view.getFrame(), message, "Saving error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void onImport(int index) {
+        fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(view.getMainPanel());
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String selectedFile = fileChooser.getSelectedFile().getPath();
+            try {
+                ISignal signal = FileUtils.loadSignal(selectedFile);
+                model.setSignal(index, signal);
+                System.out.println(signal.getValuesY());
+                renderSignal(index);
+                renderHistogram(index);
+                SignalPanel signalPanel = signalPanels[index];
+                signalPanel.getSignalType().setSelectedIndex(11);
+                updateSignalControls(index);
+
+                signal.setRendered(true);
+                if (model.isBothSignalsRendered()) {
+                    view.enableOperationsButtons();
+                }
+
+            } catch (IOException ex) {
+                String message = "Could not import file: " + selectedFile;
+                JOptionPane.showMessageDialog(view.getFrame(), message, "Loading error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void setSignal(int index, int type) {

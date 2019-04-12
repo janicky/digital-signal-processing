@@ -14,37 +14,34 @@ public class Operations {
         List<Double> tempX = new ArrayList<>();
         List<Double> tempY = new ArrayList<>();
         List<Double> tempList = new ArrayList<>();
-        int count1 = 0;
-        int count2 = 0;
 
         for (int i = 0; i < signal1.getValuesX().size(); i++) {
+            int count = 0;
             for (int j = 0; j < signal2.getValuesY().size(); j++) {
-                if (signal1.getValuesX().get(i) == signal2.getValuesX().get(j)) {
+                if (signal1.getValuesX().get(i).equals(signal2.getValuesX().get(j))) {
                     tempX.add(signal1.getValuesX().get(i));
                     tempY.add(signal1.getValuesY().get(i) * signal2.getValuesY().get(j));
-                    count1++;
+                    count++;
                     tempList.add((double) j);
                 }
             }
-            if (count1 == 0) {
+            if (count == 0) {
                 tempX.add(signal1.getValuesX().get(i));
                 tempY.add(0d);
             }
-            count1 = 0;
-
         }
 
         for (int k = 0; k < signal2.getValuesX().size(); k++) {
+            int count = 0;
             for (int l = 0; l < tempList.size(); l++) {
                 if (k == tempList.get(l)) {
-                    count2++;
+                    count++;
                 }
             }
-            if (count2 == 0) {
+            if (count == 0) {
                 tempX.add(signal2.getValuesX().get(k));
                 tempY.add(0d);
             }
-            count2 = 0;
         }
 
         calculatedSignal.setValuesX(tempX);
@@ -58,36 +55,33 @@ public class Operations {
         List<Double> tempY = new ArrayList<>();
         List<Double> tempList = new ArrayList<>();
 
-        int count1 = 0;
-        int count2 = 0;
-
         for (int i = 0; i < signal1.getValuesX().size(); i++) {
+            int count = 0;
             for (int j = 0; j < signal2.getValuesX().size(); j++) {
-                if (signal1.getValuesX().get(i) == signal2.getValuesX().get(i)) {
+                if (signal1.getValuesX().get(i).equals(signal2.getValuesX().get(j))) {
                     tempX.add(signal1.getValuesX().get(i));
                     tempY.add(signal1.getValuesY().get(i) + signal2.getValuesY().get(j));
-                    count1++;
+                    count++;
                     tempList.add((double) j);
                 }
             }
-            if (count1 == 0) {
+            if (count == 0) {
                 tempX.add(signal1.getValuesX().get(i));
                 tempY.add(signal1.getValuesY().get(i));
             }
-            count1 = 0;
         }
 
         for (int k = 0; k < signal2.getValuesX().size(); k++) {
-            for (int l = 0; l <tempList.size(); l++) {
+            int count = 0;
+            for (int l = 0; l < tempList.size(); l++) {
                 if (k == tempList.get(l)) {
-                    count2++;
+                    count++;
                 }
             }
-            if (count2 == 0) {
+            if (count == 0) {
                 tempX.add(signal2.getValuesX().get(k));
                 tempY.add(signal2.getValuesY().get(k));
             }
-            count2 = 0;
         }
 
         calculatedSignal.setValuesX(tempX);
@@ -100,38 +94,36 @@ public class Operations {
         List<Double> tempX = new ArrayList<>();
         List<Double> tempY = new ArrayList<>();
         List<Double> tempList = new ArrayList<>();
-        int count1 = 0;
-        int count2 = 0;
 
         for (int i = 0; i < signal1.getValuesX().size(); i++) {
+            int count = 0;
             for (int j = 0; j < signal2.getValuesX().size(); j++) {
-                if (signal1.getValuesX().get(i) == signal2.getValuesX().get(j)) {
+                if (signal1.getValuesX().get(i).equals(signal2.getValuesX().get(j))) {
                     if (signal2.getValuesY().get(j) != 0) {
                         tempX.add(signal1.getValuesX().get(i));
                         tempY.add(signal1.getValuesY().get(i) / signal2.getValuesY().get(j));
                     }
                 }
-                count1++;
+                count++;
                 tempList.add((double) j);
             }
-            if (count1 == 0) {
+            if (count == 0) {
                 tempX.add(signal1.getValuesX().get(i));
                 tempY.add(0d);
             }
-            count1 = 0;
         }
 
         for (int k = 0; k <signal2.getValuesX().size(); k++) {
+            int count = 0;
             for (int l = 0; l < tempList.size(); l++) {
                 if (k == tempList.get(l)) {
-                    count2++;
+                    count++;
                 }
             }
-            if ( count2 == 0) {
+            if (count == 0) {
                 tempX.add(signal2.getValuesX().get(k));
                 tempY.add(0d);
             }
-            count2 = 0;
         }
 
         calculatedSignal.setValuesX(tempX);
@@ -144,36 +136,35 @@ public class Operations {
         List<Double> tempX = new ArrayList<>();
         List<Double> tempY = new ArrayList<>();
         List<Double> tempList = new ArrayList<>();
-        int count1 = 0;
-        int count2 = 0;
 
         for (int i = 0; i < signal1.getValuesX().size(); i++) {
+            int count = 0;
             for (int j = 0; j < signal2.getValuesX().size(); j++) {
-                if (signal1.getValuesX().get(i) == signal2.getValuesX().get(i)) {
+                if (signal1.getValuesX().get(i).equals(signal2.getValuesX().get(j))) {
                     tempX.add(signal1.getValuesX().get(i));
                     tempY.add(signal1.getValuesY().get(i) - signal2.getValuesY().get(j));
-                    count1++;
+                    count++;
                     tempList.add((double) j);
                 }
             }
-            if (count1 == 0) {
+            if (count == 0) {
                 tempX.add(signal1.getValuesX().get(i));
                 tempY.add(signal1.getValuesY().get(i));
             }
-            count1 = 0;
         }
 
         for (int k = 0; k < signal2.getValuesX().size(); k++) {
+            int count = 0;
             for (int l = 0; l <tempList.size(); l++) {
                 if (k == tempList.get(l)) {
-                    count2++;
+                    count++;
                 }
             }
-            if (count2 == 0) {
+            if (count == 0) {
                 tempX.add(signal2.getValuesX().get(k));
                 tempY.add( - signal2.getValuesY().get(k));
             }
-            count2 = 0;
+            count = 0;
         }
 
         calculatedSignal.setValuesX(tempX);

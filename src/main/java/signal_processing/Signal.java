@@ -99,7 +99,8 @@ public abstract class Signal implements ISignal {
                 "Symetrical Rectangular",
                 "Triangular",
                 "Individual Jump",
-                "Individual Impulse"
+                "Individual Impulse",
+                "Custom signal"
         };
     }
 
