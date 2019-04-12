@@ -71,6 +71,7 @@ public class FileUtils {
         signal.setValuesX(x);
         signal.setValuesY(y);
 
+        dis.close();
         return signal;
     }
 }

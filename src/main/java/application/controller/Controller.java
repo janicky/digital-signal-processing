@@ -79,11 +79,18 @@ public class Controller {
         }
         operationsPanel.getPreviewButton().addActionListener(e -> onPreview());
         operationsPanel.getExportButton().addActionListener(e -> onExport());
+
+        view.getFile_item_1().addActionListener(e -> onImport(0));
+        view.getFile_item_2().addActionListener(e -> onImport(1));
     }
 
     private void onSignalChange(int index) {
-        setSignal(index, signalPanels[index].getSignalType().getSelectedIndex());
-        updateSignalControls(index);
+        int selectedSignal = signalPanels[index].getSignalType().getSelectedIndex();
+
+        if (selectedSignal != 11) {
+            setSignal(index, selectedSignal);
+            updateSignalControls(index);
+        }
     }
 
     private void updateSignalControls(int index) {
@@ -178,10 +185,39 @@ public class Controller {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             String selectedFile = fileChooser.getSelectedFile().getPath();
             try {
+                generateSignal();
                 FileUtils.saveSignal(model.getGeneratedSignal(), selectedFile);
+                JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                String message = "Could not load file: " + selectedFile;
+                String message = "Could not save file: " + selectedFile;
                 JOptionPane.showMessageDialog(view.getFrame(), message, "Saving error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void onImport(int index) {
+        fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(view.getMainPanel());
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String selectedFile = fileChooser.getSelectedFile().getPath();
+            try {
+                ISignal signal = FileUtils.loadSignal(selectedFile);
+                model.setSignal(index, signal);
+                System.out.println(signal.getValuesY());
+                renderSignal(index);
+                renderHistogram(index);
+                SignalPanel signalPanel = signalPanels[index];
+                signalPanel.getSignalType().setSelectedIndex(11);
+                updateSignalControls(index);
+
+                signal.setRendered(true);
+                if (model.isBothSignalsRendered()) {
+                    view.enableOperationsButtons();
+                }
+
+            } catch (IOException ex) {
+                String message = "Could not import file: " + selectedFile;
+                JOptionPane.showMessageDialog(view.getFrame(), message, "Loading error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

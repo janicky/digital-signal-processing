@@ -33,6 +33,8 @@ public class View {
     private ChartPanel chartPanel3;
     private ChartPanel chartPanel4;
     private ChartPanel chartPanel5;
+    private JMenuItem file_item_1;
+    private JMenuItem file_item_2;
 
     public View(String title) {
         frame = new JFrame(title);
@@ -69,9 +71,11 @@ public class View {
         JMenu file = new JMenu("File");
         menuBar.add(file);
 
-        JMenuItem file_item_1 = new JMenuItem("Load file");
+        file_item_1 = new JMenuItem("Import Signal 1");
+        file_item_2 = new JMenuItem("Import Signal 2");
 
         file.add(file_item_1);
+        file.add(file_item_2);
         frame.setJMenuBar(menuBar);
     }
 
@@ -216,5 +220,13 @@ public class View {
     }
     public int getOrder() {
         return operationsPanel.getOrder();
+    }
+
+    public JMenuItem getFile_item_1() {
+        return file_item_1;
+    }
+
+    public JMenuItem getFile_item_2() {
+        return file_item_2;
     }
 }

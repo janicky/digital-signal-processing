@@ -176,4 +176,6 @@ public class SignalPanel extends JPanel {
     public JLabel getInfoRootMeanSquare() {
         return infoRootMeanSquare;
     }
+
+
 }
