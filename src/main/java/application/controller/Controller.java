@@ -79,6 +79,8 @@ public class Controller {
         }
         operationsPanel.getPreviewButton().addActionListener(e -> onPreview());
         operationsPanel.getExportButton().addActionListener(e -> onExport());
+        operationsPanel.getSetAsSignal1Button().addActionListener(e -> onSetAsSignal(0));
+        operationsPanel.getSetAsSignal2Button().addActionListener(e -> onSetAsSignal(1));
 
         view.getFile_item_1().addActionListener(e -> onImport(0));
         view.getFile_item_2().addActionListener(e -> onImport(1));
@@ -91,6 +93,12 @@ public class Controller {
             setSignal(index, selectedSignal);
             updateSignalControls(index);
         }
+    }
+
+    public void onSetAsSignal(int index) {
+        generateSignal();
+        model.setSignal(index, model.getGeneratedSignal());
+        onSignalRender(index);
     }
 
     private void updateSignalControls(int index) {
