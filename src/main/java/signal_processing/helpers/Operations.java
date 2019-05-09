@@ -269,4 +269,25 @@ public class Operations {
         }
     }
 
+    public static ISignal zeroExploration(ISignal signal, double reconstructionFrequency) {
+        ISignal sampledSignal = sampling(signal, reconstructionFrequency);
+        ISignal reconstructedSignal = new GeneratedSignal();
+        double step = 1 / signal.getFrequency();
+        int nextIndex = 1;
+        double lastValue = sampledSignal.getValuesY().get(0);;
+        double sampledSignalSize = sampledSignal.getValuesX().size();
+        double sampledSignalZeroX = sampledSignal.getValuesX().get(0);
+
+        for (Double i = sampledSignalZeroX; i <= sampledSignal.getValuesX().get((int)sampledSignalSize - 1); i += step) {
+            if (nextIndex < sampledSignalSize && sampledSignal.getValuesX().get(nextIndex) <= i) {
+                lastValue = sampledSignal.getValuesY().get(nextIndex);
+                nextIndex++;
+            }
+            reconstructedSignal.getValuesX().add(i);
+            reconstructedSignal.getValuesX().add(lastValue);
+        }
+
+        return reconstructedSignal;
+    }
+
 }
