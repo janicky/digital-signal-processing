@@ -172,5 +172,26 @@ public class Operations {
         return calculatedSignal;
     }
 
+    public static ISignal sampling(ISignal signal, double samples) {
+        GeneratedSignal sampledSignal = new GeneratedSignal();
+
+        int i = 0;
+        int stepNominator = 0;
+        Double start = signal.getStartTime();
+
+        while(start < signal.getLastSample()) {
+            double startTmp = (stepNominator / samples) + signal.getStartTime();
+            start = startTmp;
+            if (signal.getValuesX().get(i) >= start) {
+                sampledSignal.getValuesX().add(start);
+                sampledSignal.getValuesY().add(signal.getValuesY().get(i));
+                stepNominator++;
+            }
+            i++;
+        }
+
+        return sampledSignal;
+    }
+
 
 }
