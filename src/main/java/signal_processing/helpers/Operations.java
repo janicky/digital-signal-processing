@@ -195,7 +195,7 @@ public class Operations {
         return sampledSignal;
     }
 
-    public static ISignal quantization(ISignal signal, int bits) {
+    public static ISignal quantizationBits(ISignal signal, int bits) {
         ISignal quantizedSignal = signal.copy();
 
         List<Double> levels = new ArrayList<Double>();
@@ -216,6 +216,28 @@ public class Operations {
         }
 
         return  quantizedSignal;
+    }
+
+    public static ISignal quantizationLevels(ISignal signal, int numberOfLevels) {
+        ISignal quantizedSignal = signal.copy();
+        double max = Collections.max(signal.getValuesY());
+        double min = Collections.min(signal.getValuesY());
+        double step = (Math.abs(max-min)) / (numberOfLevels - 1);
+        List<Double> levels = new ArrayList<Double>();
+
+        for (int i = 0; i < numberOfLevels; i++) {
+            levels.add(min + i * step);
+        }
+
+        for (int i = 0; i < signal.getValuesX().size(); i++) {
+            quantizedSignal.getValuesX().add(signal.getValuesX().get(i));
+
+            final int j = i;
+            Collections.sort(levels, Ordering.natural().onResultOf(p -> Math.abs(signal.getValuesY().get(j) - p)));
+            quantizedSignal.getValuesY().add(levels.get(0));
+        }
+
+        return quantizedSignal;
     }
 
 
