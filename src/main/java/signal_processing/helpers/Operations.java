@@ -240,5 +240,33 @@ public class Operations {
         return quantizedSignal;
     }
 
+    public static ISignal reconstruction(ISignal signal, double reconstructionsFrequency) {
+        double step = 1 / signal.getFrequency();
+        ISignal sampledSignal = sampling(signal, reconstructionsFrequency);
+        ISignal reconstructedSignal = new GeneratedSignal();
+        double sincSum;
+        double sampledSignalSize = sampledSignal.getValuesX().size();
+        double sampledSignalZeroX = sampledSignal.getValuesX().get(0);
+
+        for (Double i = sampledSignalZeroX; i <= sampledSignal.getValuesX().get((int)sampledSignalSize - 1); i += step) {
+            sincSum = 0d;
+
+            for (int j = 0; j < sampledSignalSize; j++) {
+                sincSum += sampledSignal.getValuesY().get(j) * sinc(i / (1 / reconstructionsFrequency) - 1);
+            }
+            reconstructedSignal.getValuesX().add(i);
+            reconstructedSignal.getValuesY().add(sincSum);
+        }
+
+        return reconstructedSignal;
+    }
+
+    public static double sinc(double t) {
+        if (Math.abs(t - 0d) < 0.0001) {
+            return 1d;
+        } else {
+            return Math.sin(t * Math.PI) / (t * Math.PI);
+        }
+    }
 
 }
