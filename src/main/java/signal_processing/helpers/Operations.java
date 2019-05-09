@@ -3,8 +3,10 @@ package signal_processing.helpers;
 import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.signals.GeneratedSignal;
+import com.google.common.collect.Ordering;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Operations {
@@ -191,6 +193,29 @@ public class Operations {
         }
 
         return sampledSignal;
+    }
+
+    public static ISignal quantization(ISignal signal, int bits) {
+        ISignal quantizedSignal = signal.copy();
+
+        List<Double> levels = new ArrayList<Double>();
+        double max = Collections.max(signal.getValuesY());
+        double min = Collections.min(signal.getValuesY());
+        double q = (Math.abs(max-min)) / (Math.pow(2, bits) - 1);
+
+        for (int i = 0; i < Math.pow(2, bits); i++) {
+            levels.add(min + i * q);
+        }
+
+        for (int i = 0; i < signal.getValuesX().size(); i++) {
+            quantizedSignal.getValuesX().add(signal.getValuesX().get(i));
+
+            final int j = i;
+            Collections.sort(levels, Ordering.natural().onResultOf(p -> Math.abs(signal.getValuesY().get(j) - p)));
+            quantizedSignal.getValuesY().add(levels.get(0));
+        }
+
+        return  quantizedSignal;
     }
 
 
