@@ -1,5 +1,6 @@
 package signal_processing.signals;
 
+import signal_processing.ISignal;
 import signal_processing.Signal;
 
 // Impuls jednostkowy
@@ -52,5 +53,13 @@ public class IndividualImpulseSignal extends Signal {
                 "lastSample",
                 "sampleJump"
         };
+    }
+
+    @Override
+    public ISignal copy() {
+        IndividualImpulseSignal signal = (IndividualImpulseSignal) super.copy();
+        signal.setSampleJump(sampleJump);
+
+        return signal;
     }
 }

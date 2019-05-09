@@ -27,4 +27,5 @@ public interface ISignal {
     List<Double> getValuesY();
     boolean isRendered();
     void setRendered(boolean value);
+    ISignal copy();
 }

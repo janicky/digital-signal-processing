@@ -1,5 +1,8 @@
 package signal_processing;
 
+import signal_processing.signals.GeneratedSignal;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -134,5 +137,26 @@ public abstract class Signal implements ISignal {
 
     public void setRendered(boolean rendered) {
         isRendered = rendered;
+    }
+
+    public ISignal copy() {
+        ISignal signal;
+        try {
+            signal = getClass().getConstructor().newInstance();
+        } catch (Exception e) {
+            signal = new GeneratedSignal();
+        }
+
+        signal.setFirstSample(firstSample);
+        signal.setLastSample(lastSample);
+        signal.setAmplitude(amplitude);
+        signal.setStartTime(startTime);
+        signal.setEndTime(endTime);
+        signal.setFrequency(frequency);
+        signal.setBasicPeriod(basicPeriod);
+        signal.setFillingFactor(fillingFactor);
+        signal.updateValues();
+
+        return signal;
     }
 }

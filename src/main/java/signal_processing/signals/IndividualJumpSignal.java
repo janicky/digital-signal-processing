@@ -1,5 +1,6 @@
 package signal_processing.signals;
 
+import signal_processing.ISignal;
 import signal_processing.Signal;
 
 // Skok jednostkowy
@@ -70,5 +71,13 @@ public class IndividualJumpSignal extends Signal {
                 "frequency",
                 "jumpPoint"
         };
+    }
+
+    @Override
+    public ISignal copy() {
+        IndividualJumpSignal signal = (IndividualJumpSignal) super.copy();
+        signal.setJumpPoint(jumpPoint);
+
+        return signal;
     }
 }

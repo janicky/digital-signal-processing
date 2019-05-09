@@ -1,5 +1,6 @@
 package signal_processing.signals;
 
+import signal_processing.ISignal;
 import signal_processing.Signal;
 import java.util.Random;
 
@@ -55,5 +56,13 @@ public class ImpulseNoise extends Signal {
                 "lastSample",
                 "probability"
         };
+    }
+
+    @Override
+    public ISignal copy() {
+        ImpulseNoise signal = (ImpulseNoise) super.copy();
+        signal.setProbability(probability);
+
+        return signal;
     }
 }
