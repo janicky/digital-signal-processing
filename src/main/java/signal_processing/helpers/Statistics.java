@@ -60,28 +60,28 @@ public class Statistics {
         return Math.sqrt(sum * (1 / signal.getEndTime() + 1));
     }
 
-    // Medium square error
+    // Mean square error
     public double MSE (ISignal signal, ISignal reconstructedSignal) {
-        double mediumSquareError = 0d;
+        double meanSquareError = 0d;
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
 
         for (int i = 0; i < reconstructedSignalSize; i++) {
-            mediumSquareError += Math.pow(signal.getValuesY().get(i) - reconstructedSignal.getValuesY().get(i), 2);
+            meanSquareError += Math.pow(signal.getValuesY().get(i) - reconstructedSignal.getValuesY().get(i), 2);
         }
-        return mediumSquareError / signal.getValuesX().size();
+        return meanSquareError / signal.getValuesX().size();
     }
 
     // Signal noise ratio
     public double SNR(ISignal signal, ISignal reconstructedSignal) {
         double signalNoiseRatio = 0d;
         double sum = 0d;
-        double mediumSquareError = MSE(signal, reconstructedSignal);
+        double meanSquareError = MSE(signal, reconstructedSignal);
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
 
         for (int i = 0; i < reconstructedSignalSize; i++) {
             sum += Math.pow(signal.getValuesY().get(i), 2);
         }
-        signalNoiseRatio = 10 * Math.log10(sum / mediumSquareError);
+        signalNoiseRatio = 10 * Math.log10(sum / meanSquareError);
 
         return signalNoiseRatio;
     }
