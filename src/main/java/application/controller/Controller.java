@@ -6,6 +6,7 @@ import application.view.SamplingPanel;
 import application.view.SignalPanel;
 import application.view.View;
 import org.apache.commons.lang3.StringUtils;
+import org.jfree.chart.JFreeChart;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
 import org.jfree.data.xy.XYSeries;
@@ -13,6 +14,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.helpers.FileUtils;
+import signal_processing.helpers.Operations;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
@@ -21,7 +23,6 @@ import signal_processing.signals.IndividualJumpSignal;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
@@ -93,7 +94,24 @@ public class Controller {
     }
 
     private void onPreviewButtonInSampling(ActionEvent event) {
+        sampleSignal();
+        JFreeChart chart = Operations.getChart(model.getSampledSignal());
+        samplingPanel.displaySignal(chart);
+    }
 
+    private void sampleSignal() {
+        try {
+            int index = model.getSamplingSignal();
+            ISignal signal = model.getSignal(index);
+            if (signal == null) {
+                throw new Exception("Signal not found.");
+            }
+            ISignal sampled = Operations.sampling(signal, model.getSamplingFrequency());
+            model.setSampledSignal(sampled);
+
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
     }
 
     private void setDecimalFormat() {

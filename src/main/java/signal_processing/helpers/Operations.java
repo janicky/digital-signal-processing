@@ -1,5 +1,10 @@
 package signal_processing.helpers;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.signals.GeneratedSignal;
@@ -288,6 +293,29 @@ public class Operations {
         }
 
         return reconstructedSignal;
+    }
+
+    public static JFreeChart getChart(ISignal signal) {
+        final XYSeries series = new XYSeries("data");
+
+        List<Double> x = signal.getValuesX();
+        List<Double> y = signal.getValuesY();
+        for (int i = 0; i < x.size(); i++) {
+            series.add(x.get(i), y.get(i));
+        }
+        XYSeriesCollection dataset = new XYSeriesCollection(series);
+
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                signal.getSignalName(),
+                "x",
+                "y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false);
+
+        return chart;
     }
 
 }

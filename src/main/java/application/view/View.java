@@ -36,6 +36,10 @@ public class View {
     private JMenuItem file_item_1;
     private JMenuItem file_item_2;
 
+    public void displayError(String message) {
+        JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     public View(String title) {
         frame = new JFrame(title);
         createMenu();

@@ -6,6 +6,8 @@ import signal_processing.helpers.Operations;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.*;
 
+import javax.swing.*;
+
 public class Model {
     private ISignal[] signals = new ISignal[2];
     private ISignal generatedSignal;
@@ -13,6 +15,7 @@ public class Model {
     private Statistics generatedStats;
     private double samplingFrequency = 1d;
     private int samplingSignal = 0;
+    private ISignal sampledSignal;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -107,5 +110,13 @@ public class Model {
 
     public void setSamplingSignal(int samplingSignal) {
         this.samplingSignal = samplingSignal;
+    }
+
+    public ISignal getSampledSignal() {
+        return sampledSignal;
+    }
+
+    public void setSampledSignal(ISignal sampledSignal) {
+        this.sampledSignal = sampledSignal;
     }
 }
