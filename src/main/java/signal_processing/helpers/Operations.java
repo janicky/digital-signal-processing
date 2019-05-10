@@ -186,17 +186,22 @@ public class Operations {
         int stepNominator = 0;
         Double start = signal.getStartTime();
 
-        while(start < signal.getLastSample()) {
+        List<Double> tmpX = new ArrayList<>();
+        List<Double> tmpY = new ArrayList<>();
+
+        while(start < signal.getLastSample() && signal.getValuesX().size() >= i) {
             double startTmp = (stepNominator / samples) + signal.getStartTime();
             start = startTmp;
             if (signal.getValuesX().get(i) >= start) {
-                sampledSignal.getValuesX().add(start);
-                sampledSignal.getValuesY().add(signal.getValuesY().get(i));
+                tmpX.add(start);
+                tmpY.add(signal.getValuesY().get(i));
                 stepNominator++;
             }
             i++;
         }
 
+        sampledSignal.setValuesX(tmpX);
+        sampledSignal.setValuesY(tmpY);
         return sampledSignal;
     }
 

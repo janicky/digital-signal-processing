@@ -110,6 +110,7 @@ public class Controller {
             model.setSampledSignal(sampled);
 
         } catch (Exception e) {
+            e.printStackTrace();
             view.displayError(e.getMessage());
         }
     }

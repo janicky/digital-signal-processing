@@ -26,6 +26,7 @@ public class SamplingPanel {
         comboBoxModel.addElement("Signal 2");
         samplingSignal.setModel(comboBoxModel);
         chartPanel = new ChartPanel(null);
+        samplingFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
     }
 
     public JPanel getMainPanel() {
@@ -58,9 +59,11 @@ public class SamplingPanel {
 
     public void displaySignal(JFreeChart chart) {
         chartPanel.setChart(chart);
+        chartPanel.validate();
 
         if (signalPanel.getComponentCount() != 2) {
             signalPanel.add(chartPanel);
+            signalPanel.validate();
         }
     }
 }
