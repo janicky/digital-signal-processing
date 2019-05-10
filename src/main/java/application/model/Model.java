@@ -11,6 +11,8 @@ public class Model {
     private ISignal generatedSignal;
     private Statistics[] stats = new Statistics[2];
     private Statistics generatedStats;
+    private double samplingFrequency = 1d;
+    private int samplingSignal = 0;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -89,5 +91,21 @@ public class Model {
             default:
                 return Operations.getAddSignals(signal1, signal2);
         }
+    }
+
+    public double getSamplingFrequency() {
+        return samplingFrequency;
+    }
+
+    public void setSamplingFrequency(double samplingFrequency) {
+        this.samplingFrequency = samplingFrequency;
+    }
+
+    public int getSamplingSignal() {
+        return samplingSignal;
+    }
+
+    public void setSamplingSignal(int samplingSignal) {
+        this.samplingSignal = samplingSignal;
     }
 }

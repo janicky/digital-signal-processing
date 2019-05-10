@@ -1,7 +1,6 @@
 package signal_processing.helpers;
 
 import signal_processing.ISignal;
-import sun.jvm.hotspot.runtime.StaticBaseConstructor;
 
 import java.util.ArrayList;
 import java.util.Collections;

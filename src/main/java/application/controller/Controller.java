@@ -2,6 +2,7 @@ package application.controller;
 
 import application.model.Model;
 import application.view.OperationsPanel;
+import application.view.SamplingPanel;
 import application.view.SignalPanel;
 import application.view.View;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,9 @@ import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
@@ -33,6 +37,7 @@ public class Controller {
     private OperationsPanel operationsPanel;
     private DecimalFormat df;
     private JFileChooser fileChooser;
+    private SamplingPanel samplingPanel;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -50,6 +55,45 @@ public class Controller {
         for (int i = 0; i < signalPanels.length; i++) {
             updateSignalControls(i);
         }
+        initializeSamplingPanel();
+    }
+
+    private void initializeSamplingPanel() {
+        samplingPanel = new SamplingPanel();
+        JTabbedPane tabbedPane = view.getTabbedPane();
+        tabbedPane.addTab("Sampling", samplingPanel.getMainPanel());
+        samplingPanel.addSamplingFrequencyListener(e -> onSamplingFrequencyChange(e));
+        samplingPanel.addSamplingSignalListener(e -> onSamplingSignalChange(e));
+        samplingPanel.addSetAsSignal1ButtonListener(e -> onSetSamplingSignalAsSignal1(e));
+        samplingPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal2(e));
+        samplingPanel.addExportButtonListener(e -> onExportButtonInSampling(e));
+        samplingPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling(e));
+    }
+
+    private void onSamplingFrequencyChange(ChangeEvent event) {
+        JSpinner source = (JSpinner) event.getSource();
+        model.setSamplingFrequency((double)source.getValue());
+    }
+
+    private void onSamplingSignalChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setSamplingSignal(source.getSelectedIndex());
+    }
+
+    private void onSetSamplingSignalAsSignal1(ActionEvent event) {
+
+    }
+
+    private void onSetSamplingSignalAsSignal2(ActionEvent event) {
+
+    }
+
+    private void onExportButtonInSampling(ActionEvent event) {
+
+    }
+
+    private void onPreviewButtonInSampling(ActionEvent event) {
+
     }
 
     private void setDecimalFormat() {

@@ -229,4 +229,8 @@ public class View {
     public JMenuItem getFile_item_2() {
         return file_item_2;
     }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
 }
