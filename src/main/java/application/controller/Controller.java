@@ -279,7 +279,7 @@ public class Controller {
                 break;
         }
         model.setReconstructedSignal(reconstructed);
-        model.setOriginalReconstructionSignal(signal);
+        model.setOriginalReconstructionSignal(signal.copy());
         reconstructionPanel.hideNoSignal();
         updateReconstructionStats();
     }
