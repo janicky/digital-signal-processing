@@ -123,17 +123,17 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-4068609"/>
+              <background color="-1975566"/>
             </properties>
             <border type="line">
-              <color color="-12427654"/>
+              <color color="-11453062"/>
             </border>
             <children>
               <component id="cb3f0" class="javax.swing.JLabel" binding="noSignal">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <font name="Roboto Light" size="15"/>
-                  <foreground color="-7683892"/>
+                  <foreground color="-5200948"/>
                   <horizontalAlignment value="0"/>
                   <text value="NO SIGNAL"/>
                 </properties>
@@ -149,7 +149,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-14915462"/>
+              <background color="-11453062"/>
               <foreground color="-1"/>
             </properties>
             <border type="none"/>
@@ -175,7 +175,7 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-14915720"/>
+              <background color="-11453062"/>
               <foreground color="-1"/>
             </properties>
             <border type="none"/>

@@ -71,6 +71,7 @@ public class SamplingPanel {
         renderer.setSeriesLinesVisible(1, true);
         renderer.setSeriesShapesVisible(1, true);
         renderer.setSeriesStroke(1, new BasicStroke(2));
+        renderer.setSeriesPaint(1, new Color(28,104,122));
 
         plot.setRenderer(renderer);
 
