@@ -65,10 +65,10 @@ public class Controller {
         tabbedPane.addTab("Sampling", samplingPanel.getMainPanel());
         samplingPanel.addSamplingFrequencyListener(e -> onSamplingFrequencyChange(e));
         samplingPanel.addSamplingSignalListener(e -> onSamplingSignalChange(e));
-        samplingPanel.addSetAsSignal1ButtonListener(e -> onSetSamplingSignalAsSignal1(e));
-        samplingPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal2(e));
-        samplingPanel.addExportButtonListener(e -> onExportButtonInSampling(e));
-        samplingPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling(e));
+        samplingPanel.addSetAsSignal1ButtonListener(e -> onSetSamplingSignalAsSignal(0));
+        samplingPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal(1));
+        samplingPanel.addExportButtonListener(e -> onExportButtonInSampling());
+        samplingPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -79,29 +79,50 @@ public class Controller {
     private void onSamplingSignalChange(ActionEvent event) {
         JComboBox source = (JComboBox) event.getSource();
         model.setSamplingSignal(source.getSelectedIndex());
+        samplingPanel.updateButtons(source.getSelectedIndex());
     }
 
-    private void onSetSamplingSignalAsSignal1(ActionEvent event) {
-
+    private void onSetSamplingSignalAsSignal(int index) {
+        try {
+            sampleSignal();
+            ISignal signal = model.getSampledSignal();
+            model.setSignal(index, signal);
+            onSignalRender(index);
+            onPreviewButtonInSampling();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
     }
 
-    private void onSetSamplingSignalAsSignal2(ActionEvent event) {
+    private void onExportButtonInSampling() {
+        try {
+            sampleSignal();
+            ISignal signal = model.getSampledSignal();
 
+            fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getPath();
+                try {
+                    FileUtils.saveSignal(signal, selectedFile);
+                    JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    view.displayError("Could not save file: " + selectedFile);
+                }
+            }
+
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
     }
 
-    private void onExportButtonInSampling(ActionEvent event) {
-
-    }
-
-    private void onPreviewButtonInSampling(ActionEvent event) {
+    private void onPreviewButtonInSampling() {
         try {
             sampleSignal();
             ISignal signal = model.getSignal(model.getSamplingSignal());
             JFreeChart chart = Operations.getChart(signal, model.getSampledSignal());
             samplingPanel.displaySignal(chart);
-
         } catch (Exception e) {
-            e.printStackTrace();
             view.displayError(e.getMessage());
         }
     }

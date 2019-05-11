@@ -87,4 +87,9 @@ public class SamplingPanel {
     public void hideNoSignal() {
         noSignal.setVisible(false);
     }
+
+    public void updateButtons(int selectedSignal) {
+        setAsSignal1Button.setEnabled(selectedSignal != 0);
+        setAsSignal2Button.setEnabled(selectedSignal != 1);
+    }
 }
