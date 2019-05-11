@@ -1,0 +1,164 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[T1]{polski}
+\usepackage[cp1250]{inputenc}
+\newcommand{\BibTeX}{{\sc Bib}\TeX} 
+\usepackage{graphicx}
+\usepackage{amsfonts}
+
+\setlength{\textheight}{21cm}
+
+\title{{\bf Zadanie nr 2 - Próbkowanie i kwantyzacja}\linebreak
+Cyfrowe Przetwarzanie Sygna³ów}
+\author{Konrad Jachimstal, 211807 \and Patryk Janicki, 211951}
+\date{12.05.2019}
+
+\begin{document}
+\clearpage\maketitle
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{1}
+\section{Cel zadania}
+Celem zadania jest zapoznanie siê z konwersj¹ sygna³ów dzielon¹ na:
+\begin{itemize}
+ \item Próbkowanie
+ \item Kwantyzacjê
+ \item Rekonstrukcjê
+\end{itemize}
+
+\section{Wstêp teoretyczny}
+\subsection{Zagadnienia}
+Konwersja z sygna³u analogowego na sygna³ cyfrowy wymaga spróbkowania danego sygna³u. Próbkowanie
+odbywa siê na pobieraniu wartoœci sygna³u co okreœlony z góry okres czasu. Otrzymane w ten sposób
+wartoœci nazywamy próbkami.
+
+\\Kolejnym etapem konwersji sygna³u jest kwantyzacja. Polega ona na dopisaniu do wczeœniej pobranych
+próbek zdyskretyzowanych wartoœci danego sygna³u.
+
+\\Ostatnim etapem jest odtworzenie tzw. $rekontrukcja$ sygna³u. Polega ona na odzyskaniu ze wczeœniej
+zdyskretyzowanego sygna³u cyfrowego sygna³u analogowego jak najbardziej przypominaj¹cego oryginalny
+sygna³ sprzed konwersji.
+
+\\Konwersja sygna³ów jest bardzo istotna poniewa¿ bez niej nie by³o by mo¿liwoœci przechowywania sygna³ów
+ze wzglêdu na to, ¿e sygna³ analogowy posiada nieskoñczon¹ liczbê wartoœci a jak powszechnie wiadomo
+maszyny posiadaj¹ skoñczon¹ pamiêæ.
+
+\subsection{Obs³uga programu}
+Program z zadania pierwszego zosta³ rozszerzony o funkjonalnoœci pozwalaj¹ce w wygodny sposób
+przeprowadziæ konwersjê sygna³u.
+\\Dodane zak³adki:
+\begin{itemize}
+ \item Sampling
+ \item Quantization
+ \item Reconstruction
+\end{itemize}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=14cm]{sampling.JPG}
+ \vspace{-0.3cm}
+ \caption{Zak³adka s³u¿¹ca do próbkowania sygna³u.}
+ \label{sampling}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=14cm]{quantization.JPG}
+ \vspace{-0.3cm}
+ \caption{Zak³adka s³u¿¹ca do kwantyzacji sygna³u.}
+ \label{quantization}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=14cm]{reconstruction.JPG}
+ \vspace{-0.3cm}
+ \caption{Zak³adka s³u¿¹ca do rekonstrukcji sygna³u.}
+ \label{reconstruction}
+\end{figure}
+
+\section{Eksperymenty i wyniki}
+Wykonane eksperymenty zosta³y podzielone na trzy czêœci: próbkowanie, kwantyzacja oraz rekonstrukcja.
+
+\subsection{Eksperyment nr 1 - Próbkowanie}
+Eksperyment nr 1 polega³ na wygenerowaniu spróbkowanego sygna³u.
+
+\subsubsection{Za³o¿enia}
+Zak³adanym wynikiem by³o otrzymanie próbek pobranych z signa³u sinusoidalnego wyprostowanego
+jednopo³ówkowo.
+
+\subsubsection{Rezultat}
+Zgodnie z za³o¿eniami otrzymano próbki z wybranego sygna³u.
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=15cm]{sinsampling.JPG}
+ \vspace{-0.3cm}
+ \caption{Spróbkowany sygna³.}
+\end{figure}
+\newpage
+
+\subsection{Eksperyment nr 2 - Kwantyzacja}
+Eksperyment nr 2 polega³ na kwantyzacji sygna³u z otrzymanych próbek.
+
+\subsubsection{Za³o¿enia}
+Za³o¿eniem w tym eksperymencie by³o wygenerowanie skwantyzowanego sygna³u z wczeœniej otrzymanych próbek.
+
+\subsubsection{Rezultat}
+Zgodnie z za³o¿eniami otrzymaliœmy skwantyzowany sygna³ z wartoœci¹ progu równ¹ $5$.
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=15cm]{sinquantization.JPG}
+ \vspace{-0.3cm}
+ \caption{Skwantyzowany sygna³.}
+\end{figure}
+\newpage
+
+
+\subsection{Eksperyment nr 3 - Rekonstrukcja}
+Eksperyment nr n zak³ada³, i¿ zrekonstruujemy skwantyzowany signa³ u¿ywaj¹c metod ekstrapolacji
+zerowego rzêdu oraz rekonstrukcji opieraj¹cej siê o funkcjê $sinc$.
+
+\subsubsection{Za³o¿enia}
+Za³o¿eniem w tym eksperymencie by³o zrekonstruowanie sygna³u skwantyzowanego otrzymanego w poprzednim
+eskerymencie za pomoc¹ dwóch metod. Oraz wyliczenie:
+\begin{itemize}
+ \item B³êdu œredniokwadratowego
+ \item Stosunku sygna³u do szumu
+ \item Szczytowego stosunku sygna³u do szumu
+ \item Maksymalnej ró¿nicy
+\end{itemize}
+
+\newpage
+\subsubsection{Rezultat}
+Zgodnie z za³o¿eniami otrzymaliœmi poni¿ej przedstawione sygna³y.
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=15cm]{sinreconstructionex.JPG}
+ \vspace{-0.3cm}
+ \caption{Sygna³ zrekonstruowany za pomoc¹ ekstrapolacji zerowego rzêdu.}
+\end{figure}
+\newpage
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=15cm]{sinreconstructionsinc.JPG}
+ \vspace{-0.3cm}
+ \caption{Sygna³ zrekonstruowany za pomoc¹ funkcji $sinc$.}
+\end{figure}
+
+\section{Wnioski}
+Konwersja sygna³ów jest tosowana w dzisiajszym œwiecie w wielu dziedzinach. Dziêki niej jesteœmy w
+stanie zapisywaæ sygna³y zaobserwowane w natrzue oraz przesy³aæ je na du¿e odleg³oœci. Ponadto sygna³y
+te mo¿na dalej przetwarzaæ co pozwala jeszcze bardziej ro¿szerzyæ zastosowanie konwersji.
+
+\\Warto nadmieniæ, ¿e przedstawione w programie przekszta³cenia nie s¹ dok³adnym odwzorowaniem
+konwersji sygna³ów, poniewa¿ s¹ to w dalszym ci¹gu sygna³y cyfrowe. Zmianie podlegaj¹ jedynie wartoœci
+tak aby jak najbardziej oddaæ konwersjê sygna³u.
+
+\section{Za³¹czniki}
+Podczas opracowywania zagadnienia korzystaliœmy jedynie z instrukcji do³¹czonej do zadania.
+
+\end{document}
