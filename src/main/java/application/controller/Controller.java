@@ -92,7 +92,7 @@ public class Controller {
         reconstructionPanel.addReconstructionSignalListener(e -> onReconstructionSignalChange(e));
         reconstructionPanel.addSetAsSignal1ButtonListener(e -> onSetReconstructionSignalAsSignal(0));
         reconstructionPanel.addSetAsSignal2ButtonListener(e -> onSetReconstructionSignalAsSignal(1));
-//        reconstructionPanel.addExportButtonListener(e -> onExportButtonInReconstruction());
+        reconstructionPanel.addExportButtonListener(e -> onExportButtonInReconstruction());
         reconstructionPanel.addPreviewButtonListener(e -> onPreviewButtonInReconstruction());
         reconstructionPanel.addRadioButtonListener(e -> onReconstructionTypeChange(e));
     }
@@ -301,6 +301,28 @@ public class Controller {
             JFreeChart chart = Operations.getChart(signal, model.getReconstructedSignal());
             reconstructionPanel.displaySignal(chart);
             reconstructionPanel.hideNoSignal();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onExportButtonInReconstruction() {
+        try {
+            reconstructSignal();
+            ISignal signal = model.getReconstructedSignal();
+
+            fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getPath();
+                try {
+                    FileUtils.saveSignal(signal, selectedFile);
+                    JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    view.displayError("Could not save file: " + selectedFile);
+                }
+            }
+
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
