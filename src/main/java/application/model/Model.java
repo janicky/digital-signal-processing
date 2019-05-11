@@ -1,19 +1,16 @@
 package application.model;
 
-import application.view.SignalPanel;
 import signal_processing.ISignal;
 import signal_processing.helpers.Operations;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.*;
-
-import javax.swing.*;
 
 public class Model {
     private ISignal[] signals = new ISignal[2];
     private ISignal generatedSignal;
     private Statistics[] stats = new Statistics[2];
     private Statistics generatedStats;
-    private double samplingFrequency = 1d;
+    private double samplingFrequency = 0.1;
     private int samplingSignal = 0;
     private ISignal sampledSignal;
 

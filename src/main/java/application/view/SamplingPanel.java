@@ -2,9 +2,12 @@ package application.view;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class SamplingPanel {
@@ -58,6 +61,20 @@ public class SamplingPanel {
     }
 
     public void displaySignal(JFreeChart chart) {
+
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+
+        renderer.setSeriesLinesVisible(0, true);
+        renderer.setSeriesShapesVisible(0, false);
+        renderer.setSeriesStroke(0, new BasicStroke(1));
+        renderer.setSeriesPaint(0, Color.gray);
+        renderer.setSeriesLinesVisible(1, true);
+        renderer.setSeriesShapesVisible(1, true);
+        renderer.setSeriesStroke(1, new BasicStroke(2));
+
+        plot.setRenderer(renderer);
+
         chartPanel.setChart(chart);
         chartPanel.validate();
 
@@ -65,5 +82,9 @@ public class SamplingPanel {
             signalPanel.add(chartPanel);
             signalPanel.validate();
         }
+    }
+
+    public void hideNoSignal() {
+        noSignal.setVisible(false);
     }
 }

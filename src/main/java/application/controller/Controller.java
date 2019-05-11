@@ -96,7 +96,8 @@ public class Controller {
     private void onPreviewButtonInSampling(ActionEvent event) {
         try {
             sampleSignal();
-            JFreeChart chart = Operations.getChart(model.getSampledSignal());
+            ISignal signal = model.getSignal(model.getSamplingSignal());
+            JFreeChart chart = Operations.getChart(signal, model.getSampledSignal());
             samplingPanel.displaySignal(chart);
 
         } catch (Exception e) {
@@ -113,6 +114,7 @@ public class Controller {
             }
             ISignal sampled = Operations.sampling(signal, model.getSamplingFrequency());
             model.setSampledSignal(sampled);
+            samplingPanel.hideNoSignal();
     }
 
     private void setDecimalFormat() {

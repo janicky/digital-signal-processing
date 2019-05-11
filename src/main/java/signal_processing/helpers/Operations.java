@@ -189,7 +189,7 @@ public class Operations {
         List<Double> tmpX = new ArrayList<>();
         List<Double> tmpY = new ArrayList<>();
 
-        while(start < signal.getLastSample() && signal.getValuesX().size() >= i) {
+        while(start < signal.getLastSample() && signal.getValuesX().size() > i) {
             double startTmp = (stepNominator / samples) + signal.getStartTime();
             start = startTmp;
             if (signal.getValuesX().get(i) >= start) {
@@ -300,15 +300,25 @@ public class Operations {
         return reconstructedSignal;
     }
 
-    public static JFreeChart getChart(ISignal signal) {
-        final XYSeries series = new XYSeries("data");
+    public static JFreeChart getChart(ISignal signal, ISignal sampled) {
+        XYSeriesCollection dataset = new XYSeriesCollection();
 
-        List<Double> x = signal.getValuesX();
-        List<Double> y = signal.getValuesY();
-        for (int i = 0; i < x.size(); i++) {
-            series.add(x.get(i), y.get(i));
+        final XYSeries series1 = new XYSeries("source");
+        List<Double> x1 = signal.getValuesX();
+        List<Double> y1 = signal.getValuesY();
+        for (int i = 0; i < x1.size(); i++) {
+            series1.add(x1.get(i), y1.get(i));
         }
-        XYSeriesCollection dataset = new XYSeriesCollection(series);
+        dataset.addSeries(series1);
+
+        final XYSeries series2 = new XYSeries("sampling");
+        List<Double> x2 = sampled.getValuesX();
+        List<Double> y2 = sampled.getValuesY();
+        for (int i = 0; i < x2.size(); i++) {
+            series2.add(x2.get(i), y2.get(i));
+        }
+
+        dataset.addSeries(series2);
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 signal.getSignalName(),
@@ -319,7 +329,6 @@ public class Operations {
                 false,
                 false,
                 false);
-
         return chart;
     }
 
