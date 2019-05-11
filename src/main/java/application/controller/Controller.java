@@ -37,6 +37,7 @@ public class Controller {
     private JFileChooser fileChooser;
     private SamplingPanel samplingPanel;
     private QuantizationPanel quantizationPanel;
+    private ReconstructionPanel reconstructionPanel;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -56,6 +57,7 @@ public class Controller {
         }
         initializeSamplingPanel();
         initializeQuantizationPanel();
+        initializeReconstructionPanel();
     }
 
     private void initializeSamplingPanel() {
@@ -80,6 +82,12 @@ public class Controller {
         quantizationPanel.addSetAsSignal2ButtonListener(e -> onSetQuantizationSignalAsSignal(1));
         quantizationPanel.addExportButtonListener(e -> onExportButtonInQuantization());
         quantizationPanel.addPreviewButtonListener(e -> onPreviewButtonInQuantization());
+    }
+
+    private void initializeReconstructionPanel() {
+        reconstructionPanel = new ReconstructionPanel();
+        JTabbedPane tabbedPane = view.getTabbedPane();
+        tabbedPane.addTab("Reconstruction", reconstructionPanel.getMainPanel());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
