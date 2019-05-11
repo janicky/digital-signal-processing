@@ -35,11 +35,11 @@ public class QuantizationPanel {
         return mainPanel;
     }
 
-    public void addSamplingFrequencyListener(ChangeListener listener) {
+    public void addQuantizationLevelsListener(ChangeListener listener) {
         quantizationLevels.addChangeListener(listener);
     }
 
-    public void addSamplingSignalListener(ActionListener listener) {
+    public void addQuantizationSignalListener(ActionListener listener) {
         samplingSignal.addActionListener(listener);
     }
 

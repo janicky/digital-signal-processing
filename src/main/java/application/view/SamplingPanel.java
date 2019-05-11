@@ -18,7 +18,7 @@ public class SamplingPanel {
     private JButton previewButton;
     private JPanel signalPanel;
     private JLabel noSignal;
-    private JComboBox samplingSignal;
+    private JComboBox quantizationSignal;
     private JSpinner samplingFrequency;
     private ChartPanel chartPanel;
 
@@ -26,7 +26,7 @@ public class SamplingPanel {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         comboBoxModel.addElement("Signal 1");
         comboBoxModel.addElement("Signal 2");
-        samplingSignal.setModel(comboBoxModel);
+        quantizationSignal.setModel(comboBoxModel);
         chartPanel = new ChartPanel(null);
         samplingFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
     }
@@ -40,7 +40,7 @@ public class SamplingPanel {
     }
 
     public void addSamplingSignalListener(ActionListener listener) {
-        samplingSignal.addActionListener(listener);
+        quantizationSignal.addActionListener(listener);
     }
 
     public void addSetAsSignal1ButtonListener(ActionListener listener) {

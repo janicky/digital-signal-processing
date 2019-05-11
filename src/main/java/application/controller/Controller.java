@@ -55,7 +55,7 @@ public class Controller {
             updateSignalControls(i);
         }
         initializeSamplingPanel();
-        initialzieQuantizationPanel();
+        initializeQuantizationPanel();
     }
 
     private void initializeSamplingPanel() {
@@ -70,10 +70,16 @@ public class Controller {
         samplingPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling());
     }
 
-    private void initialzieQuantizationPanel() {
+    private void initializeQuantizationPanel() {
         quantizationPanel = new QuantizationPanel();
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Quantization", quantizationPanel.getMainPanel());
+        quantizationPanel.addQuantizationLevelsListener(e -> onSamplingFrequencyChange(e));
+        quantizationPanel.addQuantizationSignalListener(e -> onSamplingSignalChange(e));
+        quantizationPanel.addSetAsSignal1ButtonListener(e -> onSetSamplingSignalAsSignal(0));
+        quantizationPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal(1));
+        quantizationPanel.addExportButtonListener(e -> onExportButtonInSampling());
+        quantizationPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
