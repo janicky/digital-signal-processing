@@ -261,10 +261,14 @@ public class Operations {
     public static ISignal reconstruction(ISignal signal, double reconstructionsFrequency) {
         double step = 1 / signal.getFrequency();
         ISignal sampledSignal = sampling(signal, reconstructionsFrequency);
-        ISignal reconstructedSignal = new GeneratedSignal();
+//        ISignal sampledSignal = signal;
+        GeneratedSignal reconstructedSignal = new GeneratedSignal();
         double sincSum;
         double sampledSignalSize = sampledSignal.getValuesX().size();
         double sampledSignalZeroX = sampledSignal.getValuesX().get(0);
+
+        List<Double> tmpX = new ArrayList<>();
+        List<Double> tmpY = new ArrayList<>();
 
         for (Double i = sampledSignalZeroX; i <= sampledSignal.getValuesX().get((int)sampledSignalSize - 1); i += step) {
             sincSum = 0d;
@@ -272,10 +276,12 @@ public class Operations {
             for (int j = 0; j < sampledSignalSize; j++) {
                 sincSum += sampledSignal.getValuesY().get(j) * sinc(i / (1 / reconstructionsFrequency) - 1);
             }
-            reconstructedSignal.getValuesX().add(i);
-            reconstructedSignal.getValuesY().add(sincSum);
+            tmpX.add(i);
+            tmpY.add(sincSum);
         }
 
+        reconstructedSignal.setValuesX(tmpX);
+        reconstructedSignal.setValuesY(tmpY);
         return reconstructedSignal;
     }
 
@@ -289,22 +295,28 @@ public class Operations {
 
     public static ISignal zeroExploration(ISignal signal, double reconstructionFrequency) {
         ISignal sampledSignal = sampling(signal, reconstructionFrequency);
-        ISignal reconstructedSignal = new GeneratedSignal();
+//        ISignal sampledSignal = signal;
+        GeneratedSignal reconstructedSignal = new GeneratedSignal();
         double step = 1 / signal.getFrequency();
         int nextIndex = 1;
-        double lastValue = sampledSignal.getValuesY().get(0);;
+        double lastValue = sampledSignal.getValuesY().get(0);
         double sampledSignalSize = sampledSignal.getValuesX().size();
         double sampledSignalZeroX = sampledSignal.getValuesX().get(0);
+
+        List<Double> tmpX = new ArrayList<>();
+        List<Double> tmpY = new ArrayList<>();
 
         for (Double i = sampledSignalZeroX; i <= sampledSignal.getValuesX().get((int)sampledSignalSize - 1); i += step) {
             if (nextIndex < sampledSignalSize && sampledSignal.getValuesX().get(nextIndex) <= i) {
                 lastValue = sampledSignal.getValuesY().get(nextIndex);
                 nextIndex++;
             }
-            reconstructedSignal.getValuesX().add(i);
-            reconstructedSignal.getValuesX().add(lastValue);
+            tmpX.add(i);
+            tmpY.add(lastValue);
         }
 
+        reconstructedSignal.setValuesX(tmpX);
+        reconstructedSignal.setValuesY(tmpY);
         return reconstructedSignal;
     }
 

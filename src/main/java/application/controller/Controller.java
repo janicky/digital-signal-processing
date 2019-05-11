@@ -90,10 +90,10 @@ public class Controller {
         tabbedPane.addTab("Reconstruction", reconstructionPanel.getMainPanel());
         reconstructionPanel.addReconstructionFrequencyListener(e -> onReconstructionFrequencyChange(e));
         reconstructionPanel.addReconstructionSignalListener(e -> onReconstructionSignalChange(e));
-//        reconstructionPanel.addSetAsSignal1ButtonListener(e -> onSetReconstructionSignalAsSignal(0));
-//        reconstructionPanel.addSetAsSignal2ButtonListener(e -> onSetReconstructionSignalAsSignal(1));
+        reconstructionPanel.addSetAsSignal1ButtonListener(e -> onSetReconstructionSignalAsSignal(0));
+        reconstructionPanel.addSetAsSignal2ButtonListener(e -> onSetReconstructionSignalAsSignal(1));
 //        reconstructionPanel.addExportButtonListener(e -> onExportButtonInReconstruction());
-//        reconstructionPanel.addPreviewButtonListener(e -> onPreviewButtonInReconstruction());
+        reconstructionPanel.addPreviewButtonListener(e -> onPreviewButtonInReconstruction());
         reconstructionPanel.addRadioButtonListener(e -> onReconstructionTypeChange(e));
     }
 
@@ -204,6 +204,7 @@ public class Controller {
             ISignal signal = model.getSignal(model.getQuantizationSignal());
             JFreeChart chart = Operations.getChart(signal, model.getQuantizedSignal());
             quantizationPanel.displaySignal(chart);
+            quantizationPanel.hideNoSignal();
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
@@ -277,8 +278,32 @@ public class Controller {
                 reconstructed = Operations.zeroExploration(signal, reconstructionFrequency);
                 break;
         }
-        model.setSampledSignal(reconstructed);
+        model.setReconstructedSignal(reconstructed);
         samplingPanel.hideNoSignal();
+    }
+
+    private void onSetReconstructionSignalAsSignal(int index) {
+        try {
+            reconstructSignal();
+            ISignal signal = model.getReconstructedSignal();
+            model.setSignal(index, signal);
+            onSignalRender(index);
+            onPreviewButtonInReconstruction();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onPreviewButtonInReconstruction() {
+        try {
+            reconstructSignal();
+            ISignal signal = model.getSignal(model.getReconstructionSignal());
+            JFreeChart chart = Operations.getChart(signal, model.getReconstructedSignal());
+            reconstructionPanel.displaySignal(chart);
+            reconstructionPanel.hideNoSignal();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
     }
 
     private void setDecimalFormat() {
