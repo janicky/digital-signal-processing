@@ -1,10 +1,7 @@
 package application.controller;
 
 import application.model.Model;
-import application.view.OperationsPanel;
-import application.view.SamplingPanel;
-import application.view.SignalPanel;
-import application.view.View;
+import application.view.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.statistics.HistogramDataset;
@@ -39,6 +36,7 @@ public class Controller {
     private DecimalFormat df;
     private JFileChooser fileChooser;
     private SamplingPanel samplingPanel;
+    private QuantizationPanel quantizationPanel;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -57,6 +55,7 @@ public class Controller {
             updateSignalControls(i);
         }
         initializeSamplingPanel();
+        initialzieQuantizationPanel();
     }
 
     private void initializeSamplingPanel() {
@@ -69,6 +68,12 @@ public class Controller {
         samplingPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal(1));
         samplingPanel.addExportButtonListener(e -> onExportButtonInSampling());
         samplingPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling());
+    }
+
+    private void initialzieQuantizationPanel() {
+        quantizationPanel = new QuantizationPanel();
+        JTabbedPane tabbedPane = view.getTabbedPane();
+        tabbedPane.addTab("Quantization", quantizationPanel.getMainPanel());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {

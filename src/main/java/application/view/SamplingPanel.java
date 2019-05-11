@@ -18,7 +18,6 @@ public class SamplingPanel {
     private JButton previewButton;
     private JPanel signalPanel;
     private JLabel noSignal;
-    private JLabel signalName;
     private JComboBox samplingSignal;
     private JSpinner samplingFrequency;
     private ChartPanel chartPanel;
