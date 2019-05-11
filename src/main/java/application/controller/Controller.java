@@ -94,25 +94,25 @@ public class Controller {
     }
 
     private void onPreviewButtonInSampling(ActionEvent event) {
-        sampleSignal();
-        JFreeChart chart = Operations.getChart(model.getSampledSignal());
-        samplingPanel.displaySignal(chart);
-    }
-
-    private void sampleSignal() {
         try {
-            int index = model.getSamplingSignal();
-            ISignal signal = model.getSignal(index);
-            if (signal == null) {
-                throw new Exception("Signal not found.");
-            }
-            ISignal sampled = Operations.sampling(signal, model.getSamplingFrequency());
-            model.setSampledSignal(sampled);
+            sampleSignal();
+            JFreeChart chart = Operations.getChart(model.getSampledSignal());
+            samplingPanel.displaySignal(chart);
 
         } catch (Exception e) {
             e.printStackTrace();
             view.displayError(e.getMessage());
         }
+    }
+
+    private void sampleSignal() throws Exception {
+            int index = model.getSamplingSignal();
+            ISignal signal = model.getSignal(index);
+            if (signal == null || signal.getValuesX().size() == 0 || signal.getValuesY().size() == 0) {
+                throw new Exception("Signal not found.");
+            }
+            ISignal sampled = Operations.sampling(signal, model.getSamplingFrequency());
+            model.setSampledSignal(sampled);
     }
 
     private void setDecimalFormat() {
