@@ -16,6 +16,10 @@ public class Model {
     private int quantizationLevels = 2;
     private int quantizationSignal = 0;
     private ISignal quantizedSignal;
+    private int reconstructionSignal = 0;
+    private double reconstructionFrequency = 0.1;
+    private int reconstructionType = 0;
+    private ISignal reconstructedSignal;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -142,5 +146,37 @@ public class Model {
 
     public void setQuantizedSignal(ISignal quantizedSignal) {
         this.quantizedSignal = quantizedSignal;
+    }
+
+    public double getReconstructionFrequency() {
+        return reconstructionFrequency;
+    }
+
+    public void setReconstructionFrequency(double reconstructionFrequency) {
+        this.reconstructionFrequency = reconstructionFrequency;
+    }
+
+    public int getReconstructionType() {
+        return reconstructionType;
+    }
+
+    public int getReconstructionSignal() {
+        return reconstructionSignal;
+    }
+
+    public void setReconstructionSignal(int reconstructionSignal) {
+        this.reconstructionSignal = reconstructionSignal;
+    }
+
+    public void setReconstructionType(int reconstructionType) {
+        this.reconstructionType = reconstructionType;
+    }
+
+    public ISignal getReconstructedSignal() {
+        return reconstructedSignal;
+    }
+
+    public void setReconstructedSignal(ISignal reconstructedSignal) {
+        this.reconstructedSignal = reconstructedSignal;
     }
 }

@@ -88,6 +88,13 @@ public class Controller {
         reconstructionPanel = new ReconstructionPanel();
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Reconstruction", reconstructionPanel.getMainPanel());
+        reconstructionPanel.addReconstructionFrequencyListener(e -> onReconstructionFrequencyChange(e));
+        reconstructionPanel.addReconstructionSignalListener(e -> onReconstructionSignalChange(e));
+//        reconstructionPanel.addSetAsSignal1ButtonListener(e -> onSetReconstructionSignalAsSignal(0));
+//        reconstructionPanel.addSetAsSignal2ButtonListener(e -> onSetReconstructionSignalAsSignal(1));
+//        reconstructionPanel.addExportButtonListener(e -> onExportButtonInReconstruction());
+//        reconstructionPanel.addPreviewButtonListener(e -> onPreviewButtonInReconstruction());
+        reconstructionPanel.addRadioButtonListener(e -> onReconstructionTypeChange(e));
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -222,6 +229,56 @@ public class Controller {
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
+    }
+
+    private void onReconstructionFrequencyChange(ChangeEvent event) {
+        JSpinner source = (JSpinner) event.getSource();
+        model.setReconstructionFrequency((double)source.getValue());
+    }
+
+    private void onReconstructionSignalChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setReconstructionSignal(source.getSelectedIndex());
+        reconstructionPanel.updateButtons(source.getSelectedIndex());
+    }
+
+    private void onReconstructionTypeChange(ActionEvent event) {
+        JRadioButton source = (JRadioButton) event.getSource();
+        String name = source.getActionCommand();
+        switch (name) {
+            default:
+                model.setReconstructionType(0);
+                break;
+            case "Interpolation":
+                model.setReconstructionType(1);
+                break;
+            case "Sinc":
+                model.setReconstructionType(2);
+                break;
+        }
+    }
+
+    private void reconstructSignal() throws Exception {
+        int index = model.getReconstructionSignal();
+        ISignal signal = model.getSignal(index);
+        if (signal == null || signal.getValuesX().size() == 0 || signal.getValuesY().size() == 0) {
+            throw new Exception("Signal not found.");
+        }
+        ISignal reconstructed;
+        double reconstructionFrequency = model.getReconstructionFrequency();
+        switch (model.getReconstructionType()) {
+//            case 1:
+//              ...
+//                break;
+            case 2:
+                reconstructed = Operations.reconstruction(signal, reconstructionFrequency);
+                break;
+            default:
+                reconstructed = Operations.zeroExploration(signal, reconstructionFrequency);
+                break;
+        }
+        model.setSampledSignal(reconstructed);
+        samplingPanel.hideNoSignal();
     }
 
     private void setDecimalFormat() {
