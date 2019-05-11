@@ -13,6 +13,9 @@ public class Model {
     private double samplingFrequency = 0.1;
     private int samplingSignal = 0;
     private ISignal sampledSignal;
+    private int quantizationLevels = 2;
+    private int quantizationSignal = 0;
+    private ISignal quantizedSignal;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -115,5 +118,29 @@ public class Model {
 
     public void setSampledSignal(ISignal sampledSignal) {
         this.sampledSignal = sampledSignal;
+    }
+
+    public int getQuantizationLevels() {
+        return quantizationLevels;
+    }
+
+    public void setQuantizationLevels(int quantizationLevels) {
+        this.quantizationLevels = quantizationLevels;
+    }
+
+    public int getQuantizationSignal() {
+        return quantizationSignal;
+    }
+
+    public void setQuantizationSignal(int quantizationSignal) {
+        this.quantizationSignal = quantizationSignal;
+    }
+
+    public ISignal getQuantizedSignal() {
+        return quantizedSignal;
+    }
+
+    public void setQuantizedSignal(ISignal quantizedSignal) {
+        this.quantizedSignal = quantizedSignal;
     }
 }

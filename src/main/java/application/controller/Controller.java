@@ -74,12 +74,12 @@ public class Controller {
         quantizationPanel = new QuantizationPanel();
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Quantization", quantizationPanel.getMainPanel());
-        quantizationPanel.addQuantizationLevelsListener(e -> onSamplingFrequencyChange(e));
-        quantizationPanel.addQuantizationSignalListener(e -> onSamplingSignalChange(e));
-        quantizationPanel.addSetAsSignal1ButtonListener(e -> onSetSamplingSignalAsSignal(0));
-        quantizationPanel.addSetAsSignal2ButtonListener(e -> onSetSamplingSignalAsSignal(1));
-        quantizationPanel.addExportButtonListener(e -> onExportButtonInSampling());
-        quantizationPanel.addPreviewButtonListener(e -> onPreviewButtonInSampling());
+        quantizationPanel.addQuantizationLevelsListener(e -> onQuantizationLevelsChange(e));
+        quantizationPanel.addQuantizationSignalListener(e -> onQuantizationSignalChange(e));
+        quantizationPanel.addSetAsSignal1ButtonListener(e -> onSetQuantizationSignalAsSignal(0));
+        quantizationPanel.addSetAsSignal2ButtonListener(e -> onSetQuantizationSignalAsSignal(1));
+        quantizationPanel.addExportButtonListener(e -> onExportButtonInQuantization());
+        quantizationPanel.addPreviewButtonListener(e -> onPreviewButtonInQuantization());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -147,6 +147,73 @@ public class Controller {
             ISignal sampled = Operations.sampling(signal, model.getSamplingFrequency());
             model.setSampledSignal(sampled);
             samplingPanel.hideNoSignal();
+    }
+
+    private void onQuantizationLevelsChange(ChangeEvent event) {
+        JSpinner source = (JSpinner) event.getSource();
+        model.setQuantizationLevels((int)source.getValue());
+    }
+
+    private void onQuantizationSignalChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setQuantizationSignal(source.getSelectedIndex());
+        quantizationPanel.updateButtons(source.getSelectedIndex());
+    }
+
+    private void onSetQuantizationSignalAsSignal(int index) {
+        try {
+            quantizeSignal();
+            ISignal signal = model.getQuantizedSignal();
+            model.setSignal(index, signal);
+            onSignalRender(index);
+            onPreviewButtonInSampling();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void quantizeSignal() throws Exception {
+        int index = model.getQuantizationSignal();
+        ISignal signal = model.getSignal(index);
+        if (signal == null || signal.getValuesX().size() == 0 || signal.getValuesY().size() == 0) {
+            throw new Exception("Signal not found.");
+        }
+        ISignal sampled = Operations.quantization(signal, model.getQuantizationLevels());
+        model.setQuantizedSignal(sampled);
+        quantizationPanel.hideNoSignal();
+    }
+
+    private void onPreviewButtonInQuantization() {
+        try {
+            quantizeSignal();
+            ISignal signal = model.getSignal(model.getQuantizationSignal());
+            JFreeChart chart = Operations.getChart(signal, model.getQuantizedSignal());
+            quantizationPanel.displaySignal(chart);
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onExportButtonInQuantization() {
+        try {
+            quantizeSignal();
+            ISignal signal = model.getQuantizedSignal();
+
+            fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getPath();
+                try {
+                    FileUtils.saveSignal(signal, selectedFile);
+                    JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    view.displayError("Could not save file: " + selectedFile);
+                }
+            }
+
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
     }
 
     private void setDecimalFormat() {

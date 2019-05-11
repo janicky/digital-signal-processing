@@ -69,8 +69,9 @@ public class QuantizationPanel {
         renderer.setSeriesStroke(0, new BasicStroke(1));
         renderer.setSeriesPaint(0, Color.gray);
         renderer.setSeriesLinesVisible(1, true);
-        renderer.setSeriesShapesVisible(1, true);
+        renderer.setSeriesShapesVisible(1, false);
         renderer.setSeriesStroke(1, new BasicStroke(2));
+        renderer.setSeriesPaint(1, Color.MAGENTA);
 
         plot.setRenderer(renderer);
 
