@@ -21,7 +21,7 @@ public class SteadyNoise extends Signal {
         super(0, 200);
         setAmplitude(1);
         setStartTime(0);
-        setEndTime(100);
+        setEndTime(200);
         setFrequency(1);
     }
 

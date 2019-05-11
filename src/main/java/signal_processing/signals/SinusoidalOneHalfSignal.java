@@ -18,7 +18,7 @@ public class SinusoidalOneHalfSignal extends Signal {
     }
 
     public SinusoidalOneHalfSignal() {
-        super(0, 200);
+        super(0, 800);
         setAmplitude(1);
         setStartTime(0);
         setEndTime(800);

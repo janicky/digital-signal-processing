@@ -21,7 +21,7 @@ public class GaussianNoise extends Signal {
     public GaussianNoise(){
         super(0, 200);
         setStartTime(0);
-        setEndTime(300);
+        setEndTime(200);
         setFrequency(1);
     }
 
