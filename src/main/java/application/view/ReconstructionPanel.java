@@ -7,6 +7,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -23,7 +24,9 @@ public class ReconstructionPanel {
     private JRadioButton extrapolationRadioButton;
     private JRadioButton interpolationRadioButton;
     private JRadioButton sincRadioButton;
+    private JTable reconstructionStats;
     private ChartPanel chartPanel;
+    private DefaultTableModel tableModel;
 
     public ReconstructionPanel() {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
@@ -32,6 +35,9 @@ public class ReconstructionPanel {
         reconstructionSignal.setModel(comboBoxModel);
         chartPanel = new ChartPanel(null);
         reconstructionFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Name");
+        tableModel.addColumn("Value");
     }
 
     public JPanel getMainPanel() {
@@ -100,5 +106,14 @@ public class ReconstructionPanel {
 
     public void hideNoSignal() {
         noSignal.setVisible(false);
+    }
+
+    public void updateStats(Object[][] info) {
+        tableModel.getDataVector().removeAllElements();
+        for (Object[] row : info) {
+            tableModel.addRow(row);
+        }
+        reconstructionStats.setModel(tableModel);
+        tableModel.fireTableDataChanged();
     }
 }

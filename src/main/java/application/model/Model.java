@@ -19,6 +19,7 @@ public class Model {
     private int reconstructionSignal = 0;
     private double reconstructionFrequency = 0.1;
     private int reconstructionType = 0;
+    private ISignal originalReconstructionSignal;
     private ISignal reconstructedSignal;
 
     public ISignal getSignal(int index) {
@@ -178,5 +179,13 @@ public class Model {
 
     public void setReconstructedSignal(ISignal reconstructedSignal) {
         this.reconstructedSignal = reconstructedSignal;
+    }
+
+    public ISignal getOriginalReconstructionSignal() {
+        return originalReconstructionSignal;
+    }
+
+    public void setOriginalReconstructionSignal(ISignal originalReconstructionSignal) {
+        this.originalReconstructionSignal = originalReconstructionSignal;
     }
 }

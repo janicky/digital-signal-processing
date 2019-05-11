@@ -60,7 +60,7 @@ public class Statistics {
     }
 
     // Mean square error
-    public double MSE (ISignal signal, ISignal reconstructedSignal) {
+    public double MSE() {
         double meanSquareError = 0d;
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
 
@@ -71,10 +71,10 @@ public class Statistics {
     }
 
     // Signal noise ratio
-    public double SNR(ISignal signal, ISignal reconstructedSignal) {
+    public double SNR() {
         double signalNoiseRatio = 0d;
         double sum = 0d;
-        double meanSquareError = MSE(signal, reconstructedSignal);
+        double meanSquareError = MSE();
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
 
         for (int i = 0; i < reconstructedSignalSize; i++) {
@@ -86,11 +86,11 @@ public class Statistics {
     }
 
     // Peak signal to noise ratio
-    public double PSNR(ISignal signal, ISignal reconstructedSignal) {
+    public double PSNR() {
         double peakSignalToNoiseRatio = 0d;
         List<Double> valuesList = new ArrayList<>();
         double up = 0d;
-        double meanSquareError = MSE(signal, reconstructedSignal);
+        double meanSquareError = MSE();
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
 
         for (int i = 0; i < reconstructedSignalSize; i++) {
@@ -103,7 +103,7 @@ public class Statistics {
     }
 
     // Maximum difference
-    public double MD(ISignal signal, ISignal reconstructedSignal) {
+    public double MD() {
         double maximumDifference = 0d;
         List<Double> valuesList = new ArrayList<>();
         double reconstructedSignalSize = reconstructedSignal.getValuesX().size();
@@ -117,9 +117,9 @@ public class Statistics {
     }
 
     // Effective number of bits
-    public double ENOB(ISignal signal, ISignal reconstructedSignal) {
+    public double ENOB() {
         double effectiveNumberOfBits = 0d;
-        double signalNoiseRatio = SNR(signal, reconstructedSignal);
+        double signalNoiseRatio = SNR();
 
         effectiveNumberOfBits = (signalNoiseRatio - 1.76) / 6.02;
 

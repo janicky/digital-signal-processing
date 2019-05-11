@@ -279,7 +279,9 @@ public class Controller {
                 break;
         }
         model.setReconstructedSignal(reconstructed);
-        samplingPanel.hideNoSignal();
+        model.setOriginalReconstructionSignal(signal);
+        reconstructionPanel.hideNoSignal();
+        updateReconstructionStats();
     }
 
     private void onSetReconstructionSignalAsSignal(int index) {
@@ -302,6 +304,7 @@ public class Controller {
             reconstructionPanel.displaySignal(chart);
             reconstructionPanel.hideNoSignal();
         } catch (Exception e) {
+            e.printStackTrace();
             view.displayError(e.getMessage());
         }
     }
@@ -326,6 +329,18 @@ public class Controller {
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
+    }
+
+    private void updateReconstructionStats() {
+        Statistics statistics = new Statistics(model.getOriginalReconstructionSignal(), model.getReconstructedSignal());
+        Object[][] stats = {
+                { "Mean square error", df.format(statistics.MSE()) },
+                { "Signal noise ratio", df.format(statistics.SNR()) },
+                { "Peak signal to noise ratio", df.format(statistics.PSNR()) },
+                { "Maximum difference", df.format(statistics.MD()) },
+                { "Effective number of bits", df.format(statistics.ENOB()) }
+        };
+        reconstructionPanel.updateStats(stats);
     }
 
     private void setDecimalFormat() {
