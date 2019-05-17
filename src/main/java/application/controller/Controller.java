@@ -103,6 +103,10 @@ public class Controller {
         filterPanel = new FilterPanel();
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Filter", filterPanel.getMainPanel());
+        filterPanel.addFilterSignalListener(e -> onFilterSignalChange(e));
+        filterPanel.addFilterTypeListener(e -> onFilterTypeChange(e));
+        filterPanel.addWindowTypeListener(e -> onWindowTypeChange(e));
+        filterPanel.addCutoffFrequencyListener(e -> onCutoffFrequencyChange(e));
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -337,6 +341,26 @@ public class Controller {
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
+    }
+
+    private void onFilterSignalChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setFilterSignal(source.getSelectedIndex());
+    }
+
+    private void onFilterTypeChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setFilterType(source.getSelectedIndex());
+    }
+
+    private void onWindowTypeChange(ActionEvent event) {
+        JComboBox source = (JComboBox) event.getSource();
+        model.setWindowType(source.getSelectedIndex());
+    }
+
+    private void onCutoffFrequencyChange(ChangeEvent event) {
+        JSpinner source = (JSpinner) event.getSource();
+        model.setCutoffFrequency((double) source.getValue());
     }
 
     private void updateReconstructionStats() {

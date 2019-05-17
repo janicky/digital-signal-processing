@@ -33,7 +33,7 @@ public class FilterPanel {
         comboBoxModel.addElement("Signal 2");
         filterSignal.setModel(comboBoxModel);
         chartPanel = new ChartPanel(null);
-        cutoffFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
+        cutoffFrequency.setModel(new SpinnerNumberModel(0.7, 0.001, 1.0, 0.01));
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Name");
         tableModel.addColumn("Value");

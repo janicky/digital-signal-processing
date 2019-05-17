@@ -21,6 +21,11 @@ public class Model {
     private int reconstructionType = 0;
     private ISignal originalReconstructionSignal;
     private ISignal reconstructedSignal;
+    private int filterSignal = 0;
+    private ISignal filteredSignal;
+    private int filterType = 0;
+    private int windowType = 0;
+    private double cutoffFrequency = 0.7;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -187,5 +192,45 @@ public class Model {
 
     public void setOriginalReconstructionSignal(ISignal originalReconstructionSignal) {
         this.originalReconstructionSignal = originalReconstructionSignal;
+    }
+
+    public int getFilterSignal() {
+        return filterSignal;
+    }
+
+    public void setFilterSignal(int filterSignal) {
+        this.filterSignal = filterSignal;
+    }
+
+    public ISignal getFilteredSignal() {
+        return filteredSignal;
+    }
+
+    public void setFilteredSignal(ISignal filteredSignal) {
+        this.filteredSignal = filteredSignal;
+    }
+
+    public int getFilterType() {
+        return filterType;
+    }
+
+    public void setFilterType(int filterType) {
+        this.filterType = filterType;
+    }
+
+    public int getWindowType() {
+        return windowType;
+    }
+
+    public void setWindowType(int windowType) {
+        this.windowType = windowType;
+    }
+
+    public double getCutoffFrequency() {
+        return cutoffFrequency;
+    }
+
+    public void setCutoffFrequency(double cutoffFrequency) {
+        this.cutoffFrequency = cutoffFrequency;
     }
 }
