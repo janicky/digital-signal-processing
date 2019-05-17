@@ -21,9 +21,6 @@ public class FilterPanel {
     private JButton previewButton;
     private JPanel signalPanel;
     private JLabel noSignal;
-    private JRadioButton extrapolationRadioButton;
-    private JRadioButton interpolationRadioButton;
-    private JRadioButton sincRadioButton;
     private JTable reconstructionStats;
     private JComboBox filterType;
     private JComboBox windowType;
@@ -56,11 +53,11 @@ public class FilterPanel {
         return mainPanel;
     }
 
-    public void addReconstructionFrequencyListener(ChangeListener listener) {
+    public void addCutoffFrequencyListener(ChangeListener listener) {
         cutoffFrequency.addChangeListener(listener);
     }
 
-    public void addReconstructionSignalListener(ActionListener listener) {
+    public void addFilterSignalListener(ActionListener listener) {
         filterSignal.addActionListener(listener);
     }
 
@@ -80,10 +77,11 @@ public class FilterPanel {
         previewButton.addActionListener(listener);
     }
 
-    public void addRadioButtonListener(ActionListener listener) {
-        extrapolationRadioButton.addActionListener(listener);
-        interpolationRadioButton.addActionListener(listener);
-        sincRadioButton.addActionListener(listener);
+    public void addFilterTypeListener(ActionListener listener) {
+        filterType.addActionListener(listener);
+    }
+    public void addWindowTypeListener(ActionListener listener) {
+        windowType.addActionListener(listener);
     }
 
     public void updateButtons(int selectedSignal) {
