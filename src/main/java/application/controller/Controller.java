@@ -109,6 +109,8 @@ public class Controller {
         filterPanel.addWindowTypeListener(e -> onWindowTypeChange(e));
         filterPanel.addCutoffFrequencyListener(e -> onCutoffFrequencyChange(e));
         filterPanel.addPreviewButtonListener(e -> onPreviewButtonInFilter());
+        filterPanel.addSetAsSignal1ButtonListener(e -> onSetFilterSignalAsSignal(0));
+        filterPanel.addSetAsSignal2ButtonListener(e -> onSetFilterSignalAsSignal(1));
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -318,7 +320,6 @@ public class Controller {
             reconstructionPanel.displaySignal(chart);
             reconstructionPanel.hideNoSignal();
         } catch (Exception e) {
-            e.printStackTrace();
             view.displayError(e.getMessage());
         }
     }
@@ -340,6 +341,18 @@ public class Controller {
                 }
             }
 
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onSetFilterSignalAsSignal(int index) {
+        try {
+            filterSignal();
+            ISignal signal = model.getFilteredSignal();
+            model.setSignal(index, signal);
+            onSignalRender(index);
+            onPreviewButtonInFilter();
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
@@ -402,7 +415,6 @@ public class Controller {
             filterPanel.displaySignal(chart);
             filterPanel.hideNoSignal();
         } catch (Exception e) {
-            e.printStackTrace();
             view.displayError(e.getMessage());
         }
     }
