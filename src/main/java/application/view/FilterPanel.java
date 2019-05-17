@@ -26,6 +26,7 @@ public class FilterPanel {
     private JRadioButton sincRadioButton;
     private JTable reconstructionStats;
     private JComboBox filterType;
+    private JComboBox windowType;
     private ChartPanel chartPanel;
     private DefaultTableModel tableModel;
 
@@ -44,6 +45,11 @@ public class FilterPanel {
         filterTypes.addElement("Low pass");
         filterTypes.addElement("High pass");
         filterType.setModel(filterTypes);
+
+        DefaultComboBoxModel windowTypes = new DefaultComboBoxModel();
+        windowTypes.addElement("Rectangular window");
+        windowTypes.addElement("Hanning window");
+        windowType.setModel(windowTypes);
     }
 
     public JPanel getMainPanel() {
