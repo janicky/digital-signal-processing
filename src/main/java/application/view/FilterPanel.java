@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 
 public class FilterPanel {
     private JPanel mainPanel;
-    private JComboBox reconstructionSignal;
-    private JSpinner reconstructionFrequency;
+    private JComboBox filterSignal;
+    private JSpinner cutoffFrequency;
     private JButton setAsSignal1Button;
     private JButton setAsSignal2Button;
     private JButton exportButton;
@@ -25,6 +25,7 @@ public class FilterPanel {
     private JRadioButton interpolationRadioButton;
     private JRadioButton sincRadioButton;
     private JTable reconstructionStats;
+    private JComboBox filterType;
     private ChartPanel chartPanel;
     private DefaultTableModel tableModel;
 
@@ -32,12 +33,17 @@ public class FilterPanel {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         comboBoxModel.addElement("Signal 1");
         comboBoxModel.addElement("Signal 2");
-        reconstructionSignal.setModel(comboBoxModel);
+        filterSignal.setModel(comboBoxModel);
         chartPanel = new ChartPanel(null);
-        reconstructionFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
+        cutoffFrequency.setModel(new SpinnerNumberModel(0.1, 0.001, 1.0, 0.01));
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Name");
         tableModel.addColumn("Value");
+
+        DefaultComboBoxModel filterTypes = new DefaultComboBoxModel();
+        filterTypes.addElement("Low pass");
+        filterTypes.addElement("High pass");
+        filterType.setModel(filterTypes);
     }
 
     public JPanel getMainPanel() {
@@ -45,11 +51,11 @@ public class FilterPanel {
     }
 
     public void addReconstructionFrequencyListener(ChangeListener listener) {
-        reconstructionFrequency.addChangeListener(listener);
+        cutoffFrequency.addChangeListener(listener);
     }
 
     public void addReconstructionSignalListener(ActionListener listener) {
-        reconstructionSignal.addActionListener(listener);
+        filterSignal.addActionListener(listener);
     }
 
     public void addSetAsSignal1ButtonListener(ActionListener listener) {

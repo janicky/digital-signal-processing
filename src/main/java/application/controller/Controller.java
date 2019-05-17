@@ -38,6 +38,7 @@ public class Controller {
     private SamplingPanel samplingPanel;
     private QuantizationPanel quantizationPanel;
     private ReconstructionPanel reconstructionPanel;
+    private FilterPanel filterPanel;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -58,6 +59,7 @@ public class Controller {
         initializeSamplingPanel();
         initializeQuantizationPanel();
         initializeReconstructionPanel();
+        initializeFilterPanel();
     }
 
     private void initializeSamplingPanel() {
@@ -95,6 +97,12 @@ public class Controller {
         reconstructionPanel.addExportButtonListener(e -> onExportButtonInReconstruction());
         reconstructionPanel.addPreviewButtonListener(e -> onPreviewButtonInReconstruction());
         reconstructionPanel.addRadioButtonListener(e -> onReconstructionTypeChange(e));
+    }
+
+    private void initializeFilterPanel() {
+        filterPanel = new FilterPanel();
+        JTabbedPane tabbedPane = view.getTabbedPane();
+        tabbedPane.addTab("Filter", filterPanel.getMainPanel());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
