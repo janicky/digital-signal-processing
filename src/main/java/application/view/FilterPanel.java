@@ -101,7 +101,7 @@ public class FilterPanel {
         renderer.setSeriesLinesVisible(1, true);
         renderer.setSeriesShapesVisible(1, false);
         renderer.setSeriesStroke(1, new BasicStroke(2));
-        renderer.setSeriesPaint(1, new Color(160,82,55));
+        renderer.setSeriesPaint(1, new Color(155,100,160));
 
         plot.setRenderer(renderer);
 
