@@ -11,6 +11,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.helpers.FileUtils;
+import signal_processing.helpers.Filter;
 import signal_processing.helpers.Operations;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
@@ -107,6 +108,7 @@ public class Controller {
         filterPanel.addFilterTypeListener(e -> onFilterTypeChange(e));
         filterPanel.addWindowTypeListener(e -> onWindowTypeChange(e));
         filterPanel.addCutoffFrequencyListener(e -> onCutoffFrequencyChange(e));
+        filterPanel.addPreviewButtonListener(e -> onPreviewButtonInFilter());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -346,6 +348,7 @@ public class Controller {
     private void onFilterSignalChange(ActionEvent event) {
         JComboBox source = (JComboBox) event.getSource();
         model.setFilterSignal(source.getSelectedIndex());
+        filterPanel.updateButtons(model.getFilterSignal());
     }
 
     private void onFilterTypeChange(ActionEvent event) {
@@ -361,6 +364,47 @@ public class Controller {
     private void onCutoffFrequencyChange(ChangeEvent event) {
         JSpinner source = (JSpinner) event.getSource();
         model.setCutoffFrequency((double) source.getValue());
+    }
+
+    private void filterSignal() throws Exception {
+        int index = model.getFilterSignal();
+        ISignal signal = model.getSignal(index);
+        if (signal == null || signal.getValuesX().size() == 0 || signal.getValuesY().size() == 0) {
+            throw new Exception("Signal not found.");
+        }
+        ISignal filtered;
+        double cutoffFrequency = model.getCutoffFrequency();
+
+        int filterType = model.getFilterType();
+        int windowType = model.getWindowType();
+        int m = 15;
+
+        if (filterType == 0 && windowType == 0) {
+            filtered = Filter.filterSignal(signal, 0, m, cutoffFrequency);
+        } else if (filterType == 1 && windowType == 0) {
+            filtered = Filter.filterSignal(signal, 1, m, cutoffFrequency);
+        } else if (filterType == 0 && windowType == 1) {
+            filtered = Filter.filterSignal(signal, 2, m, cutoffFrequency);
+        } else {
+            filtered = Filter.filterSignal(signal, 3, m, cutoffFrequency);
+        }
+
+        model.setFilteredSignal(filtered);
+        model.setOriginalFilteredSignal(signal.copy());
+        filterPanel.hideNoSignal();
+    }
+
+    private void onPreviewButtonInFilter() {
+        try {
+            filterSignal();
+            ISignal signal = model.getSignal(model.getFilterSignal());
+            JFreeChart chart = Operations.getChart(signal, model.getFilteredSignal());
+            filterPanel.displaySignal(chart);
+            filterPanel.hideNoSignal();
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.displayError(e.getMessage());
+        }
     }
 
     private void updateReconstructionStats() {

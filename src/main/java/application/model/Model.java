@@ -23,9 +23,10 @@ public class Model {
     private ISignal reconstructedSignal;
     private int filterSignal = 0;
     private ISignal filteredSignal;
+    private ISignal originalFilteredSignal;
     private int filterType = 0;
     private int windowType = 0;
-    private double cutoffFrequency = 0.7;
+    private double cutoffFrequency = 0.05;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -232,5 +233,13 @@ public class Model {
 
     public void setCutoffFrequency(double cutoffFrequency) {
         this.cutoffFrequency = cutoffFrequency;
+    }
+
+    public ISignal getOriginalFilteredSignal() {
+        return originalFilteredSignal;
+    }
+
+    public void setOriginalFilteredSignal(ISignal originalFilteredSignal) {
+        this.originalFilteredSignal = originalFilteredSignal;
     }
 }

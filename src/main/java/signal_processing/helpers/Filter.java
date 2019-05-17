@@ -1,5 +1,6 @@
 package signal_processing.helpers;
 
+import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.signals.GeneratedSignal;
 
@@ -106,7 +107,7 @@ public class Filter {
         return points;
     }
 
-    public static Signal filterSignal(Signal signal, int type, int M, double cutoffFrequency){
+    public static Signal filterSignal(ISignal signal, int type, int M, double cutoffFrequency){
 
         List <Double> tmp = new ArrayList<>();
 
