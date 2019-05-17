@@ -111,6 +111,7 @@ public class Controller {
         filterPanel.addPreviewButtonListener(e -> onPreviewButtonInFilter());
         filterPanel.addSetAsSignal1ButtonListener(e -> onSetFilterSignalAsSignal(0));
         filterPanel.addSetAsSignal2ButtonListener(e -> onSetFilterSignalAsSignal(1));
+        filterPanel.addExportButtonListener(e -> onExportButtonInFilter());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -414,6 +415,28 @@ public class Controller {
             JFreeChart chart = Operations.getChart(signal, model.getFilteredSignal());
             filterPanel.displaySignal(chart);
             filterPanel.hideNoSignal();
+        } catch (Exception e) {
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onExportButtonInFilter() {
+        try {
+            filterSignal();
+            ISignal signal = model.getFilteredSignal();
+
+            fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showSaveDialog(view.getMainPanel());
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getPath();
+                try {
+                    FileUtils.saveSignal(signal, selectedFile);
+                    JOptionPane.showMessageDialog(view.getFrame(), "Saved.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    view.displayError("Could not save file: " + selectedFile);
+                }
+            }
+
         } catch (Exception e) {
             view.displayError(e.getMessage());
         }
