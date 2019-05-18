@@ -40,6 +40,7 @@ public class Controller {
     private QuantizationPanel quantizationPanel;
     private ReconstructionPanel reconstructionPanel;
     private FilterPanel filterPanel;
+    private CorrelationPanel correlationPanel;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -61,6 +62,7 @@ public class Controller {
         initializeQuantizationPanel();
         initializeReconstructionPanel();
         initializeFilterPanel();
+        initializeCorrelationPanel();
     }
 
     private void initializeSamplingPanel() {
@@ -112,6 +114,12 @@ public class Controller {
         filterPanel.addSetAsSignal1ButtonListener(e -> onSetFilterSignalAsSignal(0));
         filterPanel.addSetAsSignal2ButtonListener(e -> onSetFilterSignalAsSignal(1));
         filterPanel.addExportButtonListener(e -> onExportButtonInFilter());
+    }
+
+    private void initializeCorrelationPanel() {
+        correlationPanel = new CorrelationPanel();
+        JTabbedPane tabbedPane = view.getTabbedPane();
+        tabbedPane.addTab("Correlation", correlationPanel.getMainPanel());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
