@@ -11,6 +11,7 @@ import signal_processing.ISignal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class View {
@@ -28,6 +29,11 @@ public class View {
     private JLabel noHistogram1;
     private JPanel histogramChart3;
     private JLabel noHistogram2;
+    private JPanel defaultPanel;
+    private JPanel correlationPanel;
+    private JPanel sentSignal;
+    private JPanel receivedSignal;
+    private JPanel correlationSignal;
     private ChartPanel chartPanel1;
     private ChartPanel chartPanel2;
     private ChartPanel chartPanel3;
@@ -45,7 +51,7 @@ public class View {
         createMenu();
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1500, 800);
+        frame.setSize(1500, 900);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
@@ -236,5 +242,16 @@ public class View {
 
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
+    }
+
+    public void addTabbedPaneListener(ChangeListener listener) {
+        tabbedPane.addChangeListener(listener);
+    }
+
+    public void setDefaultPanelVisible(boolean state) {
+        defaultPanel.setVisible(state);
+    }
+    public void setCorrelationPanelVisible(boolean state) {
+        correlationPanel.setVisible(state);
     }
 }

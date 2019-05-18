@@ -63,6 +63,15 @@ public class Controller {
         initializeReconstructionPanel();
         initializeFilterPanel();
         initializeCorrelationPanel();
+
+        view.addTabbedPaneListener(e -> onTabbedPaneChange(e));
+    }
+
+    private void onTabbedPaneChange(ChangeEvent event) {
+        JTabbedPane tabbedPane = (JTabbedPane) event.getSource();
+        System.out.println(tabbedPane.getSelectedIndex());
+        view.setDefaultPanelVisible(tabbedPane.getSelectedIndex() != 7);
+        view.setCorrelationPanelVisible(tabbedPane.getSelectedIndex() == 7);
     }
 
     private void initializeSamplingPanel() {
