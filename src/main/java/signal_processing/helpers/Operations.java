@@ -352,6 +352,28 @@ public class Operations {
         return chart;
     }
 
+    public static JFreeChart getChart(ISignal signal) {
+        XYSeriesCollection dataset = new XYSeriesCollection();
+
+        final XYSeries series1 = new XYSeries("source");
+        List<Double> x1 = signal.getValuesX();
+        List<Double> y1 = signal.getValuesY();
+        for (int i = 0; i < x1.size(); i++) {
+            series1.add(x1.get(i), y1.get(i));
+        }
+        dataset.addSeries(series1);
+
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                signal.getSignalName(),
+                "x",
+                "y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false);
+        return chart;
+    }
 
 
 }

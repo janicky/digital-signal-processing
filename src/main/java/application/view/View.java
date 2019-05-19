@@ -4,10 +4,13 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
+import signal_processing.helpers.Operations;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,6 +37,8 @@ public class View {
     private JPanel sentSignal;
     private JPanel receivedSignal;
     private JPanel correlationSignal;
+    private JPanel sentSignalHide;
+    private JLabel receivedSignalHide;
     private ChartPanel chartPanel1;
     private ChartPanel chartPanel2;
     private ChartPanel chartPanel3;
@@ -41,6 +46,7 @@ public class View {
     private ChartPanel chartPanel5;
     private JMenuItem file_item_1;
     private JMenuItem file_item_2;
+    private ChartPanel sentChartPanel;
 
     public void displayError(String message) {
         JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,6 +61,9 @@ public class View {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
+
+        sentChartPanel = new ChartPanel(null);
+        correlationPanel.setVisible(false);
 
         initializeView();
     }
@@ -254,4 +263,26 @@ public class View {
     public void setCorrelationPanelVisible(boolean state) {
         correlationPanel.setVisible(state);
     }
+
+    public void renderSentSignal(ISignal signal) {
+        JFreeChart chart = Operations.getChart(signal);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+
+        renderer.setSeriesLinesVisible(0, true);
+        renderer.setSeriesShapesVisible(0, false);
+        renderer.setSeriesStroke(0, new BasicStroke(1));
+        renderer.setSeriesPaint(0, Color.gray);
+        plot.setRenderer(renderer);
+
+        sentChartPanel.setChart(chart);
+        sentChartPanel.validate();
+
+        if (sentSignal.getComponentCount() != 2) {
+            sentSignal.add(sentChartPanel, 0);
+            sentSignal.validate();
+            sentSignalHide.setVisible(false);
+        }
+    }
+
 }

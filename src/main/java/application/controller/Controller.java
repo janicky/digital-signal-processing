@@ -17,6 +17,7 @@ import signal_processing.helpers.Statistics;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
+import signal_processing.signals.SinusoidalSignal;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -69,9 +70,15 @@ public class Controller {
 
     private void onTabbedPaneChange(ChangeEvent event) {
         JTabbedPane tabbedPane = (JTabbedPane) event.getSource();
-        System.out.println(tabbedPane.getSelectedIndex());
         view.setDefaultPanelVisible(tabbedPane.getSelectedIndex() != 7);
         view.setCorrelationPanelVisible(tabbedPane.getSelectedIndex() == 7);
+
+        if (tabbedPane.getSelectedIndex() == 7) {
+            ISignal signal = new SinusoidalSignal();
+            signal.setBasicPeriod(signal.getBasicPeriod() / 4);
+            signal.updateValues();
+//            view.renderSentSignal(signal);
+        }
     }
 
     private void initializeSamplingPanel() {
