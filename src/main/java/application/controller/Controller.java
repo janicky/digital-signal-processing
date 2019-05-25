@@ -136,6 +136,7 @@ public class Controller {
         correlationPanel = new CorrelationPanel();
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Correlation", correlationPanel.getMainPanel());
+        correlationPanel.addSpeedSliderListener(e -> onSpeedSliderChange(e));
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -476,6 +477,11 @@ public class Controller {
                 { "Effective number of bits", df.format(statistics.ENOB()) }
         };
         reconstructionPanel.updateStats(stats);
+    }
+
+    private void onSpeedSliderChange(ChangeEvent event) {
+        JSlider source = (JSlider) event.getSource();
+        model.setSpeed(source.getValue());
     }
 
     private void setDecimalFormat() {
