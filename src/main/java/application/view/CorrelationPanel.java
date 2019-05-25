@@ -36,4 +36,9 @@ public class CorrelationPanel {
         JSlider source = (JSlider) event.getSource();
         sliderValue.setText(Integer.toString(source.getValue()));
     }
+
+    public void updateButtons(boolean isWorking) {
+        startButton.setEnabled(!isWorking);
+        stopButton.setEnabled(isWorking);
+    }
 }

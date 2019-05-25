@@ -1,7 +1,9 @@
 package application.model;
 
 import signal_processing.ISignal;
+import signal_processing.helpers.Correlation;
 import signal_processing.helpers.Operations;
+import signal_processing.helpers.Position;
 import signal_processing.helpers.Statistics;
 import signal_processing.signals.*;
 
@@ -28,6 +30,9 @@ public class Model {
     private int windowType = 0;
     private double cutoffFrequency = 0.05;
     private int speed = 50;
+    private Correlation correlation;
+    private Position position;
+    private boolean isCorrelationWorking = false;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -250,5 +255,29 @@ public class Model {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public Correlation getCorrelation() {
+        return correlation;
+    }
+
+    public void setCorrelation(Correlation correlation) {
+        this.correlation = correlation;
+    }
+
+    public boolean isCorrelationWorking() {
+        return isCorrelationWorking;
+    }
+
+    public void setCorrelationWorking(boolean correlationWorking) {
+        isCorrelationWorking = correlationWorking;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

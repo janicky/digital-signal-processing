@@ -36,7 +36,6 @@ public class Controller {
     private ReconstructionPanel reconstructionPanel;
     private FilterPanel filterPanel;
     private CorrelationPanel correlationPanel;
-    private Correlation correlation;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -483,22 +482,36 @@ public class Controller {
 
     private void onCorrelationStart() {
         try {
-            ISignal signal1 = model.getSignal(0);
-            ISignal signal2 = model.getSignal(1);
-            if (signal1 == null || signal2 == null) {
-                throw new Exception("Both signals must be generated.");
+            Correlation correlation = model.getCorrelation();
+            if (correlation == null) {
+                ISignal signal1 = model.getSignal(0);
+                ISignal signal2 = model.getSignal(1);
+                if (signal1 == null || signal2 == null) {
+                    throw new Exception("Both signals must be generated.");
+                }
+
+                Position position = model.getPosition();
+                if (position == null) {
+                    position = new Position(0.5);
+                }
+
+                correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
+                correlation.distanceSensor();
+
+                GeneratedSignal correlated = correlation.getCorrelatedSignal();
+                correlated.setName("Signals correlation");
+
+                view.renderSentSignal(signal1);
+                view.renderReceivedSignal(signal2);
+                view.renderCorrelatedSignal(correlated);
+
+                Thread thread = new Thread(new CorrelationThread());
+                thread.start();
             }
 
-            Position position = new Position(0.5);
-            correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
-            correlation.distanceSensor();
+            model.setCorrelationWorking(true);
+            updateCorrelationButtons();
 
-            GeneratedSignal correlated = correlation.getCorrelatedSignal();
-            correlated.setName("Signals correlation");
-
-            view.renderSentSignal(signal1);
-            view.renderReceivedSignal(signal2);
-            view.renderCorrelatedSignal(correlated);
         } catch (Exception e) {
             e.printStackTrace();
             view.displayError(e.getMessage());
@@ -506,7 +519,13 @@ public class Controller {
     }
 
     private void onCorrelationStop() {
+        model.setCorrelationWorking(false);
+        updateCorrelationButtons();
+    }
 
+    private void updateCorrelationButtons() {
+        boolean isWorking = model.isCorrelationWorking();
+        correlationPanel.updateButtons(isWorking);
     }
 
     public class CorrelationThread implements Runnable {
