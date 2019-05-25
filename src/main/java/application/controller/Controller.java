@@ -132,7 +132,7 @@ public class Controller {
         tabbedPane.addTab("Correlation", correlationPanel.getMainPanel());
         correlationPanel.addSpeedSliderListener(e -> onSpeedSliderChange(e));
         correlationPanel.addStartButtonListener(e -> onCorrelationStart());
-        correlationPanel.addStopButtonListener(e -> onCorrelationStop());
+//        correlationPanel.addStopButtonListener(e -> onCorrelationStop());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -483,34 +483,36 @@ public class Controller {
     private void onCorrelationStart() {
         try {
             Correlation correlation = model.getCorrelation();
-            if (correlation == null) {
-                ISignal signal1 = model.getSignal(0);
-                ISignal signal2 = model.getSignal(1);
-                if (signal1 == null || signal2 == null) {
-                    throw new Exception("Both signals must be generated.");
-                }
 
-                Position position = model.getPosition();
-                if (position == null) {
-                    position = new Position(0.5);
-                }
-
-                correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
-                correlation.distanceSensor();
-
-                GeneratedSignal correlated = correlation.getCorrelatedSignal();
-                correlated.setName("Signals correlation");
-
-                view.renderSentSignal(signal1);
-                view.renderReceivedSignal(signal2);
-                view.renderCorrelatedSignal(correlated);
-
-                Thread thread = new Thread(new CorrelationThread());
-                thread.start();
+            ISignal signal1 = model.getSignal(0);
+            ISignal signal2 = model.getSignal(1);
+            if (signal1 == null || signal2 == null) {
+                throw new Exception("Both signals must be generated.");
             }
 
-            model.setCorrelationWorking(true);
-            updateCorrelationButtons();
+            Position position = model.getPosition();
+            if (position == null) {
+                position = new Position(0.05);
+                model.setPosition(position);
+            }
+
+            correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
+            model.setCorrelation(correlation);
+            correlation.distanceSensor();
+
+            GeneratedSignal correlated = correlation.getCorrelatedSignal();
+            correlated.setName("Signals correlation");
+
+            view.renderSentSignal(signal1);
+            view.renderReceivedSignal(signal2);
+            view.renderCorrelatedSignal(correlated);
+
+
+//            Thread thread = new Thread(new CorrelationThread());
+//            thread.start();
+
+//            model.setCorrelationWorking(true);
+//            updateCorrelationButtons();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -518,20 +520,38 @@ public class Controller {
         }
     }
 
-    private void onCorrelationStop() {
-        model.setCorrelationWorking(false);
-        updateCorrelationButtons();
-    }
+//    private void onCorrelationStop() {
+//        model.setCorrelationWorking(false);
+//        updateCorrelationButtons();
+//    }
 
-    private void updateCorrelationButtons() {
-        boolean isWorking = model.isCorrelationWorking();
-        correlationPanel.updateButtons(isWorking);
-    }
+//    private void updateCorrelationButtons() {
+//        boolean isWorking = model.isCorrelationWorking();
+//        correlationPanel.updateButtons(isWorking);
+//    }
 
     public class CorrelationThread implements Runnable {
         @Override
         public void run() {
+            Position position = model.getPosition();
+            Correlation correlation = model.getCorrelation();
+            double time = 0.0;
 
+            while (model.isCorrelationWorking()) {
+                try {
+                    Thread.sleep(1000);
+
+                    System.out.println(correlation.getDistance());
+                    position.setPosition(time++);
+
+                    correlation.distanceSensor();
+                    ISignal correlated = correlation.getCorrelatedSignal();
+                    view.renderCorrelatedSignal(correlated);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

@@ -17,7 +17,7 @@ public class CorrelationPanel {
     }
 
     public CorrelationPanel() {
-        speedSlider.addChangeListener(e -> updateSliderValue(e));
+//        speedSlider.addChangeListener(e -> updateSliderValue(e));
     }
 
     public void addStartButtonListener(ActionListener listener) {
@@ -25,11 +25,11 @@ public class CorrelationPanel {
     }
 
     public void addStopButtonListener(ActionListener listener) {
-        stopButton.addActionListener(listener);
+        //stopButton.addActionListener(listener);
     }
 
     public void addSpeedSliderListener(ChangeListener listener) {
-        speedSlider.addChangeListener(listener);
+//        speedSlider.addChangeListener(listener);
     }
 
     private void updateSliderValue(ChangeEvent event) {
