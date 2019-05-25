@@ -6,12 +6,21 @@
 \usepackage{graphicx}
 \usepackage{amsfonts}
 
+\usepackage[dvipsnames]{color}
+\usepackage{amsmath}
+\usepackage[section]{placeins}
+\usepackage{listings}
+\usepackage{xparse}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+
 \setlength{\textheight}{21cm}
 
-\title{{\bf Zadanie nr 2 - Próbkowanie i kwantyzacja}\linebreak
+\title{{\bf Zadanie nr 3 - Splot, filtracja i korelacja sygna³ów}\linebreak
 Cyfrowe Przetwarzanie Sygna³ów}
 \author{Konrad Jachimstal, 211807 \and Patryk Janicki, 211951}
-\date{12.05.2019}
+\date{26.05.2019}
 
 \begin{document}
 \clearpage\maketitle
@@ -19,144 +28,127 @@ Cyfrowe Przetwarzanie Sygna³ów}
 \newpage
 \setcounter{page}{1}
 \section{Cel zadania}
-Celem zadania jest zapoznanie siê z konwersj¹ sygna³ów dzielon¹ na:
+Celem zadania jest zapoznanie siê z operacjami splotu, filtracji oraz korelacji sygna³ów.
+Dzia³anie programu mo¿emy podzieliæ na podpunkty z których ka¿dy odpowiada poszczególnej zak³adce
+w programie.
 \begin{itemize}
- \item Próbkowanie
- \item Kwantyzacjê
- \item Rekonstrukcjê
+ \item Filtracja
+ \item Korelacja
 \end{itemize}
 
 \section{Wstêp teoretyczny}
 \subsection{Zagadnienia}
-Konwersja z sygna³u analogowego na sygna³ cyfrowy wymaga spróbkowania danego sygna³u. Próbkowanie
-odbywa siê na pobieraniu wartoœci sygna³u co okreœlony z góry okres czasu. Otrzymane w ten sposób
-wartoœci nazywamy próbkami.
+\subsubsection{Filtracja}
+Filtracj¹ nazywamy proces ograniczaj¹cy sygna³ w wybrany sposób. Istniej¹ dwa sposoby ograniczania sygna³u.
+\begin{description}
+ \item Dolnoprzepustowy - filtracja dolno przepustowa polega na odciêcu wartoœci sygna³u przekraczaj¹cych
+ dan¹ czêstotliwoœæ. Na przyk³ad je¿eli filtracja dolnoprzepustowa bêdzie ustawiona na $50Hz$ to wszystko
+ w zakresie od $0Hz$ do $50Hz$ zostanie zachowane, natomiast wszystko powy¿ej podanej czêstotliwoœci zostanie
+ odfiltrowane.
+ \item Górnoprzepustowy - filtracja górno przepustowa polega na odfiltrowaniu z sygna³u wartoœci, które
+ s¹ poni¿ej podanej wartoœci czêstotliwoœci.
+\end{description}
 
-\\Kolejnym etapem konwersji sygna³u jest kwantyzacja. Polega ona na dopisaniu do wczeœniej pobranych
-próbek zdyskretyzowanych wartoœci danego sygna³u.
-
-\\Ostatnim etapem jest odtworzenie tzw. $rekontrukcja$ sygna³u. Polega ona na odzyskaniu ze wczeœniej
-zdyskretyzowanego sygna³u cyfrowego sygna³u analogowego jak najbardziej przypominaj¹cego oryginalny
-sygna³ sprzed konwersji.
-
-\\Konwersja sygna³ów jest bardzo istotna poniewa¿ bez niej nie by³o by mo¿liwoœci przechowywania sygna³ów
-ze wzglêdu na to, ¿e sygna³ analogowy posiada nieskoñczon¹ liczbê wartoœci a jak powszechnie wiadomo
-maszyny posiadaj¹ skoñczon¹ pamiêæ.
+\subsubsection{Korelacja}
+Korelacja sygna³ów pozwana na porównanie ze zob¹ dwóch sygna³ów. O korelacji pomiêdzy sygna³ami mówimy,
+kiedy wzrost pierwszego sygna³u wi¹¿e siê ze wzrostem sygna³u drugiego. Mówimy wówczas o korelacji silnej.
+Natomiast je¿eli podczas wzrostu sygna³u pierwszego obserwujemy spadek sygna³u drugiego to mówimy o
+korelacji ujemnej.
 
 \subsection{Obs³uga programu}
-Program z zadania pierwszego zosta³ rozszerzony o funkjonalnoœci pozwalaj¹ce w wygodny sposób
-przeprowadziæ konwersjê sygna³u.
+Program z zadania pierwszego oraz drugiego zosta³ rozszerzony o funkjonalnoœci pozwalaj¹ce w wygodny sposób
+przeprowadziæ filtracjê oraz korelacjê sygna³u.
 \\Dodane zak³adki:
 \begin{itemize}
- \item Sampling
- \item Quantization
- \item Reconstruction
+ \item Filter
+ \item Corelation
 \end{itemize}
+Podczas operacji na sygna³ach mo¿emy wybraæ rodzaj filtracji, rodzaj wykorzystywanego okna oraz zakres
+filtracji.
 
 \begin{figure}
  \centering
- \includegraphics[width=14cm]{sampling.JPG}
+ \includegraphics[width=10cm]{filter.JPG}
  \vspace{-0.3cm}
- \caption{Zak³adka s³u¿¹ca do próbkowania sygna³u.}
+ \caption{Zak³adka s³u¿¹ca do filtrowania sygna³u.}
  \label{sampling}
 \end{figure}
 
-\begin{figure}
- \centering
- \includegraphics[width=14cm]{quantization.JPG}
- \vspace{-0.3cm}
- \caption{Zak³adka s³u¿¹ca do kwantyzacji sygna³u.}
- \label{quantization}
-\end{figure}
-
-\begin{figure}
- \centering
- \includegraphics[width=14cm]{reconstruction.JPG}
- \vspace{-0.3cm}
- \caption{Zak³adka s³u¿¹ca do rekonstrukcji sygna³u.}
- \label{reconstruction}
-\end{figure}
-
+\FloatBarrier
 \section{Eksperymenty i wyniki}
-Wykonane eksperymenty zosta³y podzielone na trzy czêœci: próbkowanie, kwantyzacja oraz rekonstrukcja.
+Wykonane eksperymenty zosta³y podzielone na dwie czêœci: filtracja oraz korelacja sygna³ów.
 
-\subsection{Eksperyment nr 1 - Próbkowanie}
-Eksperyment nr 1 polega³ na wygenerowaniu spróbkowanego sygna³u.
+\subsection{Eksperyment nr 1 - Filtracja górnoprzepustowa}
+Eksperyment nr 1 polega³ na wygenerowaniu sygna³u po filtracji za pomoc¹
+filtru górnoprzepustowego z parametrem odciêcia równym $0,02$. Eksperyment przeprowadzono dla
+dwóch rodzajów okna.
 
 \subsubsection{Za³o¿enia}
-Zak³adanym wynikiem by³o otrzymanie próbek pobranych z signa³u sinusoidalnego wyprostowanego
-jednopo³ówkowo.
+Zak³adanym wynikiem by³o otrzymanie odfiltrowanego sygna³u.
 
 \subsubsection{Rezultat}
-Zgodnie z za³o¿eniami otrzymano próbki z wybranego sygna³u.
+Zgodnie z za³o¿eniami otrzymano odfiltrowany sygna³.
 
 \begin{figure}[h!]
  \centering
- \includegraphics[width=15cm]{sinsampling.JPG}
+ \includegraphics[width=10cm]{filterdown.JPG}
  \vspace{-0.3cm}
- \caption{Spróbkowany sygna³.}
+ \caption{Odfiltrowany sygna³ z oknem Hanning.}
+\end{figure}
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=10cm]{filterdownrec.JPG}
+ \vspace{-0.3cm}
+ \caption{Odfiltrowany sygna³ z oknem $recangular$.}
+\end{figure}
+\newpage
+\FloatBarrier
+\subsection{Eksperyment nr 2 - Filtracja dolnoprzepustowa}
+Eksperyment nr 2 polega³ na odfiltrowaniu sygna³u za pomoc¹ filtra dolnoprzepustowego z parametrem $0.06$.
+Eksperyment przeprowadzono dla dwóch rodzajów okna.
+\subsubsection{Za³o¿enia}
+Zak³adanym wynikiem by³o otrzymanie odfiltrowanego sygna³u.
+
+\subsubsection{Rezultat}
+Zgodnie z za³o¿eniami otrzymaliœmy odfiltrowany sygna³.
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=10cm]{filterup.JPG}
+ \vspace{-0.3cm}
+ \caption{Odfiltrowany sygna³ z oknem Hanning.}
+\end{figure}
+
+\begin{figure}[h!]
+ \centering
+ \includegraphics[width=10cm]{filteruprec.JPG}
+ \vspace{-0.3cm}
+ \caption{Odfiltrowany sygna³ z oknem $recangular$.}
 \end{figure}
 \newpage
 
-\subsection{Eksperyment nr 2 - Kwantyzacja}
-Eksperyment nr 2 polega³ na kwantyzacji sygna³u z otrzymanych próbek.
+\FloatBarrier
+\subsection{Eksperyment nr 3 - Korelacja}
+
 
 \subsubsection{Za³o¿enia}
-Za³o¿eniem w tym eksperymencie by³o wygenerowanie skwantyzowanego sygna³u z wczeœniej otrzymanych próbek.
+Za³o¿eniem w tym eksperymencie by³o otrzymanie sygna³u bêd¹cego wynikiem korelacji dwóch sygna³ów.
 
 \subsubsection{Rezultat}
-Zgodnie z za³o¿eniami otrzymaliœmy skwantyzowany sygna³ z wartoœci¹ progu równ¹ $5$.
+Zgodnie z za³o¿eniami otrzymaliœmi poni¿ej przedstawiony sygna³.
 
 \begin{figure}[h!]
  \centering
- \includegraphics[width=15cm]{sinquantization.JPG}
+ \includegraphics[width=10cm]{filterdown.JPG}
  \vspace{-0.3cm}
- \caption{Skwantyzowany sygna³.}
-\end{figure}
-\newpage
-
-
-\subsection{Eksperyment nr 3 - Rekonstrukcja}
-Eksperyment nr n zak³ada³, i¿ zrekonstruujemy skwantyzowany signa³ u¿ywaj¹c metod ekstrapolacji
-zerowego rzêdu oraz rekonstrukcji opieraj¹cej siê o funkcjê $sinc$.
-
-\subsubsection{Za³o¿enia}
-Za³o¿eniem w tym eksperymencie by³o zrekonstruowanie sygna³u skwantyzowanego otrzymanego w poprzednim
-eskerymencie za pomoc¹ dwóch metod. Oraz wyliczenie:
-\begin{itemize}
- \item B³êdu œredniokwadratowego
- \item Stosunku sygna³u do szumu
- \item Szczytowego stosunku sygna³u do szumu
- \item Maksymalnej ró¿nicy
-\end{itemize}
-
-\newpage
-\subsubsection{Rezultat}
-Zgodnie z za³o¿eniami otrzymaliœmi poni¿ej przedstawione sygna³y.
-
-\begin{figure}[h!]
- \centering
- \includegraphics[width=15cm]{sinreconstructionex.JPG}
- \vspace{-0.3cm}
- \caption{Sygna³ zrekonstruowany za pomoc¹ ekstrapolacji zerowego rzêdu.}
-\end{figure}
-\newpage
-
-\begin{figure}[h!]
- \centering
- \includegraphics[width=15cm]{sinreconstructionsinc.JPG}
- \vspace{-0.3cm}
- \caption{Sygna³ zrekonstruowany za pomoc¹ funkcji $sinc$.}
+ \caption{Sygna³ otrzymany w procesie korelacji.}
 \end{figure}
 
 \section{Wnioski}
-Konwersja sygna³ów jest tosowana w dzisiajszym œwiecie w wielu dziedzinach. Dziêki niej jesteœmy w
-stanie zapisywaæ sygna³y zaobserwowane w natrzue oraz przesy³aæ je na du¿e odleg³oœci. Ponadto sygna³y
-te mo¿na dalej przetwarzaæ co pozwala jeszcze bardziej ro¿szerzyæ zastosowanie konwersji.
-
-\\Warto nadmieniæ, ¿e przedstawione w programie przekszta³cenia nie s¹ dok³adnym odwzorowaniem
-konwersji sygna³ów, poniewa¿ s¹ to w dalszym ci¹gu sygna³y cyfrowe. Zmianie podlegaj¹ jedynie wartoœci
-tak aby jak najbardziej oddaæ konwersjê sygna³u.
+W procesie filtracji sygna³ów dok³adnie wida¿ ró¿nicê pomiêdzy zostosowanym rodzajem filtracji.
+Na otrzymane ygna³y znaczny wp³yw ma rodzaj zastoowanego okna. Sygna³y, które podlegaj¹ operacjom
+powinny byæ tej samej d³ugoœci.
 
 \section{Za³¹czniki}
 Podczas opracowywania zagadnienia korzystaliœmy jedynie z instrukcji do³¹czonej do zadania.
