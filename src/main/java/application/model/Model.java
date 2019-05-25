@@ -27,6 +27,7 @@ public class Model {
     private int filterType = 0;
     private int windowType = 0;
     private double cutoffFrequency = 0.05;
+    private int speed = 50;
 
     public ISignal getSignal(int index) {
         return signals[index];
@@ -241,5 +242,13 @@ public class Model {
 
     public void setOriginalFilteredSignal(ISignal originalFilteredSignal) {
         this.originalFilteredSignal = originalFilteredSignal;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }
