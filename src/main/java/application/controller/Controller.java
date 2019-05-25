@@ -10,10 +10,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
-import signal_processing.helpers.FileUtils;
-import signal_processing.helpers.Filter;
-import signal_processing.helpers.Operations;
-import signal_processing.helpers.Statistics;
+import signal_processing.helpers.*;
 import signal_processing.signals.ImpulseNoise;
 import signal_processing.signals.IndividualImpulseSignal;
 import signal_processing.signals.IndividualJumpSignal;
@@ -42,6 +39,7 @@ public class Controller {
     private ReconstructionPanel reconstructionPanel;
     private FilterPanel filterPanel;
     private CorrelationPanel correlationPanel;
+    private Correlation correlation;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -137,6 +135,8 @@ public class Controller {
         JTabbedPane tabbedPane = view.getTabbedPane();
         tabbedPane.addTab("Correlation", correlationPanel.getMainPanel());
         correlationPanel.addSpeedSliderListener(e -> onSpeedSliderChange(e));
+        correlationPanel.addStartButtonListener(e -> onCorrelationStart());
+        correlationPanel.addStopButtonListener(e -> onCorrelationStop());
     }
 
     private void onSamplingFrequencyChange(ChangeEvent event) {
@@ -482,6 +482,30 @@ public class Controller {
     private void onSpeedSliderChange(ChangeEvent event) {
         JSlider source = (JSlider) event.getSource();
         model.setSpeed(source.getValue());
+    }
+
+    private void onCorrelationStart() {
+        try {
+            ISignal signal1 = model.getSignal(0);
+            ISignal signal2 = model.getSignal(1);
+            if (signal1 == null || signal2 == null) {
+                throw new Exception("Both signals must be generated.");
+            }
+
+            Position position = new Position(0.5);
+            correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
+            correlation.distanceSensor();
+            view.renderSentSignal(signal1);
+            view.renderReceivedSignal(signal2);
+            view.renderCorrelatedSignal(correlation.getCorrelatedSignal());
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.displayError(e.getMessage());
+        }
+    }
+
+    private void onCorrelationStop() {
+
     }
 
     private void setDecimalFormat() {

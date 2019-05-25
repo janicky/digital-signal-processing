@@ -38,7 +38,8 @@ public class View {
     private JPanel receivedSignal;
     private JPanel correlationSignal;
     private JPanel sentSignalHide;
-    private JLabel receivedSignalHide;
+    private JPanel receivedSignalHide2;
+    private JPanel correlatedSignalHide;
     private ChartPanel chartPanel1;
     private ChartPanel chartPanel2;
     private ChartPanel chartPanel3;
@@ -47,6 +48,8 @@ public class View {
     private JMenuItem file_item_1;
     private JMenuItem file_item_2;
     private ChartPanel sentChartPanel;
+    private ChartPanel receivedChartPanel;
+    private ChartPanel correlatedChartPanel;
 
     public void displayError(String message) {
         JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
@@ -63,6 +66,8 @@ public class View {
         frame.setResizable(false);
 
         sentChartPanel = new ChartPanel(null);
+        receivedChartPanel = new ChartPanel(null);
+        correlatedChartPanel = new ChartPanel(null);
         correlationPanel.setVisible(false);
 
         initializeView();
@@ -265,6 +270,18 @@ public class View {
     }
 
     public void renderSentSignal(ISignal signal) {
+        renderCorrelationSignal(signal, sentSignal, sentChartPanel, sentSignalHide);
+    }
+
+    public void renderReceivedSignal(ISignal signal) {
+        renderCorrelationSignal(signal, receivedSignal, receivedChartPanel, receivedSignalHide2);
+    }
+
+    public void renderCorrelatedSignal(ISignal signal) {
+        renderCorrelationSignal(signal, correlationSignal, correlatedChartPanel, correlatedSignalHide);
+    }
+
+    private void renderCorrelationSignal(ISignal signal, JPanel targetPanel, ChartPanel targetChart, JPanel hide) {
         JFreeChart chart = Operations.getChart(signal);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
@@ -275,13 +292,13 @@ public class View {
         renderer.setSeriesPaint(0, Color.gray);
         plot.setRenderer(renderer);
 
-        sentChartPanel.setChart(chart);
-        sentChartPanel.validate();
+        targetChart.setChart(chart);
+        targetChart.validate();
 
-        if (sentSignal.getComponentCount() != 2) {
-            sentSignal.add(sentChartPanel, 0);
-            sentSignal.validate();
-            sentSignalHide.setVisible(false);
+        if (targetPanel.getComponentCount() != 2) {
+            targetPanel.add(targetChart, 0);
+            targetPanel.validate();
+            hide.setVisible(false);
         }
     }
 

@@ -231,7 +231,7 @@
                   <font name="Roboto Medium" size="11"/>
                 </border>
                 <children>
-                  <grid id="3d22d" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="3d22d" binding="receivedSignalHide2" layout-manager="BorderLayout" hgap="0" vgap="0">
                     <constraints border-constraint="Center"/>
                     <properties>
                       <background color="-2629918"/>
@@ -240,7 +240,7 @@
                       <color color="-6705727"/>
                     </border>
                     <children>
-                      <component id="f92e6" class="javax.swing.JLabel" binding="receivedSignalHide">
+                      <component id="f92e6" class="javax.swing.JLabel">
                         <constraints border-constraint="Center"/>
                         <properties>
                           <font name="Roboto Light" size="15"/>
@@ -266,7 +266,7 @@
                   <font name="Roboto Medium" size="11"/>
                 </border>
                 <children>
-                  <grid id="fcf11" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="fcf11" binding="correlatedSignalHide" layout-manager="BorderLayout" hgap="0" vgap="0">
                     <constraints border-constraint="Center"/>
                     <properties>
                       <background color="-2629918"/>

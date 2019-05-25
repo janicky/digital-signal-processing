@@ -18,7 +18,7 @@ public class Correlation {
     //SYGNAŁY
     private ISignal soundingSignal;                      // Sygnał sondujący
     private ISignal reflectedSignal;                     // Sygnał odbity
-    private GeneratedSignal corelatedSignal;                     // Sygnał po przeprowadzonej korelacji
+    private GeneratedSignal correlatedSignal;                     // Sygnał po przeprowadzonej korelacji
     private ISignal firstSubSignal;                      // Pierwszy podsygnał
     private ISignal secondSubSignal;                     // Drugi podsygnał
     private int correlationType;                            // Typ sensora
@@ -51,8 +51,8 @@ public class Correlation {
         return reflectedSignal;
     }
 
-    public ISignal getCorelatedSignal() {
-        return corelatedSignal;
+    public ISignal getCorrelatedSignal() {
+        return correlatedSignal;
     }
 
     public int getCorrelationType() {
@@ -66,12 +66,12 @@ public class Correlation {
     public  void spliceCorrelationOfSignals(List<Double> first, List<Double> second){
         List<Double> firstSignalY=first;
         Collections.reverse(firstSignalY);
-        corelatedSignal= (GeneratedSignal) Filter.spliceOfSignals(firstSignalY,second);
+        correlatedSignal= (GeneratedSignal) Filter.spliceOfSignals(firstSignalY,second);
     }
 
     public void directCorrelationOfSignals (List<Double> first,List<Double> second){
 
-        corelatedSignal=new GeneratedSignal();
+        correlatedSignal=new GeneratedSignal();
         List<Double> tmpX = new ArrayList<>();
         List<Double> tmpY = new ArrayList<>();
 
@@ -87,8 +87,8 @@ public class Correlation {
             tmpY.add(sum);
         }
 
-        corelatedSignal.setValuesX(tmpX);
-        corelatedSignal.setValuesY(tmpY);
+        correlatedSignal.setValuesX(tmpX);
+        correlatedSignal.setValuesY(tmpY);
     }
 
     public  void choose(List <Double> first, List<Double> second){
@@ -116,13 +116,13 @@ public class Correlation {
         generateReflectedSignal();
         choose(soundingSignal.getValuesY().subList(0, bufferLength), reflectedSignal.getValuesY().subList(0, bufferLength));
         double maxValueY = -Double.MAX_VALUE;
-        for (int i = corelatedSignal.getValuesX().size() / 2; i < corelatedSignal.getValuesX().size(); i++) {
-            if (corelatedSignal.getValuesY().get(i) > maxValueY) {
-                maxValueY = corelatedSignal.getValuesY().get(i);
+        for (int i = correlatedSignal.getValuesX().size() / 2; i < correlatedSignal.getValuesX().size(); i++) {
+            if (correlatedSignal.getValuesY().get(i) > maxValueY) {
+                maxValueY = correlatedSignal.getValuesY().get(i);
             }
         }
-        int maxValue = corelatedSignal.getValuesY().indexOf(maxValueY);
-        int centerValue = corelatedSignal.getValuesY().size() / 2;
+        int maxValue = correlatedSignal.getValuesY().indexOf(maxValueY);
+        int centerValue = correlatedSignal.getValuesY().size() / 2;
         double shift = Math.abs(maxValue-centerValue) / samplingFrequency;
         distance = shift * signalSpeed;
     }

@@ -124,11 +124,11 @@ public abstract class Signal implements ISignal {
     }
 
     public List<Double> getValuesX() {
-        return Collections.unmodifiableList(x);
+        return x;
     }
 
     public List<Double> getValuesY() {
-        return Collections.unmodifiableList(y);
+        return y;
     }
 
     public boolean isRendered() {
