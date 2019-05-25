@@ -11,10 +11,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import signal_processing.ISignal;
 import signal_processing.Signal;
 import signal_processing.helpers.*;
-import signal_processing.signals.ImpulseNoise;
-import signal_processing.signals.IndividualImpulseSignal;
-import signal_processing.signals.IndividualJumpSignal;
-import signal_processing.signals.SinusoidalSignal;
+import signal_processing.signals.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -495,9 +492,13 @@ public class Controller {
             Position position = new Position(0.5);
             correlation = new Correlation(100, 0.5, 0.5, 0.5, 0, signal1, signal2, position);
             correlation.distanceSensor();
+
+            GeneratedSignal correlated = correlation.getCorrelatedSignal();
+            correlated.setName("Signals correlation");
+
             view.renderSentSignal(signal1);
             view.renderReceivedSignal(signal2);
-            view.renderCorrelatedSignal(correlation.getCorrelatedSignal());
+            view.renderCorrelatedSignal(correlated);
         } catch (Exception e) {
             e.printStackTrace();
             view.displayError(e.getMessage());
@@ -506,6 +507,13 @@ public class Controller {
 
     private void onCorrelationStop() {
 
+    }
+
+    public class CorrelationThread implements Runnable {
+        @Override
+        public void run() {
+
+        }
     }
 
     private void setDecimalFormat() {

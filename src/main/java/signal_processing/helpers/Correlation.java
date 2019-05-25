@@ -51,7 +51,7 @@ public class Correlation {
         return reflectedSignal;
     }
 
-    public ISignal getCorrelatedSignal() {
+    public GeneratedSignal getCorrelatedSignal() {
         return correlatedSignal;
     }
 

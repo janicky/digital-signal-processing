@@ -6,6 +6,8 @@ import java.util.List;
 
 public class GeneratedSignal extends Signal {
 
+    private String name = "Custom signal";
+
     public GeneratedSignal() {
         super(0, 0);
     }
@@ -19,7 +21,7 @@ public class GeneratedSignal extends Signal {
     }
 
     public String getSignalName() {
-        return "Custom signal";
+        return name;
     }
 
     public String[] getAvailableParameters() {
@@ -32,5 +34,9 @@ public class GeneratedSignal extends Signal {
 
     public void setValuesY(List<Double> y) {
         this.y = y;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
